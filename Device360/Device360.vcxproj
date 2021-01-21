@@ -86,19 +86,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ProgramSet.cpp" />
     <ClCompile Include="textticker.cpp" />
-    <ClCompile Include="UserLineEdit.cpp" />
     <QtRcc Include="Device360.qrc" />
     <QtUic Include="Device360.ui" />
     <QtMoc Include="Device360.h" />
     <ClCompile Include="Device360.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="ProgramSet.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="textticker.h" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="UserLineEdit.h" />
+    <QtMoc Include="ProgramSet.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

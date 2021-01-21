@@ -27,9 +27,6 @@
     <QtRcc Include="Device360.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <QtUic Include="Device360.ui">
-      <Filter>Resource Files</Filter>
-    </QtUic>
     <QtMoc Include="Device360.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -44,7 +41,7 @@
     <ClCompile Include="textticker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UserLineEdit.cpp">
+    <ClCompile Include="ProgramSet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -52,8 +49,16 @@
     <QtMoc Include="textticker.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="UserLineEdit.h">
+    <QtMoc Include="ProgramSet.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="ProgramSet.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Device360.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
 </Project>

@@ -35,36 +35,7 @@
       <height>721</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_Gif">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>700</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>700</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>幼圆</family>
-         <pointsize>16</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>感谢您选用该系统！</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <layout class="QGridLayout" name="gridLayout"/>
    </widget>
    <widget class="QGroupBox" name="gB_ShowMainArea_2">
     <property name="geometry">
@@ -138,7 +109,45 @@
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
-             <widget class="QTableWidget" name="tableWidget_Result"/>
+             <widget class="QTableWidget" name="tableWidget_Result">
+              <attribute name="horizontalHeaderVisible">
+               <bool>true</bool>
+              </attribute>
+              <attribute name="horizontalHeaderCascadingSectionResizes">
+               <bool>false</bool>
+              </attribute>
+              <attribute name="horizontalHeaderDefaultSectionSize">
+               <number>216</number>
+              </attribute>
+              <attribute name="horizontalHeaderHighlightSections">
+               <bool>true</bool>
+              </attribute>
+              <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+               <bool>false</bool>
+              </attribute>
+              <attribute name="horizontalHeaderStretchLastSection">
+               <bool>false</bool>
+              </attribute>
+              <attribute name="verticalHeaderCascadingSectionResizes">
+               <bool>false</bool>
+              </attribute>
+              <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+               <bool>false</bool>
+              </attribute>
+              <attribute name="verticalHeaderStretchLastSection">
+               <bool>false</bool>
+              </attribute>
+              <column>
+               <property name="text">
+                <string>类型</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>数量</string>
+               </property>
+              </column>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -176,6 +185,9 @@
                  <property name="enabled">
                   <bool>false</bool>
                  </property>
+                 <property name="text">
+                  <string>只读PLC数值</string>
+                 </property>
                 </widget>
                </item>
                <item row="1" column="0">
@@ -190,6 +202,9 @@
                  <property name="enabled">
                   <bool>false</bool>
                  </property>
+                 <property name="text">
+                  <string>只读PLC数值</string>
+                 </property>
                 </widget>
                </item>
                <item row="2" column="0">
@@ -203,6 +218,9 @@
                 <widget class="QLineEdit" name="lE_ForceRejectCount">
                  <property name="enabled">
                   <bool>false</bool>
+                 </property>
+                 <property name="text">
+                  <string>只读PLC数值</string>
                  </property>
                 </widget>
                </item>
@@ -287,7 +305,7 @@
             </widget>
            </item>
            <item>
-            <widget class="UserLineEdit" name="lE_RunSpeed">
+            <widget class="QLineEdit" name="lE_RunSpeed">
              <property name="enabled">
               <bool>true</bool>
              </property>
@@ -303,156 +321,6 @@
                <height>16777215</height>
               </size>
              </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QComboBox" name="cB_RunSpeed">
-             <property name="minimumSize">
-              <size>
-               <width>80</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>80</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <family>幼圆</family>
-               <pointsize>20</pointsize>
-               <weight>50</weight>
-               <italic>false</italic>
-               <bold>false</bold>
-              </font>
-             </property>
-             <item>
-              <property name="text">
-               <string>5</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>10</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>15</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>20</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>25</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>30</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>35</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>40</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>45</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>50</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>55</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>60</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>65</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>70</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>75</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>80</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>85</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>90</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>95</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>100</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>105</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>110</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>115</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>120</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>取消</string>
-              </property>
-             </item>
             </widget>
            </item>
           </layout>
@@ -482,6 +350,12 @@
               <width>16777215</width>
               <height>23</height>
              </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font: 14pt &quot;幼圆&quot;;</string>
+            </property>
+            <property name="text">
+             <string>显示用户名，空间剩余</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -833,23 +707,7 @@ background-color: rgb(255, 255, 0);</string>
      <string notr="true">background-color: rgb(255, 255, 127);</string>
     </property>
     <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lb_Gif">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>768</width>
-      <height>735</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 127);</string>
-    </property>
-    <property name="text">
-     <string/>
+     <string>                                         显示大图区域，同区域下侧gridLayout用于new label显示实时采集图片</string>
     </property>
    </widget>
   </widget>
@@ -860,11 +718,6 @@ background-color: rgb(255, 255, 0);</string>
    <class>TextTicker</class>
    <extends>QLabel</extends>
    <header>textticker.h</header>
-  </customwidget>
-  <customwidget>
-   <class>UserLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>userlineedit.h</header>
   </customwidget>
  </customwidgets>
  <resources>
