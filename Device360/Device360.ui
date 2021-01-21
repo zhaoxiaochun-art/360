@@ -26,37 +26,45 @@
    <string>Device360</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLabel" name="lb_Gif">
+   <widget class="QWidget" name="layoutWidget0_2">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>768</width>
-      <height>735</height>
+      <x>9</x>
+      <y>9</y>
+      <width>751</width>
+      <height>721</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 127);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lb_Picture">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>768</width>
-      <height>735</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 127);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_Gif">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>700</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>700</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>感谢您选用该系统！</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
    <widget class="QGroupBox" name="gB_ShowMainArea_2">
     <property name="geometry">
@@ -122,7 +130,7 @@
            </font>
           </property>
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -168,9 +176,6 @@
                  <property name="enabled">
                   <bool>false</bool>
                  </property>
-                 <property name="text">
-                  <string>PLC读取的数据</string>
-                 </property>
                 </widget>
                </item>
                <item row="1" column="0">
@@ -185,9 +190,6 @@
                  <property name="enabled">
                   <bool>false</bool>
                  </property>
-                 <property name="text">
-                  <string>PLC读取的数据</string>
-                 </property>
                 </widget>
                </item>
                <item row="2" column="0">
@@ -201,9 +203,6 @@
                 <widget class="QLineEdit" name="lE_ForceRejectCount">
                  <property name="enabled">
                   <bool>false</bool>
-                 </property>
-                 <property name="text">
-                  <string>PLC读取的数据</string>
                  </property>
                 </widget>
                </item>
@@ -253,9 +252,6 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lE_PN">
-             <property name="text">
-              <string/>
-             </property>
              <property name="maxLength">
               <number>15</number>
              </property>
@@ -291,7 +287,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="lE_RunSpeed">
+            <widget class="UserLineEdit" name="lE_RunSpeed">
              <property name="enabled">
               <bool>true</bool>
              </property>
@@ -306,9 +302,6 @@
                <width>80</width>
                <height>16777215</height>
               </size>
-             </property>
-             <property name="text">
-              <string/>
              </property>
             </widget>
            </item>
@@ -325,6 +318,15 @@
                <width>80</width>
                <height>16777215</height>
               </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>幼圆</family>
+               <pointsize>20</pointsize>
+               <weight>50</weight>
+               <italic>false</italic>
+               <bold>false</bold>
+              </font>
              </property>
              <item>
               <property name="text">
@@ -525,7 +527,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="lb_Alarm">
+         <widget class="TextTicker" name="lb_Alarm">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -548,7 +550,7 @@
            <string notr="true">color: rgb(0, 170, 127);</string>
           </property>
           <property name="text">
-           <string>跑马灯</string>
+           <string>TextLabel</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -818,53 +820,53 @@ background-color: rgb(255, 255, 0);</string>
      </layout>
     </widget>
    </widget>
-   <widget class="QWidget" name="layoutWidget0_2">
+   <widget class="QLabel" name="lb_Picture">
     <property name="geometry">
      <rect>
-      <x>9</x>
-      <y>9</y>
-      <width>751</width>
-      <height>721</height>
+      <x>0</x>
+      <y>0</y>
+      <width>768</width>
+      <height>735</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_Gif">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>700</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>700</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>幼圆</family>
-         <pointsize>16</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>感谢您选用该系统！</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 127);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
    </widget>
-   <zorder>lb_Picture</zorder>
-   <zorder>lb_Gif</zorder>
-   <zorder>gB_ShowMainArea_2</zorder>
-   <zorder>layoutWidget0_2</zorder>
+   <widget class="QLabel" name="lb_Gif">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>768</width>
+      <height>735</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 127);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>TextTicker</class>
+   <extends>QLabel</extends>
+   <header>textticker.h</header>
+  </customwidget>
+  <customwidget>
+   <class>UserLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>userlineedit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="Device360.qrc"/>
  </resources>
