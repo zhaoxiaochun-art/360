@@ -51,7 +51,7 @@ void Device360::on_Button_Log_clicked()
 
 void Device360::on_Button_DataOut_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("打开数据导出日志"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("打开数据导出界面"));
 
 }
 void Device360::on_Button_CountReset_clicked()
