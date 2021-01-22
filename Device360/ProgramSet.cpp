@@ -329,6 +329,151 @@ void ProgramSet::on_pB_Model_Exit3_clicked()
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("退出设置界面，升降气缸置为1，其他所有命令报文归零。"));
 	close();
 }
+
+void ProgramSet::on_lE_ClipPhase1_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置夹紧气缸动作相位 0-360"));
+}
+void ProgramSet::on_lE_ClipPhase2_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置夹紧气缸释放相位 0-360"));
+}
+void ProgramSet::on_lE_tClip1_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置夹紧气缸动作延迟，单位ms"));
+}
+void ProgramSet::on_lE_tClip2_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置夹紧气缸释放延迟，单位ms"));
+}
+
+void ProgramSet::on_lE_UpPhase1_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置抬升气缸动作相位 0-360"));
+}
+void ProgramSet::on_lE_UpPhase2_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置抬升气缸释放相位 0-360"));
+}
+void ProgramSet::on_lE_tUp1_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置抬升气缸动作延迟，单位ms"));
+}
+void ProgramSet::on_lE_tUp2_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置抬升气缸释放延迟，单位ms"));
+}
+
+void ProgramSet::on_lE_DropPhase1_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置落料气缸动作相位 0-360"));
+}
+void ProgramSet::on_lE_DropPhase2_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置落料气缸释放相位 0-360"));
+}
+void ProgramSet::on_lE_tDrop1_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置落料气缸动作延迟，单位ms"));
+}
+void ProgramSet::on_lE_tDrop2_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置落料气缸释放延迟，单位ms"));
+}
+
+void ProgramSet::on_lE_FlashTime_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置闪光持续的时间，单位ms"));
+}
+void ProgramSet::on_lE_PhotoTime_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置拍照触发的高电平持续时间，单位ms"));
+}
+void ProgramSet::on_lE_PhotoDelay_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置闪光打开多久以后开始拍照，单位ms"));
+}
+void ProgramSet::on_lE_PhotoPhase_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置闪光拍照的相位时机，0-360"));
+}
+void ProgramSet::on_lE_PhotoTimes_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("每次滚轮转一圈执行几次拍照"));
+}
+void ProgramSet::on_lE_PhotoInterval_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("每次滚轮转多少度执行一次拍照，注意一般不是120°，因为胶囊的角速度会大很多"));
+}
+void ProgramSet::on_lE_RejectTime_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("剔废气缸动作后，隔多久复位，单位ms"));
+}
+void ProgramSet::on_lE_RejectPhase_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("剔废动作相位，0-360"));
+}
+
+void ProgramSet::on_lE_DisableForceReject_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("0开启强制剔废，1关闭强制剔废"));
+}
+void ProgramSet::on_lE_CapCheckAlarmTime_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("剔废胶囊下落的时间过去后未检测到信号，则报警，报警持续的时间。单位ms"));
+}
+void ProgramSet::on_lE_RejectFallingTime_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("剔废胶囊下落的时间ms，暂时没用"));
+}
+void ProgramSet::on_lE_FeedAxisHomeOffset_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("送进寻参偏移，设备寻参以后要继续执行的偏移量，单位0.01°"));
+}
+void ProgramSet::on_lE_FeedLength_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("送进最大长度，单位0.01mm"));
+}
+void ProgramSet::on_lE_RotateSpeed_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("旋转轴的最大速度，RPM"));
+}
+
+void ProgramSet::on_pB_changeIPPort_clicked()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置PLC IP地址和端口号，一般情况下第一次设置一次之后就不用再变化了，且默认IP：10.86.50.210，默认port：5000"));
+}
+
+void ProgramSet::on_pB_enPhoto_clicked()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("使能拍照功能"));
+}
+void ProgramSet::on_pB_enReject_clicked()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("使能剔废功能"));
+}
+void ProgramSet::on_pB_enFeed_clicked()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("使能料斗功能"));
+}
+void ProgramSet::on_pB_enRotate_clicked()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("使能转囊功能"));
+}
+
+void ProgramSet::on_lE_RunSpeed_returnPressed()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置系统运行速度，0-120单位：次每分钟"));
+}
+void ProgramSet::on_pB_ContinueKickOK_clicked()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置连剔报警开关及数量、连剔停机开关及数量，停机数要大于报警数。连剔是由于外界条件变化导致的连续剔废。"));
+}
+void ProgramSet::on_pB_ContinueKickCancel_clicked()
+{
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("恢复连剔报警开关及数量、连剔停机开关及数量的默认值。"));
+}
+
 #pragma endregion
 
 #pragma region 用户管理

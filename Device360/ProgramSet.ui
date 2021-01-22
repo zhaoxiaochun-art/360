@@ -1509,7 +1509,7 @@ font: 20pt &quot;Arial&quot;;</string>
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="tab_5">
        <attribute name="title">
@@ -1838,7 +1838,7 @@ font: 20pt &quot;Arial&quot;;</string>
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="tab_9">
          <attribute name="title">
@@ -4789,6 +4789,9 @@ font: 20pt &quot;Arial&quot;;</string>
            <height>16777215</height>
           </size>
          </property>
+         <property name="text">
+          <string>只读 1成功，0不成功</string>
+         </property>
         </widget>
         <widget class="QLabel" name="label_22">
          <property name="geometry">
@@ -4826,6 +4829,9 @@ font: 20pt &quot;Arial&quot;;</string>
            <width>150</width>
            <height>16777215</height>
           </size>
+         </property>
+         <property name="text">
+          <string>0-360，只读相位</string>
          </property>
         </widget>
         <widget class="QLabel" name="label_23">
@@ -4878,6 +4884,9 @@ font: 20pt &quot;Arial&quot;;</string>
            <height>16777215</height>
           </size>
          </property>
+         <property name="text">
+          <string>只读PLC数据</string>
+         </property>
         </widget>
         <widget class="QLabel" name="label_20">
          <property name="geometry">
@@ -4916,6 +4925,9 @@ font: 20pt &quot;Arial&quot;;</string>
            <height>16777215</height>
           </size>
          </property>
+         <property name="text">
+          <string>只读PLC数据</string>
+         </property>
         </widget>
         <widget class="QLineEdit" name="lE_Alarm16">
          <property name="enabled">
@@ -4941,6 +4953,9 @@ font: 20pt &quot;Arial&quot;;</string>
            <height>16777215</height>
           </size>
          </property>
+         <property name="text">
+          <string>只读PLC数据</string>
+         </property>
         </widget>
         <widget class="QLineEdit" name="lE_ServoErrorNum0">
          <property name="enabled">
@@ -4965,6 +4980,9 @@ font: 20pt &quot;Arial&quot;;</string>
            <width>150</width>
            <height>16777215</height>
           </size>
+         </property>
+         <property name="text">
+          <string>只读PLC数据</string>
          </property>
         </widget>
         <widget class="QLabel" name="label_21">

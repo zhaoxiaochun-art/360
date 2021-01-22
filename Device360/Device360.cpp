@@ -1,11 +1,13 @@
 #include "Device360.h"
-
+#include "LoginDialog.h"
 Device360::Device360(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
 	setWindowFlags(Qt::FramelessWindowHint);//нч╠ъ©Р 
 
+	LoginDialog* dlg = new LoginDialog(this);
+	dlg->exec();
 	m_ProgramDlg = new ProgramSet();
 }
 #pragma region msgbox

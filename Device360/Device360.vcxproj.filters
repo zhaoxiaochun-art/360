@@ -44,6 +44,9 @@
     <ClCompile Include="ProgramSet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LoginDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="textticker.h">
@@ -52,12 +55,18 @@
     <QtMoc Include="ProgramSet.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="LoginDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="ProgramSet.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="Device360.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="LoginDialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

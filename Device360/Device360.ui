@@ -707,7 +707,7 @@ background-color: rgb(255, 255, 0);</string>
      <string notr="true">background-color: rgb(255, 255, 127);</string>
     </property>
     <property name="text">
-     <string>                                         显示大图区域，同区域下侧gridLayout用于new label显示实时采集图片</string>
+     <string>           显示大图区域，同区域下侧gridLayout用于new label显示实时采集图片</string>
     </property>
    </widget>
   </widget>

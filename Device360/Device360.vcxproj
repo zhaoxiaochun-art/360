@@ -86,6 +86,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="LoginDialog.cpp" />
     <ClCompile Include="ProgramSet.cpp" />
     <ClCompile Include="textticker.cpp" />
     <QtRcc Include="Device360.qrc" />
@@ -93,6 +94,7 @@
     <QtMoc Include="Device360.h" />
     <ClCompile Include="Device360.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="LoginDialog.ui" />
     <QtUic Include="ProgramSet.ui" />
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +102,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="ProgramSet.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="LoginDialog.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
