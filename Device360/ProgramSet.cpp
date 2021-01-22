@@ -65,7 +65,7 @@ void ProgramSet::on_pB_AlgSetting_toggled(bool checked)
 }
 void ProgramSet::on_pB_Model_Exit1_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("退出参数设置界面"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("退出设置界面，升降气缸置为1，其他所有命令报文归零。"));
 	close();
 
 }
@@ -141,7 +141,7 @@ void ProgramSet::on_pB_StartGrab_toggled(bool checked)
 }
 void ProgramSet::on_pB_Model_Exit_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("退出设置界面"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("退出设置界面，升降气缸置为1，其他所有命令报文归零。"));
 	close();
 }
 
@@ -275,6 +275,29 @@ void ProgramSet::on_pb_cmdTestBuzzer_toggled(bool checked)
 		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("checkable 蜂鸣器停"));
 	}
 }
+void ProgramSet::on_pb_cmdTestInverter_toggled(bool checked)
+{
+	if (checked)
+	{
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("checkable 漏斗电机动作"));
+	}
+	else
+	{
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("checkable 漏斗电机停止"));
+	}
+}
+void ProgramSet::on_pb_cmdRotateCtl_toggled(bool checked)
+{
+	if (checked)
+	{
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("checkable 转囊电机动作"));
+	}
+	else
+	{
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("checkable 转囊电机停止"));
+	}
+}
+
 void ProgramSet::on_pb_cmdTestKick30_toggled(bool checked)
 {
 	if (checked)
@@ -290,11 +313,11 @@ void ProgramSet::on_cB_debugMode_toggled(bool checked)
 {
 	if (checked)
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("气缸来回动作。辅助功能鸡肋，建议取消"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("气缸来回动作。辅助功能用处不大，建议取消"));
 	}
 	else
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("气缸来回动作。辅助功能鸡肋，建议取消"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("气缸来回动作。辅助功能用处不大，建议取消"));
 	}
 }
 void ProgramSet::on_pb_cmdParaSave_clicked()
@@ -303,7 +326,7 @@ void ProgramSet::on_pb_cmdParaSave_clicked()
 }
 void ProgramSet::on_pB_Model_Exit3_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("退出设置界面"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("退出设置界面，升降气缸置为1，其他所有命令报文归零。"));
 	close();
 }
 #pragma endregion
@@ -319,7 +342,7 @@ void ProgramSet::on_pB_Users_Delete_clicked()
 }
 void ProgramSet::on_pB_Users_Exit_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("退出系统设置"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("退出设置界面，升降气缸置为1，其他所有命令报文归零。"));
 	close();
 }
 

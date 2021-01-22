@@ -42,6 +42,8 @@ public slots:
 	void on_pb_cmdTestLampYellow_toggled(bool checked);
 	void on_pb_cmdTestLampGreen_toggled(bool checked);
 	void on_pb_cmdTestBuzzer_toggled(bool checked);
+	void on_pb_cmdTestInverter_toggled(bool checked);
+	void on_pb_cmdRotateCtl_toggled(bool checked);
 	void on_pb_cmdTestKick30_toggled(bool checked);
 	void on_cB_debugMode_toggled(bool checked);
 	void on_pb_cmdParaSave_clicked();
