@@ -12,7 +12,7 @@ LoginDialog::LoginDialog(QWidget *parent)
 	ui.cB_style->setVisible(false);
 	ui.cB_turnOn->setVisible(false);
 	ui.cB_turnOff->setVisible(false);
-	this->resize(QSize(429, 710));
+	this->resize(QSize(400, 710));
 	this->setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog);
 	this->setWindowOpacity(0.95);//透明度
 	this->setWindowModality(Qt::ApplicationModal);
@@ -47,7 +47,7 @@ void LoginDialog::on_pB_more_clicked()
 	{
 		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("打开隐藏项"));
 		ui.pB_more->setText(QString::fromLocal8Bit("︽"));
-		this->resize(QSize(429, 788));
+		this->resize(QSize(400, 780));
 		//设置窗口圆角
 		QBitmap bmp(this->size());
 		bmp.fill();
@@ -65,7 +65,7 @@ void LoginDialog::on_pB_more_clicked()
 	{
 		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("关闭隐藏项"));
 		ui.pB_more->setText(QString::fromLocal8Bit("︾"));
-		this->resize(QSize(429, 710));
+		this->resize(QSize(400, 710));
 		//设置窗口圆角
 		QBitmap bmp(this->size());
 		bmp.fill();
