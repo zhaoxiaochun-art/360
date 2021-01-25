@@ -86,11 +86,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DailyLog.cpp" />
     <ClCompile Include="LoginDialog.cpp" />
     <ClCompile Include="ProgramSet.cpp" />
     <ClCompile Include="ResultData.cpp" />
     <ClCompile Include="textticker.cpp" />
     <QtRcc Include="Device360.qrc" />
+    <QtUic Include="DailyLog.ui" />
     <QtUic Include="Device360.ui" />
     <QtMoc Include="Device360.h" />
     <ClCompile Include="Device360.cpp" />
@@ -110,6 +112,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="ResultData.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="DailyLog.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

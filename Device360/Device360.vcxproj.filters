@@ -50,6 +50,9 @@
     <ClCompile Include="ResultData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DailyLog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="textticker.h">
@@ -64,6 +67,9 @@
     <QtMoc Include="ResultData.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="DailyLog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="ProgramSet.ui">
@@ -76,6 +82,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="ResultData.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="DailyLog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

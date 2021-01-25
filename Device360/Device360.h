@@ -6,6 +6,7 @@
 #include "ProgramSet.h"
 #include "LoginDialog.h"
 #include "ResultData.h"
+#include "DailyLog.h"
 
 class Device360 : public QMainWindow
 {
@@ -18,6 +19,7 @@ private:
 	Ui::Device360Class ui;
 	ProgramSet *m_ProgramDlg;
 	ResultData *m_ResultDlg;
+	DailyLog *m_DailyLogDlg;
 public slots:
 	void on_Button_Clean_toggled(bool checked);
 	void on_Button_Start_toggled(bool checked);

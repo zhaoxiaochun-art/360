@@ -12,7 +12,8 @@ Device360::Device360(QWidget *parent)
 		exit(-1);
 	}
 	m_ProgramDlg = new ProgramSet();
-	m_ResultDlg = new ResultData();
+	m_ResultDlg = new ResultData(); 
+	m_DailyLogDlg = new DailyLog();
 }
 #pragma region msgbox
 void Device360::on_Button_Clean_toggled(bool checked)
@@ -50,7 +51,7 @@ void Device360::on_Button_CameraSet_clicked()
 void Device360::on_Button_Log_clicked()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("打开日志查询界面"));
-
+	m_DailyLogDlg->show();
 }
 
 void Device360::on_Button_DataOut_clicked()
