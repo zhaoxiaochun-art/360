@@ -4,6 +4,8 @@
 #include <QMessageBox>
 #include "ui_Device360.h"
 #include "ProgramSet.h"
+#include "LoginDialog.h"
+#include "ResultData.h"
 
 class Device360 : public QMainWindow
 {
@@ -15,6 +17,7 @@ public:
 private:
 	Ui::Device360Class ui;
 	ProgramSet *m_ProgramDlg;
+	ResultData *m_ResultDlg;
 public slots:
 	void on_Button_Clean_toggled(bool checked);
 	void on_Button_Start_toggled(bool checked);

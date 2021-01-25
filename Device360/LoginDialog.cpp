@@ -12,7 +12,8 @@ LoginDialog::LoginDialog(QWidget *parent)
 	ui.cB_style->setVisible(false);
 	ui.cB_turnOn->setVisible(false);
 	ui.cB_turnOff->setVisible(false);
-	this->resize(QSize(400, 710));
+
+	setMaskFun(false);
 	this->setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog);
 	this->setWindowOpacity(0.95);//透明度
 	this->setWindowModality(Qt::ApplicationModal);
@@ -31,32 +32,51 @@ LoginDialog::~LoginDialog()
 {
 }
 
+void LoginDialog::setMaskFun(bool b)
+{
+	if (b)
+	{
+		ui.pB_more->setText(QString::fromLocal8Bit("︽"));
+		this->resize(QSize(400, 780));
+	}
+	else
+	{
+		ui.pB_more->setText(QString::fromLocal8Bit("︾"));
+		this->resize(QSize(400, 710));
+	}
+	//设置窗口圆角
+	QBitmap bmp(this->size());
+	bmp.fill();
+	QPainter p(&bmp);
+	p.setPen(Qt::NoPen);
+	p.setBrush(Qt::black);
+	p.drawRoundedRect(bmp.rect(), 5, 5);
+	setMask(bmp);
+	//👆👆👆
 
+}
+bool LoginDialog::verifySec()
+{
+	return m_bSec;
+}
 void LoginDialog::on_pB_Exit_clicked()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("退出系统，如果退出时关机选项选中，那么也会同时关机"));
+	m_bSec = false;
 	close();
 }
 void LoginDialog::on_pB_Login_clicked()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("如果密码与用户匹配登录系统，不匹配则提示错误重新输入。"));
+	m_bSec = true;
+	close();
 }
 void LoginDialog::on_pB_more_clicked()
 {
 	if (ui.pB_more->text() == QString::fromLocal8Bit("︾"))
 	{
 		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("打开隐藏项"));
-		ui.pB_more->setText(QString::fromLocal8Bit("︽"));
-		this->resize(QSize(400, 780));
-		//设置窗口圆角
-		QBitmap bmp(this->size());
-		bmp.fill();
-		QPainter p(&bmp);
-		p.setPen(Qt::NoPen);
-		p.setBrush(Qt::black);
-		p.drawRoundedRect(bmp.rect(), 5, 5);
-		setMask(bmp);
-		//👆👆👆
+		setMaskFun(true);
 		ui.cB_style->setVisible(true);
 		ui.cB_turnOn->setVisible(true);
 		ui.cB_turnOff->setVisible(true);
@@ -64,16 +84,7 @@ void LoginDialog::on_pB_more_clicked()
 	else
 	{
 		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("关闭隐藏项"));
-		ui.pB_more->setText(QString::fromLocal8Bit("︾"));
-		this->resize(QSize(400, 710));
-		//设置窗口圆角
-		QBitmap bmp(this->size());
-		bmp.fill();
-		QPainter p(&bmp);
-		p.setPen(Qt::NoPen);
-		p.setBrush(Qt::black);
-		p.drawRoundedRect(bmp.rect(), 5, 5);
-		setMask(bmp);
+		setMaskFun(false);
 		//👆👆👆
 		ui.cB_style->setVisible(false);
 		ui.cB_turnOn->setVisible(false);
