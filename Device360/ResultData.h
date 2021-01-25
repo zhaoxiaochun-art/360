@@ -7,15 +7,11 @@
 class ResultData : public QDialog
 {
 	Q_OBJECT
-
 public:
 	ResultData(QWidget *parent = Q_NULLPTR);
 	~ResultData();
-
-
 private:
 	Ui::ResultData ui;
-
 public slots:
 	void on_cB_data_toggled(bool checked);
 	void on_cB_model_toggled(bool checked);

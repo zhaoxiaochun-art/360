@@ -446,6 +446,12 @@
              <height>50</height>
             </size>
            </property>
+           <property name="font">
+            <font>
+             <family>幼圆</family>
+             <pointsize>20</pointsize>
+            </font>
+           </property>
            <property name="styleSheet">
             <string notr="true">color: rgb(0, 170, 127);</string>
            </property>

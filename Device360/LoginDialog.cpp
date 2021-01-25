@@ -1,8 +1,4 @@
 ﻿#include "LoginDialog.h"
-#include <QBitmap>
-#include <QPainter>
-#include <QMessageBox>
-#include <QButtonGroup>
 
 LoginDialog::LoginDialog(QWidget *parent)
 	: QDialog(parent)
@@ -27,7 +23,6 @@ LoginDialog::LoginDialog(QWidget *parent)
 	connect(ui.numButtonGroup, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked),
 		[=](QAbstractButton* button) {ui.lE_Password->setText(ui.lE_Password->text() += button->text()); });
 }
-
 LoginDialog::~LoginDialog()
 {
 }

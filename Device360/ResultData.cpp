@@ -6,7 +6,6 @@ ResultData::ResultData(QWidget *parent)
 	ui.setupUi(this); 
 	setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog);
 }
-
 ResultData::~ResultData()
 {
 }
@@ -22,7 +21,6 @@ void ResultData::on_cB_data_toggled(bool checked)
 		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("用于取消勾选以往检测到的数据信息"));
 	}
 }
-
 void ResultData::on_cB_model_toggled(bool checked)
 {
 	if (checked)
@@ -34,7 +32,6 @@ void ResultData::on_cB_model_toggled(bool checked)
 		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("用于取消勾选所有模板文件"));
 	}
 }
-
 void ResultData::on_cB_sysLog_toggled(bool checked)
 {
 	if (checked)
@@ -68,18 +65,14 @@ void ResultData::on_cB_operationLog_toggled(bool checked)
 		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("用于取消勾选操作日志"));
 	}
 }
-
 void ResultData::on_lE_productionNum_returnPressed()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("用于输入所需筛选的批号，如果输入为空，那么默认所有批号被选中"));
 }
-
-
 void ResultData::on_cB_LeadOut_activated(int index)
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("筛选用户名，默认为所有均被选中"));
 }
-
 void ResultData::on_dateEdit_userDateChanged(const QDate &date)
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("筛选开始日期"));

@@ -1,6 +1,8 @@
-﻿#ifndef TEXTTICKER_H
-#define TEXTTICKER_H
-#include <QtWidgets/QLabel>
+﻿#pragma once
+#include <QLabel>
+#include <QPainter>
+#include <QTimer>
+
 class TextTicker : public QLabel
 {
     Q_OBJECT
@@ -16,4 +18,3 @@ private:
     int m_charWidth;
 	int m_curIndex;
 };
-#endif // TEXTTICKER_H

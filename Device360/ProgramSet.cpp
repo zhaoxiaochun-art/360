@@ -27,13 +27,11 @@ ProgramSet::ProgramSet(QWidget *parent)
 	});
 	
 }
-
 ProgramSet::~ProgramSet()
 {
 }
 
 #pragma region 模板管理
-
 void ProgramSet::on_pB_Model_Apply_clicked()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("保存当前模板同时应用选中的模板"));
@@ -73,7 +71,6 @@ void ProgramSet::on_cB_photoTimes_activated(const QString &arg1)
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置拍照次数"));
 }
-
 void ProgramSet::on_cB_freeSpace_activated(int index)
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置最小空闲，小于等于该值开始删除存储的图片"));
@@ -81,7 +78,6 @@ void ProgramSet::on_cB_freeSpace_activated(int index)
 #pragma endregion
 
 #pragma region 相机参数
-
 void ProgramSet::on_pB_brightness_toggled(bool checked)
 {
 	if (checked)
@@ -99,12 +95,10 @@ void ProgramSet::on_cB_232Port_activated(int index)
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置光源控制器串口号"));
 }
-
 void ProgramSet::on_pB_adjustBrightness_clicked()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置光源的亮度，值0-255"));
 }
-
 void ProgramSet::on_cB_flash_toggled(bool checked)
 {
 	if (checked)
@@ -127,7 +121,6 @@ void ProgramSet::on_pB_StartContinueGrab_toggled(bool checked)
 		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("停止调试"));
 	}
 }
-
 void ProgramSet::on_pB_StartGrab_toggled(bool checked)
 {
 	if (checked)
@@ -144,11 +137,9 @@ void ProgramSet::on_pB_Model_Exit_clicked()
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("退出设置界面，升降气缸置为1，其他所有命令报文归零。"));
 	close();
 }
-
 #pragma endregion
 
 #pragma region PLC控制
-
 void ProgramSet::on_pb_cmdJog_clicked()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设备点动运行，前面的lineedit显示当前设备所处的相位：0-360°，上面的显示当前所有输入点的状态，需要贴图"));
@@ -297,7 +288,6 @@ void ProgramSet::on_pb_cmdRotateCtl_toggled(bool checked)
 		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("checkable 转囊电机停止"));
 	}
 }
-
 void ProgramSet::on_pb_cmdTestKick30_toggled(bool checked)
 {
 	if (checked)
@@ -329,7 +319,6 @@ void ProgramSet::on_pB_Model_Exit3_clicked()
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("退出设置界面，升降气缸置为1，其他所有命令报文归零。"));
 	close();
 }
-
 void ProgramSet::on_lE_ClipPhase1_returnPressed()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置夹紧气缸动作相位 0-360"));
@@ -346,7 +335,6 @@ void ProgramSet::on_lE_tClip2_returnPressed()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置夹紧气缸释放延迟，单位ms"));
 }
-
 void ProgramSet::on_lE_UpPhase1_returnPressed()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置抬升气缸动作相位 0-360"));
@@ -363,7 +351,6 @@ void ProgramSet::on_lE_tUp2_returnPressed()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置抬升气缸释放延迟，单位ms"));
 }
-
 void ProgramSet::on_lE_DropPhase1_returnPressed()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置落料气缸动作相位 0-360"));
@@ -380,7 +367,6 @@ void ProgramSet::on_lE_tDrop2_returnPressed()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置落料气缸释放延迟，单位ms"));
 }
-
 void ProgramSet::on_lE_FlashTime_returnPressed()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置闪光持续的时间，单位ms"));
@@ -413,7 +399,6 @@ void ProgramSet::on_lE_RejectPhase_returnPressed()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("剔废动作相位，0-360"));
 }
-
 void ProgramSet::on_lE_DisableForceReject_returnPressed()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("0开启强制剔废，1关闭强制剔废"));
@@ -438,12 +423,10 @@ void ProgramSet::on_lE_RotateSpeed_returnPressed()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("旋转轴的最大速度，RPM"));
 }
-
 void ProgramSet::on_pB_changeIPPort_clicked()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置PLC IP地址和端口号，一般情况下第一次设置一次之后就不用再变化了，且默认IP：10.86.50.210，默认port：5000"));
 }
-
 void ProgramSet::on_pB_enPhoto_clicked()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("使能拍照功能"));
@@ -460,7 +443,6 @@ void ProgramSet::on_pB_enRotate_clicked()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("使能转囊功能"));
 }
-
 void ProgramSet::on_lE_RunSpeed_returnPressed()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置系统运行速度，0-120单位：次每分钟"));
@@ -473,7 +455,6 @@ void ProgramSet::on_pB_ContinueKickCancel_clicked()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("恢复连剔报警开关及数量、连剔停机开关及数量的默认值。"));
 }
-
 #pragma endregion
 
 #pragma region 用户管理
@@ -490,7 +471,6 @@ void ProgramSet::on_pB_Users_Exit_clicked()
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("退出设置界面，升降气缸置为1，其他所有命令报文归零。"));
 	close();
 }
-
 void ProgramSet::on_cB_Users_activated(int index)
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("根据该combobox在权限描述中说明"));
