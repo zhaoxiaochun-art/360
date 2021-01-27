@@ -18,7 +18,29 @@ LoginDialog::LoginDialog(QWidget *parent)
 	AppPath = qApp->applicationDirPath();//exe所在目录
 	AppPath.replace("/", "\\");
 	setMaskFun(false);
+	initUI();
+	
+	connect(ui.numButtonGroup, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked),
+		[=](QAbstractButton* button) {ui.lE_Password->setText(ui.lE_Password->text() += button->text()); });
+}
+LoginDialog::~LoginDialog()
+{
+}
 
+void LoginDialog::setMaskFun(bool b)
+{
+	//设置窗口圆角
+	QBitmap bmp(this->size());
+	bmp.fill();
+	QPainter p(&bmp);
+	p.setPen(Qt::NoPen);
+	p.setBrush(Qt::black);
+	p.drawRoundedRect(bmp.rect(), 5, 5);
+	setMask(bmp);
+	//👆👆👆
+}
+void LoginDialog::initUI()
+{
 	ui.label->setPixmap(QPixmap("./ico/user.ico"));
 	ui.label->setScaledContents(true);
 	ui.label_2->setPixmap(QPixmap("./ico/sec.ico"));
@@ -65,26 +87,11 @@ LoginDialog::LoginDialog(QWidget *parent)
 	{
 		ui.cB_turnOff->setChecked(false);
 	}
-	connect(ui.numButtonGroup, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked),
-		[=](QAbstractButton* button) {ui.lE_Password->setText(ui.lE_Password->text() += button->text()); });
 }
-LoginDialog::~LoginDialog()
+int LoginDialog::LoginDlgCloseMode()
 {
+	return m_iCloseMode;
 }
-
-void LoginDialog::setMaskFun(bool b)
-{
-	//设置窗口圆角
-	QBitmap bmp(this->size());
-	bmp.fill();
-	QPainter p(&bmp);
-	p.setPen(Qt::NoPen);
-	p.setBrush(Qt::black);
-	p.drawRoundedRect(bmp.rect(), 5, 5);
-	setMask(bmp);
-	//👆👆👆
-}
-
 bool LoginDialog::copyDirectoryFiles(const QString& fromDir, const QString& toDir, bool coverFileIfExist)
 {
 	QDir sourceDir(fromDir);
@@ -144,6 +151,14 @@ void LoginDialog::on_pB_Exit_clicked()
 {
 	if (ui.pB_Exit->text() == QString::fromLocal8Bit("退出"))
 	{
+		if (key_turnOff == "1")
+		{
+			m_iCloseMode = 1;
+		}
+		else
+		{
+			m_iCloseMode = 0;
+		}
 		close();
 	}
 	else
@@ -155,6 +170,14 @@ void LoginDialog::on_pB_Login_clicked()
 {
 	if (ui.lE_Password->text()=="1111")
 	{
+		if (key_turnOff == "1")
+		{
+			m_iCloseMode = 2;
+		}
+		else
+		{
+			m_iCloseMode = 3;
+		}
 		close();
 	}
 	else
@@ -202,10 +225,12 @@ void LoginDialog::on_cB_turnOff_toggled(bool checked)
 	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
 	if (checked)
 	{
+		key_turnOff = "1";
 		configIniRead.setValue("UISetting/AutoClose", 1);//写当前模板
 	}
 	else
 	{
+		key_turnOff = "0";
 		configIniRead.setValue("UISetting/AutoClose", 0);//写当前模板
 	}
 }

@@ -1,4 +1,6 @@
 #include "Device360.h"
+#include <QProcess>
+
 Device360::Device360(QWidget *parent)
 	: QMainWindow(parent)
 {
@@ -7,10 +9,23 @@ Device360::Device360(QWidget *parent)
 
 	LoginDialog* dlg = new LoginDialog(this);
 	dlg->exec();
-
+	m_iShutDownPC = dlg->LoginDlgCloseMode(); //2和3在退出时处理
+	if (m_iShutDownPC==0)
+	{
+		exit(-1);
+	}
+	else if (m_iShutDownPC == 1)
+	{
+		QProcess pro;    //通过QProcess类来执行第三方程序
+		QString cmd = QString("shutdown -s -t 0"); //shutdown -s -t 0 是window下的关机命令，
+		pro.start(cmd);    //执行命令cmd
+		pro.waitForStarted();
+		pro.waitForFinished();
+		exit(-1);
+	}
 	m_ProgramDlg = new ProgramSet();
-	m_ResultDlg = new ResultData(); 
-	m_DailyLogDlg = new DailyLog();
+	//m_ResultDlg = new ResultData(); 
+	//m_DailyLogDlg = new DailyLog();
 }
 
 #pragma region msgbox
