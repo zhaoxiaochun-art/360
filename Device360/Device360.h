@@ -17,6 +17,7 @@ public:
 	int showMsgBox(const char * titleStr, const char * contentStr, const char * button1Str, const char * button2Str);
 private:
 	Ui::Device360Class ui;
+	QString AppPath;
 	ProgramSet *m_ProgramDlg;
 	ResultData *m_ResultDlg;
 	DailyLog *m_DailyLogDlg; 

@@ -1,5 +1,6 @@
 #include "Device360.h"
 #include <QProcess>
+#include <QSettings>
 
 Device360::Device360(QWidget *parent)
 	: QMainWindow(parent)
@@ -23,6 +24,16 @@ Device360::Device360(QWidget *parent)
 		pro.waitForFinished();
 		exit(-1);
 	}
+
+	AppPath = qApp->applicationDirPath();//exeËùÔÚÄ¿Â¼
+	AppPath.replace("/", "\\");
+	QSettings readPara(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	QString text = readPara.value("UISetting/Style", "").toString();
+	QString style1 ="background-image:url(./ico/"+text+".png);";
+	ui.lb_style->raise();
+	ui.lb_style->setStyleSheet(style1);
+	ui.lb_style->setAttribute(Qt::WA_TransparentForMouseEvents);
+
 	m_ProgramDlg = new ProgramSet();
 	//m_ResultDlg = new ResultData(); 
 	//m_DailyLogDlg = new DailyLog();
