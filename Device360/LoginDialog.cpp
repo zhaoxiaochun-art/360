@@ -85,10 +85,71 @@ void LoginDialog::setMaskFun(bool b)
 	//👆👆👆
 }
 
+bool LoginDialog::copyDirectoryFiles(const QString& fromDir, const QString& toDir, bool coverFileIfExist)
+{
+	QDir sourceDir(fromDir);
+	QDir targetDir(toDir);
+	if (!targetDir.exists()) {    /**< 如果目标目录不存在,则进行创建 */
+		if (!targetDir.mkpath(targetDir.absolutePath()))
+		{
+			return false;
+		}
+	}
+	QFileInfoList fileInfoList = sourceDir.entryInfoList();
+	foreach(QFileInfo fileInfo, fileInfoList) {
+		if (fileInfo.fileName() == "." || fileInfo.fileName() == "..")
+			continue;
+		if (fileInfo.isDir()) {    /**< 当为目录时,递归的进行copy */
+			if (!copyDirectoryFiles(fileInfo.filePath(),
+				targetDir.filePath(fileInfo.fileName()),
+				coverFileIfExist))
+				return false;
+		}
+		else {            /**< 当允许覆盖操作时,将旧文件进行删除操作 */
+			if (coverFileIfExist && targetDir.exists(fileInfo.fileName())) {
+				targetDir.remove(fileInfo.fileName());
+			}
+			/// 进行文件copy
+			if (!QFile::copy(fileInfo.filePath(),
+				targetDir.filePath(fileInfo.fileName()))) {
+				return false;
+			}
+		}
+	}
+	return true;
+}
+bool LoginDialog::deleteDir(const QString& path)//eg：deleteDir(AppPath + "/DefaultModel");//删除文件夹/目录功能
+{
+	if (path.isEmpty()) {
+		return false;
+	}
+	QDir dir(path);
+	if (!dir.exists()) {
+		return true;
+	}
+	dir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot); //设置过滤
+	QFileInfoList fileList = dir.entryInfoList(); // 获取所有的文件信息
+	foreach(QFileInfo file, fileList) { //遍历文件信息
+		if (file.isFile()) { // 是文件，删除
+			file.dir().remove(file.fileName());
+		}
+		else { // 递归删除
+			deleteDir(file.absoluteFilePath());
+		}
+	}
+	return dir.rmpath(dir.absolutePath()); // 删除文件夹
+}
+
 void LoginDialog::on_pB_Exit_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("退出系统，如果退出时关机选项选中，那么也会同时关机"));
-	close();
+	if (ui.pB_Exit->text() == QString::fromLocal8Bit("退出"))
+	{
+		close();
+	}
+	else
+	{
+		ui.lE_Password->clear();
+	}
 }
 void LoginDialog::on_pB_Login_clicked()
 {
@@ -120,5 +181,66 @@ void LoginDialog::on_cB_style_activated(const QString &arg1)
 	else if (arg1 == QString::fromLocal8Bit("千岛湖"))
 	{
 		configIniRead.setValue("UISetting/Style", "qdh");//写当前模板
+	}
+}
+void LoginDialog::on_cB_turnOn_toggled(bool checked)
+{
+	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	if (checked)
+	{
+		configIniRead.setValue("UISetting/AutoRun", 1);//写当前模板
+		copyDirectoryFiles(AppPath + "/startup", m_autoStartPath, true);
+	}
+	else
+	{
+		configIniRead.setValue("UISetting/AutoRun", 0);//写当前模板
+		deleteDir(m_autoStartPath);
+	}
+}
+void LoginDialog::on_cB_turnOff_toggled(bool checked)
+{
+	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	if (checked)
+	{
+		configIniRead.setValue("UISetting/AutoClose", 1);//写当前模板
+	}
+	else
+	{
+		configIniRead.setValue("UISetting/AutoClose", 0);//写当前模板
+	}
+}
+
+void LoginDialog::on_lE_Password_textChanged(const QString &arg1)
+{
+	int i = arg1.length();
+	if (i > 0)
+	{
+		ui.pB_Exit->setText(QString::fromLocal8Bit("清空"));
+	}
+	if (i == 0)
+	{
+		ui.pB_Exit->setText(QString::fromLocal8Bit("退出"));
+		ui.pB_Login->setEnabled(false);
+		ui.pB_Login->setStyleSheet("font-size:20pt");
+	}
+	else if (i == 1)
+	{
+		ui.pB_Login->setEnabled(false);
+		ui.pB_Login->setStyleSheet("font-size:23pt");
+	}
+	else if (i == 2)
+	{
+		ui.pB_Login->setEnabled(false);
+		ui.pB_Login->setStyleSheet("font-size:26pt");
+	}
+	else if (i == 3)
+	{
+		ui.pB_Login->setEnabled(false);
+		ui.pB_Login->setStyleSheet("font-size:29pt");
+	}
+	else
+	{
+		ui.pB_Login->setEnabled(true);
+		ui.pB_Login->setStyleSheet("background-color: rgba(0, 170, 0, 125);font-size:29pt");
 	}
 }
