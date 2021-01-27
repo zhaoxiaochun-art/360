@@ -34,6 +34,10 @@ Device360::Device360(QWidget *parent)
 	ui.lb_style->setStyleSheet(style1);
 	ui.lb_style->setAttribute(Qt::WA_TransparentForMouseEvents);
 
+	ui.lb_Picture->setPixmap(QPixmap("./ico/dr-pharm.png"));
+	ui.lb_Picture->setScaledContents(true);
+
+	ui.tabWidget->removeTab(1);
 	m_ProgramDlg = new ProgramSet();
 	//m_ResultDlg = new ResultData(); 
 	//m_DailyLogDlg = new DailyLog();
