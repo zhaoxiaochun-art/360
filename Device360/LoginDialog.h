@@ -18,7 +18,7 @@ public:
 	int LoginDlgCloseMode();
 	bool copyDirectoryFiles(const QString& fromDir, const QString& toDir, bool coverFileIfExist);
 	bool deleteDir(const QString& path);//eg£ºdeleteDir(AppPath + "/DefaultModel");
-
+	int showMsgBox(const char * titleStr, const char * contentStr, const char * button1Str, const char * button2Str);
 private:
 	Ui::LoginDialog ui;
 	bool m_bSec = false;

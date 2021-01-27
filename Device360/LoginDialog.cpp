@@ -146,14 +146,44 @@ bool LoginDialog::deleteDir(const QString& path)//eg：deleteDir(AppPath + "/Def
 	}
 	return dir.rmpath(dir.absolutePath()); // 删除文件夹
 }
+int LoginDialog::showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)//全是中文
+{
+	if (QString::fromLocal8Bit(button2Str) == "")
+	{
+		QMessageBox msg(QMessageBox::Information, QString::fromLocal8Bit(titleStr), QString::fromLocal8Bit(contentStr), QMessageBox::Ok);
+		msg.setButtonText(QMessageBox::Ok, QString::fromLocal8Bit(button1Str));
+		msg.setWindowIcon(QIcon("./ico/dr.ico"));
+		return msg.exec();
+	}
+	else
+	{
+		QMessageBox msg(QMessageBox::Question, QString::fromLocal8Bit(titleStr), QString::fromLocal8Bit(contentStr), QMessageBox::Yes | QMessageBox::No);
+		msg.setButtonText(QMessageBox::Yes, QString::fromLocal8Bit(button1Str));
+		msg.setButtonText(QMessageBox::No, QString::fromLocal8Bit(button2Str));
+		msg.setWindowIcon(QIcon("./ico/dr.ico"));
+		return msg.exec();
+	}
+	//  QMessageBox::NoIcon
+	//	QMessageBox::Question
+	//	QMessageBox::Information
+	//	QMessageBox::Warning
+	//	QMessageBox::Critical
+}
 
 void LoginDialog::on_pB_Exit_clicked()
 {
 	if (ui.pB_Exit->text() == QString::fromLocal8Bit("退出"))
 	{
 		if (key_turnOff == "1")
-		{
-			m_iCloseMode = 1;
+		{ 
+			if (QMessageBox::Yes== showMsgBox("关机提示", "是否确认关机？", "确认", "取消"))
+			{
+				m_iCloseMode = 1;
+			}
+			else
+			{
+				m_iCloseMode = 0;
+			}
 		}
 		else
 		{
@@ -182,8 +212,7 @@ void LoginDialog::on_pB_Login_clicked()
 	}
 	else
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("提示"), QString::fromLocal8Bit("密码为1111"));
-
+		showMsgBox("提示", "默认密码为：1111","我知道了", "");
 	}
 }
 void LoginDialog::on_cB_style_activated(const QString &arg1)
