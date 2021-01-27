@@ -27,7 +27,29 @@ Device360::Device360(QWidget *parent)
 	//m_ResultDlg = new ResultData(); 
 	//m_DailyLogDlg = new DailyLog();
 }
-
+int Device360::showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)//全是中文
+{
+	if (QString::fromLocal8Bit(button2Str) == "")
+	{
+		QMessageBox msg(QMessageBox::Information, QString::fromLocal8Bit(titleStr), QString::fromLocal8Bit(contentStr), QMessageBox::Ok);
+		msg.setButtonText(QMessageBox::Ok, QString::fromLocal8Bit(button1Str));
+		msg.setWindowIcon(QIcon("./ico/dr.ico"));
+		return msg.exec();
+	}
+	else
+	{
+		QMessageBox msg(QMessageBox::Question, QString::fromLocal8Bit(titleStr), QString::fromLocal8Bit(contentStr), QMessageBox::Yes | QMessageBox::No);
+		msg.setButtonText(QMessageBox::Yes, QString::fromLocal8Bit(button1Str));
+		msg.setButtonText(QMessageBox::No, QString::fromLocal8Bit(button2Str));
+		msg.setWindowIcon(QIcon("./ico/dr.ico"));
+		return msg.exec();
+	}
+	//  QMessageBox::NoIcon
+	//	QMessageBox::Question
+	//	QMessageBox::Information
+	//	QMessageBox::Warning
+	//	QMessageBox::Critical
+}
 #pragma region msgbox
 void Device360::on_Button_Clean_toggled(bool checked)
 {
@@ -78,8 +100,28 @@ void Device360::on_Button_CountReset_clicked()
 }
 void Device360::on_Button_Exit_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("退出系统"));
-	close();
+	if (m_iShutDownPC == 2)
+	{
+		if (QMessageBox::Yes == showMsgBox("关机提示", "是否确认关机？", "确认", "取消"))
+		{
+			QProcess pro;    //通过QProcess类来执行第三方程序
+			QString cmd = QString("shutdown -s -t 0"); //shutdown -s -t 0 是window下的关机命令，
+			pro.start(cmd);    //执行命令cmd
+			pro.waitForStarted();
+			pro.waitForFinished();
+			exit(-1);
+		}
+		else
+		{
+			close();
+		}
+
+	}
+	else
+	{ 
+		close();
+	}
+	
 }
 void Device360::on_lE_PN_returnPressed()
 {
