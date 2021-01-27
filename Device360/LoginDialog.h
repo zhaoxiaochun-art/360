@@ -18,6 +18,8 @@ private:
 	Ui::LoginDialog ui;
 	bool m_bSec = false;
 	QString AppPath;
+	QString m_autoStartPath; 
+	QString key_turnOff;
 public slots:
 	void on_pB_Exit_clicked();
 	void on_pB_Login_clicked();
