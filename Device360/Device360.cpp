@@ -7,10 +7,7 @@ Device360::Device360(QWidget *parent)
 
 	LoginDialog* dlg = new LoginDialog(this);
 	dlg->exec();
-	if (!dlg->verifySec())
-	{
-		exit(-1);
-	}
+
 	m_ProgramDlg = new ProgramSet();
 	m_ResultDlg = new ResultData(); 
 	m_DailyLogDlg = new DailyLog();

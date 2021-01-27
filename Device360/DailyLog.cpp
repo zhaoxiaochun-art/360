@@ -1,5 +1,6 @@
 #include "DailyLog.h"
-
+#include <QSettings>
+#include <QApplication>
 DailyLog::DailyLog(QWidget *parent)
 	: QDialog(parent)
 {
@@ -21,5 +22,5 @@ void DailyLog::on_pB_closeLog_clicked()
 }
 void DailyLog::on_cB_LogMode_activated(int index)
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("切换日志类型，根据切换的类型在上方显示出来"));
+
 }
