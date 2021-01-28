@@ -97,22 +97,32 @@ void Device360::initStatistics()
 	ui.tableWidget_Result->insertRow(z);//加一行
 	ui.tableWidget_Result->setItem(z, 0, new QTableWidgetItem(QString::fromLocal8Bit("Allnum")));//第0列，已隐藏
 	ui.tableWidget_Result->setItem(z, 1, new QTableWidgetItem(QString::fromLocal8Bit("总数")));//第1列
-	ui.tableWidget_Result->setItem(z, 2, new QTableWidgetItem(QString::number(0)));//第2列
+	ui.tableWidget_Result->setItem(z, 2, new QTableWidgetItem(QString::number(0)));//第2列	
+
 	z++;
 	ui.tableWidget_Result->insertRow(z);//再加一行
 	ui.tableWidget_Result->setItem(z, 0, new QTableWidgetItem(QString::fromLocal8Bit("OKnum")));//第0列，已隐藏
 	ui.tableWidget_Result->setItem(z, 1, new QTableWidgetItem(QString::fromLocal8Bit("合格数")));//第1列
-	ui.tableWidget_Result->setItem(z, 2, new QTableWidgetItem(QString::number(0)));//第2列
+	ui.tableWidget_Result->setItem(z, 2, new QTableWidgetItem(QString::number(0)));//第2列	
+
 	z++;
 	ui.tableWidget_Result->insertRow(z);//再加一行
 	ui.tableWidget_Result->setItem(z, 0, new QTableWidgetItem(QString::fromLocal8Bit("OKrate")));//第0列，已隐藏
 	ui.tableWidget_Result->setItem(z, 1, new QTableWidgetItem(QString::fromLocal8Bit("合格率")));//第1列
 	ui.tableWidget_Result->setItem(z, 2, new QTableWidgetItem(QString::number(0)));//第2列
+
 	z++;
 	ui.tableWidget_Result->insertRow(z);//再加一行
 	ui.tableWidget_Result->setItem(z, 0, new QTableWidgetItem(QString::fromLocal8Bit("NGStyle")));//第0列，已隐藏
 	ui.tableWidget_Result->setItem(z, 1, new QTableWidgetItem(QString::fromLocal8Bit("废品种类")));//第1列
 	ui.tableWidget_Result->setItem(z, 2, new QTableWidgetItem(QString::number(0)));//第2列
+	for (int rowcount = 0; rowcount < z+1; rowcount++)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			ui.tableWidget_Result->item(rowcount, i)->setFlags(ui.tableWidget_Result->item(rowcount, i)->flags() & (~Qt::ItemIsEditable));//单元格不可编辑
+		}
+	}
 
 }
 int Device360::showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)//全是中文
