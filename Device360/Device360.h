@@ -28,12 +28,15 @@ public slots:
 	void on_Button_Clean_toggled(bool checked);
 	void on_Button_Start_toggled(bool checked);
 	void on_Button_AlarmReset_clicked();
-	void on_Button_CameraSet_clicked();
+	void on_Button_ParaSet_pressed();
+	void on_Button_ParaSet_released();
 	void on_Button_Log_clicked();
 	void on_Button_DataOut_clicked();
-	void on_Button_CountReset_clicked();
+	void on_Button_CountReset_pressed();
+	void on_Button_CountReset_released();
 	void on_pB_Keyboard_clicked();
-	void on_Button_Exit_clicked();
+	void on_Button_Exit_pressed();
+	void on_Button_Exit_released();
 	void on_lE_PN_returnPressed();
 	void on_lE_RunSpeed_returnPressed();
 };

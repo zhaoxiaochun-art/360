@@ -2,6 +2,7 @@
 #include <QProcess>
 #include <QSettings>
 #include <Windows.h>
+#include <QThread>
 
 Device360::Device360(QWidget *parent)
 	: QMainWindow(parent)
@@ -49,6 +50,30 @@ Device360::Device360(QWidget *parent)
 	ui.pB_Keyboard->setIcon(QIcon(AppPath + "/ico/dr_keyboard.ico"));//文件copy到了exe所在目录
 	ui.pB_Keyboard->setText("");
 
+	ui.Button_Start->setText("");
+	ui.Button_Start->setStyleSheet("QPushButton{border:0px;}");
+	ui.Button_Start->setIcon(QPixmap(AppPath + "/ico/start.png"));
+	ui.Button_Start->setIconSize(QSize(280, 129));
+
+	ui.Button_ParaSet->setText("");
+	ui.Button_ParaSet->setStyleSheet("QPushButton{border:0px;}");
+	ui.Button_ParaSet->setIcon(QPixmap(AppPath + "/ico/paraSet.png"));
+	ui.Button_ParaSet->setIconSize(QSize(280, 129));
+
+	ui.Button_CountReset->setText("");
+	ui.Button_CountReset->setStyleSheet("QPushButton{border:0px;}");
+	ui.Button_CountReset->setIcon(QPixmap(AppPath + "/ico/countReset.png"));
+	ui.Button_CountReset->setIconSize(QSize(280, 129));
+
+
+	ui.Button_Exit->setText("");
+	ui.Button_Exit->setStyleSheet("QPushButton{border:0px;}");
+	ui.Button_Exit->setIcon(QPixmap(AppPath + "/ico/exit.png"));
+	ui.Button_Exit->setIconSize(QSize(280, 129));
+
+
+
+
 	ui.tabWidget->removeTab(1);
 	m_ProgramDlg = new ProgramSet();
 	//m_ResultDlg = new ResultData(); 
@@ -94,11 +119,19 @@ void Device360::on_Button_Start_toggled(bool checked)
 {
 	if (checked)
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("Checkable 启动检测，再次按下停止检测"));
+		ui.Button_Start->setIcon(QPixmap(AppPath + "/ico/stop.png"));
+		ui.Button_ParaSet->setEnabled(false);
+		ui.Button_CountReset->setEnabled(false);
+		ui.Button_Exit->setEnabled(false);
+		ui.lE_PN->setEnabled(false);
 	}
 	else
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("停止检测"));
+		ui.Button_Start->setIcon(QPixmap(AppPath + "/ico/start.png"));
+		ui.Button_ParaSet->setEnabled(true);
+		ui.Button_CountReset->setEnabled(true);
+		ui.Button_Exit->setEnabled(true);
+		ui.lE_PN->setEnabled(true);
 	}
 }
 void Device360::on_Button_AlarmReset_clicked()
@@ -106,8 +139,14 @@ void Device360::on_Button_AlarmReset_clicked()
 		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("系统故障清除后，点击该按钮进行故障复位，如果设备不在原点，还需要寻参"));
 
 }
-void Device360::on_Button_CameraSet_clicked()
+
+void Device360::on_Button_ParaSet_pressed()
 {
+	ui.Button_ParaSet->setIcon(QPixmap(AppPath + "/ico/paraset2.png"));
+}
+void Device360::on_Button_ParaSet_released()
+{
+	ui.Button_ParaSet->setIcon(QPixmap(AppPath + "/ico/paraset.png"));
 	m_ProgramDlg->show();
 }
 void Device360::on_Button_Log_clicked()
@@ -120,11 +159,18 @@ void Device360::on_Button_DataOut_clicked()
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("打开数据导出界面"));
 	m_ResultDlg->show();
 }
-void Device360::on_Button_CountReset_clicked()
-{
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("将运行统计tab页表格中的数据清零 PLC数据tab页的数值清零"));
 
+void Device360::on_Button_CountReset_pressed()
+{
+	ui.Button_CountReset->setIcon(QPixmap(AppPath + "/ico/countReset2.png"));
 }
+
+void Device360::on_Button_CountReset_released()
+{
+
+	ui.Button_CountReset->setIcon(QPixmap(AppPath + "/ico/countReset.png"));
+}
+
 void Device360::on_pB_Keyboard_clicked()
 {
 	PVOID OldValue = nullptr;
@@ -136,12 +182,15 @@ void Device360::on_pB_Keyboard_clicked()
 	{
 		Wow64RevertWow64FsRedirection(OldValue);
 	}
-	levelOut->setWindowCount(0);//动画窗弹出数，防止覆盖
-	levelOut->getString(QString::fromLocal8Bit("恭喜，您已成功登陆系统！"), 2000);
-	levelOut->show();
 }
-void Device360::on_Button_Exit_clicked()
+
+void Device360::on_Button_Exit_pressed()
 {
+	ui.Button_Exit->setIcon(QPixmap(AppPath + "/ico/exit2.png"));
+}
+void Device360::on_Button_Exit_released()
+{
+	ui.Button_Exit->setIcon(QPixmap(AppPath + "/ico/exit.png"));
 	if (m_iShutDownPC == 2)
 	{
 		if (QMessageBox::Yes == showMsgBox("退出提示", "是否确认退出系统？", "确认", "取消"))
