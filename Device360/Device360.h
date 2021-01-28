@@ -16,6 +16,7 @@ class Device360 : public QMainWindow
 public:
     Device360(QWidget *parent = Q_NULLPTR);
 	void initUI();
+	void initStatistics();
 	int showMsgBox(const char * titleStr, const char * contentStr, const char * button1Str, const char * button2Str);
 private:
 	Ui::Device360Class ui;

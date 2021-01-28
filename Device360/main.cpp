@@ -1,6 +1,7 @@
 #include "Device360.h"
 #include <QtWidgets/QApplication>
 #include <QSharedMemory>
+#include <QStyleFactory>
 #include "WindowOut.h"
 int main(int argc, char *argv[])
 {
@@ -15,6 +16,8 @@ int main(int argc, char *argv[])
 		levelOut->exec();
 		return 0;
 	}
+
+	QApplication::setStyle(QStyleFactory::create("fusion"));//界面风格
 
     Device360 w;
     w.show();

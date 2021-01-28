@@ -35,7 +35,8 @@ Device360::Device360(QWidget *parent)
 	AppPath = qApp->applicationDirPath();//exe所在目录
 	AppPath.replace("/", "\\");
 
-	initUI();
+	initUI(); 
+	initStatistics();
 	m_ProgramDlg = new ProgramSet();
 	//m_ResultDlg = new ResultData(); 
 	//m_DailyLogDlg = new DailyLog();
@@ -79,6 +80,40 @@ void Device360::initUI()
 	ui.Button_Exit->setIconSize(QSize(280, 129));
 
 	ui.tabWidget->removeTab(1);
+}
+void Device360::initStatistics()
+{
+	QFont fo(QString::fromLocal8Bit("幼圆"), 20);
+	ui.tableWidget_Result->setFont(fo);//设置tableWidget字体
+	QStringList title;
+	title << QString::fromLocal8Bit("ErrorType") << QString::fromLocal8Bit("类型") << QString::fromLocal8Bit("数量");
+	ui.tableWidget_Result->setColumnCount(3);//3列
+	ui.tableWidget_Result->setHorizontalHeaderLabels(title);//加表头
+	ui.tableWidget_Result->setColumnHidden(0, true);//隐藏ErrorType列
+	ui.tableWidget_Result->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);//均分填充表头
+	ui.tableWidget_Result->verticalHeader()->setDefaultSectionSize(35);//默认行高20
+	ui.tableWidget_Result->verticalHeader()->setVisible(false);//不显示行头
+	int z = 0;
+	ui.tableWidget_Result->insertRow(z);//加一行
+	ui.tableWidget_Result->setItem(z, 0, new QTableWidgetItem(QString::fromLocal8Bit("Allnum")));//第0列，已隐藏
+	ui.tableWidget_Result->setItem(z, 1, new QTableWidgetItem(QString::fromLocal8Bit("总数")));//第1列
+	ui.tableWidget_Result->setItem(z, 2, new QTableWidgetItem(QString::number(0)));//第2列
+	z++;
+	ui.tableWidget_Result->insertRow(z);//再加一行
+	ui.tableWidget_Result->setItem(z, 0, new QTableWidgetItem(QString::fromLocal8Bit("OKnum")));//第0列，已隐藏
+	ui.tableWidget_Result->setItem(z, 1, new QTableWidgetItem(QString::fromLocal8Bit("合格数")));//第1列
+	ui.tableWidget_Result->setItem(z, 2, new QTableWidgetItem(QString::number(0)));//第2列
+	z++;
+	ui.tableWidget_Result->insertRow(z);//再加一行
+	ui.tableWidget_Result->setItem(z, 0, new QTableWidgetItem(QString::fromLocal8Bit("OKrate")));//第0列，已隐藏
+	ui.tableWidget_Result->setItem(z, 1, new QTableWidgetItem(QString::fromLocal8Bit("合格率")));//第1列
+	ui.tableWidget_Result->setItem(z, 2, new QTableWidgetItem(QString::number(0)));//第2列
+	z++;
+	ui.tableWidget_Result->insertRow(z);//再加一行
+	ui.tableWidget_Result->setItem(z, 0, new QTableWidgetItem(QString::fromLocal8Bit("NGStyle")));//第0列，已隐藏
+	ui.tableWidget_Result->setItem(z, 1, new QTableWidgetItem(QString::fromLocal8Bit("废品种类")));//第1列
+	ui.tableWidget_Result->setItem(z, 2, new QTableWidgetItem(QString::number(0)));//第2列
+
 }
 int Device360::showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)//全是中文
 {

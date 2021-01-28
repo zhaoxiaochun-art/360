@@ -75,10 +75,13 @@
      </size>
     </property>
     <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
+     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_4">
      <property name="leftMargin">
@@ -125,7 +128,7 @@
                 </font>
                </property>
                <attribute name="horizontalHeaderVisible">
-                <bool>false</bool>
+                <bool>true</bool>
                </attribute>
                <attribute name="horizontalHeaderCascadingSectionResizes">
                 <bool>false</bool>
@@ -151,16 +154,6 @@
                <attribute name="verticalHeaderStretchLastSection">
                 <bool>false</bool>
                </attribute>
-               <column>
-                <property name="text">
-                 <string>类型</string>
-                </property>
-               </column>
-               <column>
-                <property name="text">
-                 <string>数量</string>
-                </property>
-               </column>
               </widget>
              </item>
             </layout>
@@ -577,9 +570,9 @@ background-color: rgb(255, 255, 0);</string>
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>730</y>
+      <y>737</y>
       <width>768</width>
-      <height>636</height>
+      <height>629</height>
      </rect>
     </property>
     <property name="font">
