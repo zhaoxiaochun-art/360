@@ -91,6 +91,7 @@
     <ClCompile Include="ProgramSet.cpp" />
     <ClCompile Include="ResultData.cpp" />
     <ClCompile Include="textticker.cpp" />
+    <ClCompile Include="WindowOut.cpp" />
     <QtRcc Include="Device360.qrc" />
     <QtUic Include="DailyLog.ui" />
     <QtUic Include="Device360.ui" />
@@ -100,6 +101,7 @@
     <QtUic Include="LoginDialog.ui" />
     <QtUic Include="ProgramSet.ui" />
     <QtUic Include="ResultData.ui" />
+    <QtUic Include="WindowOut.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="textticker.h" />
@@ -118,6 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
+    <QtMoc Include="WindowOut.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Device360.rc" />
