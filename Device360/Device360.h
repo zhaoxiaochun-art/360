@@ -7,6 +7,7 @@
 #include "LoginDialog.h"
 #include "ResultData.h"
 #include "DailyLog.h"
+#include "WindowOut.h"
 
 class Device360 : public QMainWindow
 {
@@ -22,6 +23,7 @@ private:
 	ResultData *m_ResultDlg;
 	DailyLog *m_DailyLogDlg; 
 	int m_iShutDownPC;//0:退出程序不关机 1退出程序且立即关机 2进入主界面随后关机 3进入主界面随后不关机
+	WindowOut* levelOut = nullptr;
 public slots:
 	void on_Button_Clean_toggled(bool checked);
 	void on_Button_Start_toggled(bool checked);

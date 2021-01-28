@@ -1,7 +1,6 @@
 #include "Device360.h"
 #include <QProcess>
 #include <QSettings>
-
 #include <Windows.h>
 
 Device360::Device360(QWidget *parent)
@@ -26,6 +25,11 @@ Device360::Device360(QWidget *parent)
 		pro.waitForFinished();
 		exit(-1);
 	}
+
+	levelOut = new WindowOut();
+	levelOut->setWindowCount(0);//动画窗弹出数，防止覆盖
+	levelOut->getString(QString::fromLocal8Bit("恭喜，您已成功登陆系统！"), 2000);
+	levelOut->show();
 
 	AppPath = qApp->applicationDirPath();//exe所在目录
 	AppPath.replace("/", "\\");
@@ -132,6 +136,9 @@ void Device360::on_pB_Keyboard_clicked()
 	{
 		Wow64RevertWow64FsRedirection(OldValue);
 	}
+	levelOut->setWindowCount(0);//动画窗弹出数，防止覆盖
+	levelOut->getString(QString::fromLocal8Bit("恭喜，您已成功登陆系统！"), 2000);
+	levelOut->show();
 }
 void Device360::on_Button_Exit_clicked()
 {
