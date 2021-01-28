@@ -318,6 +318,25 @@
               </property>
              </spacer>
             </item>
+            <item>
+             <widget class="QPushButton" name="pB_Keyboard">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>34</horstretch>
+                <verstretch>49</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>34</width>
+                <height>49</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>PushButton</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </widget>
          </item>

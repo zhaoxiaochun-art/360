@@ -30,6 +30,7 @@ public slots:
 	void on_Button_Log_clicked();
 	void on_Button_DataOut_clicked();
 	void on_Button_CountReset_clicked();
+	void on_pB_Keyboard_clicked();
 	void on_Button_Exit_clicked();
 	void on_lE_PN_returnPressed();
 	void on_lE_RunSpeed_returnPressed();

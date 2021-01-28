@@ -174,22 +174,25 @@ void LoginDialog::on_pB_Exit_clicked()
 {
 	if (ui.pB_Exit->text() == QString::fromLocal8Bit("退出"))
 	{
-		if (key_turnOff == "1")
-		{ 
-			if (QMessageBox::Yes== showMsgBox("关机提示", "是否确认关机？", "确认", "取消"))
+		if (QMessageBox::Yes == showMsgBox("退出提示", "是否确认退出系统？", "确认", "取消"))
+		{
+			if (key_turnOff == "1")
 			{
-				m_iCloseMode = 1;
+				if (QMessageBox::Yes == showMsgBox("关机提示", "是否确认关机？", "确认", "取消"))
+				{
+					m_iCloseMode = 1;
+				}
+				else
+				{
+					m_iCloseMode = 0;
+				}
 			}
 			else
 			{
 				m_iCloseMode = 0;
 			}
+			close();
 		}
-		else
-		{
-			m_iCloseMode = 0;
-		}
-		close();
 	}
 	else
 	{

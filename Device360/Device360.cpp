@@ -2,6 +2,8 @@
 #include <QProcess>
 #include <QSettings>
 
+#include <Windows.h>
+
 Device360::Device360(QWidget *parent)
 	: QMainWindow(parent)
 {
@@ -37,6 +39,12 @@ Device360::Device360(QWidget *parent)
 	ui.lb_Picture->setPixmap(QPixmap("./ico/dr-pharm.png"));
 	ui.lb_Picture->setScaledContents(true);
 
+	ui.pB_Keyboard->setFocusPolicy(Qt::NoFocus);
+	ui.pB_Keyboard->setFlat(true);
+	ui.pB_Keyboard->setIconSize(QSize(35, 35));
+	ui.pB_Keyboard->setIcon(QIcon(AppPath + "/ico/dr_keyboard.ico"));//文件copy到了exe所在目录
+	ui.pB_Keyboard->setText("");
+
 	ui.tabWidget->removeTab(1);
 	m_ProgramDlg = new ProgramSet();
 	//m_ResultDlg = new ResultData(); 
@@ -66,6 +74,7 @@ int Device360::showMsgBox(const char* titleStr, const char* contentStr, const ch
 	//	QMessageBox::Critical
 }
 #pragma region msgbox
+
 void Device360::on_Button_Clean_toggled(bool checked)
 {
 	if (checked)
@@ -95,7 +104,6 @@ void Device360::on_Button_AlarmReset_clicked()
 }
 void Device360::on_Button_CameraSet_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("打开参数设置界面"));
 	m_ProgramDlg->show();
 }
 void Device360::on_Button_Log_clicked()
@@ -113,28 +121,46 @@ void Device360::on_Button_CountReset_clicked()
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("将运行统计tab页表格中的数据清零 PLC数据tab页的数值清零"));
 
 }
+void Device360::on_pB_Keyboard_clicked()
+{
+	PVOID OldValue = nullptr;
+	BOOL bRet = Wow64DisableWow64FsRedirection(&OldValue);
+	QString csProcess = "C:\\Windows\\System32\\osk.exe";
+	QString params = "";
+	ShellExecute(nullptr, L"open", (LPCWSTR)csProcess.utf16(), (LPCWSTR)params.utf16(), nullptr, SW_SHOWNORMAL);
+	if (bRet)
+	{
+		Wow64RevertWow64FsRedirection(OldValue);
+	}
+}
 void Device360::on_Button_Exit_clicked()
 {
 	if (m_iShutDownPC == 2)
 	{
-		if (QMessageBox::Yes == showMsgBox("关机提示", "是否确认关机？", "确认", "取消"))
+		if (QMessageBox::Yes == showMsgBox("退出提示", "是否确认退出系统？", "确认", "取消"))
 		{
-			QProcess pro;    //通过QProcess类来执行第三方程序
-			QString cmd = QString("shutdown -s -t 0"); //shutdown -s -t 0 是window下的关机命令，
-			pro.start(cmd);    //执行命令cmd
-			pro.waitForStarted();
-			pro.waitForFinished();
-			exit(-1);
-		}
-		else
-		{
-			close();
+			if (QMessageBox::Yes == showMsgBox("关机提示", "是否确认关机？", "确认", "取消"))
+			{
+				QProcess pro;    //通过QProcess类来执行第三方程序
+				QString cmd = QString("shutdown -s -t 0"); //shutdown -s -t 0 是window下的关机命令，
+				pro.start(cmd);    //执行命令cmd
+				pro.waitForStarted();
+				pro.waitForFinished();
+				exit(-1);
+			}
+			else
+			{
+				close();
+			}
 		}
 
 	}
 	else
-	{ 
-		close();
+	{
+		if (QMessageBox::Yes == showMsgBox("退出提示", "是否确认退出系统？", "确认", "取消"))
+		{
+			close();
+		}
 	}
 	
 }
