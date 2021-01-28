@@ -49,7 +49,7 @@ void LoginDialog::initUI()
 	ui.pB_Login->setStyleSheet("font-size:20pt");
 	ui.pB_Login->setEnabled(false);
 
-	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	QSettings configIniRead(AppPath + "\\ModelFile\\testA\\ProgramSet.ini", QSettings::IniFormat);
 	QString text = configIniRead.value("UISetting/Style", "").toString();
 	if (text == "Default Style")
 	{
@@ -220,7 +220,7 @@ void LoginDialog::on_pB_Login_clicked()
 }
 void LoginDialog::on_cB_style_activated(const QString &arg1)
 {
-	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	QSettings configIniRead(AppPath + "\\ModelFile\\testA\\ProgramSet.ini", QSettings::IniFormat);
 	if (arg1 == QString::fromLocal8Bit("默认风格"))
 	{
 		configIniRead.setValue("UISetting/Style", "Default Style");//写当前模板
@@ -240,7 +240,7 @@ void LoginDialog::on_cB_style_activated(const QString &arg1)
 }
 void LoginDialog::on_cB_turnOn_toggled(bool checked)
 {
-	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	QSettings configIniRead(AppPath + "\\ModelFile\\testA\\ProgramSet.ini", QSettings::IniFormat);
 	if (checked)
 	{
 		configIniRead.setValue("UISetting/AutoRun", 1);//写当前模板
@@ -254,7 +254,7 @@ void LoginDialog::on_cB_turnOn_toggled(bool checked)
 }
 void LoginDialog::on_cB_turnOff_toggled(bool checked)
 {
-	QSettings configIniRead(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	QSettings configIniRead(AppPath + "\\ModelFile\\testA\\ProgramSet.ini", QSettings::IniFormat);
 	if (checked)
 	{
 		key_turnOff = "1";

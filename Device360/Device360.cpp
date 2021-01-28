@@ -34,9 +34,17 @@ Device360::Device360(QWidget *parent)
 
 	AppPath = qApp->applicationDirPath();//exe所在目录
 	AppPath.replace("/", "\\");
-	QSettings readPara(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+
+	initUI();
+	m_ProgramDlg = new ProgramSet();
+	//m_ResultDlg = new ResultData(); 
+	//m_DailyLogDlg = new DailyLog();
+}
+void Device360::initUI()
+{
+	QSettings readPara(AppPath + "\\ModelFile\\testA\\ProgramSet.ini", QSettings::IniFormat);
 	QString text = readPara.value("UISetting/Style", "").toString();
-	QString style1 ="background-image:url(./ico/"+text+".png);";
+	QString style1 = "background-image:url(./ico/" + text + ".png);";
 	ui.lb_style->raise();
 	ui.lb_style->setStyleSheet(style1);
 	ui.lb_style->setAttribute(Qt::WA_TransparentForMouseEvents);
@@ -65,19 +73,12 @@ Device360::Device360(QWidget *parent)
 	ui.Button_CountReset->setIcon(QPixmap(AppPath + "/ico/countReset.png"));
 	ui.Button_CountReset->setIconSize(QSize(280, 129));
 
-
 	ui.Button_Exit->setText("");
 	ui.Button_Exit->setStyleSheet("QPushButton{border:0px;}");
 	ui.Button_Exit->setIcon(QPixmap(AppPath + "/ico/exit.png"));
 	ui.Button_Exit->setIconSize(QSize(280, 129));
 
-
-
-
 	ui.tabWidget->removeTab(1);
-	m_ProgramDlg = new ProgramSet();
-	//m_ResultDlg = new ResultData(); 
-	//m_DailyLogDlg = new DailyLog();
 }
 int Device360::showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)//全是中文
 {

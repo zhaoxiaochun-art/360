@@ -8,9 +8,6 @@ ProgramSet::ProgramSet(QWidget *parent)
 	ui.setupUi(this);
 	setWindowFlags(Qt::FramelessWindowHint);//无边框 
 
-	ui.frame_Alg->setVisible(false);
-	ui.frame_light->setVisible(false);
-
 	connect(ui.AlgButtonGroup, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked),
 		[=](QAbstractButton* button) {
 		//if (button->objectName() == "pushButton_1")
@@ -28,36 +25,46 @@ ProgramSet::ProgramSet(QWidget *parent)
 			}
 	});
 
-	ui.tabWidget->removeTab(3);
-	ui.tabWidget->removeTab(3);
-
 	AppPath = qApp->applicationDirPath();//exe所在目录
 	AppPath.replace("/", "\\");
+
+	initMovie(); 
+	initUI();
+}
+ProgramSet::~ProgramSet()
+{
+}
+
+void ProgramSet::initUI()
+{
+	ui.frame_Alg->setVisible(false);
+	ui.frame_light->setVisible(false);
+
+	ui.tabWidget->removeTab(3);
+	ui.tabWidget->removeTab(3);
 
 	ui.pB_Keyboard->setFocusPolicy(Qt::NoFocus);
 	ui.pB_Keyboard->setText("");
 	ui.pB_Keyboard->setStyleSheet("QPushButton{border:0px;}");
 	ui.pB_Keyboard->setIcon(QPixmap(AppPath + "/ico/dr_keyboard.ico"));
 	ui.pB_Keyboard->setIconSize(QSize(60, 40));
-	
+
 	ui.pB_Exit->setText("");
 	ui.pB_Exit->setStyleSheet("QPushButton{border:0px;}");
 	ui.pB_Exit->setIcon(QPixmap(AppPath + "/ico/exitgreen.png"));
 	ui.pB_Exit->setIconSize(QSize(60, 54));
 
-	initMovie(); 
-		
-	QSettings readPara(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	QSettings readPara(AppPath + "\\ModelFile\\testA\\ProgramSet.ini", QSettings::IniFormat);
 	QString text = readPara.value("UISetting/Style", "").toString();
 	QString style2 = "background-image:url(./ico/" + text + "2.png);";
 	ui.lb_style2->raise();
 	ui.lb_style2->setStyleSheet(style2);
 	ui.lb_style2->setAttribute(Qt::WA_TransparentForMouseEvents);
-}
-ProgramSet::~ProgramSet()
-{
-}
 
+	ui.lb_pic2->raise();
+	ui.lb_pic2->setPixmap(QPixmap(AppPath + "/ico/dr-pharmmatch2.png"));
+	ui.lb_pic2->setScaledContents(true);
+}
 void ProgramSet::initMovie()
 {//创建动态对象
 	{

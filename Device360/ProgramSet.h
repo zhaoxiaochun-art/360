@@ -13,8 +13,8 @@ public:
 	ProgramSet(QWidget *parent = Q_NULLPTR);
 	~ProgramSet();
 
+	void initUI();
 	void initMovie();
-
 	int showMsgBox(const char * titleStr, const char * contentStr, const char * button1Str, const char * button2Str);
 
 private:

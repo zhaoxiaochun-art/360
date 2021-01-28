@@ -15,13 +15,14 @@ class Device360 : public QMainWindow
 
 public:
     Device360(QWidget *parent = Q_NULLPTR);
+	void initUI();
 	int showMsgBox(const char * titleStr, const char * contentStr, const char * button1Str, const char * button2Str);
 private:
 	Ui::Device360Class ui;
 	QString AppPath;
-	ProgramSet *m_ProgramDlg;
-	ResultData *m_ResultDlg;
-	DailyLog *m_DailyLogDlg; 
+	ProgramSet *m_ProgramDlg = nullptr;
+	ResultData *m_ResultDlg = nullptr;
+	DailyLog *m_DailyLogDlg = nullptr;
 	int m_iShutDownPC;//0:退出程序不关机 1退出程序且立即关机 2进入主界面随后关机 3进入主界面随后不关机
 	WindowOut* levelOut = nullptr;
 public slots:
