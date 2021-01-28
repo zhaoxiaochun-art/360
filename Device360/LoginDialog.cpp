@@ -22,11 +22,43 @@ LoginDialog::LoginDialog(QWidget *parent)
 	
 	connect(ui.numButtonGroup, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked),
 		[=](QAbstractButton* button) {ui.lE_Password->setText(ui.lE_Password->text() += button->text()); });
+	initMovie();
+	animation1->start();
 }
 LoginDialog::~LoginDialog()
 {
 }
+void LoginDialog::initMovie()
+{//创建动态对象
+	{
+		animation1 = new QPropertyAnimation(this, "geometry");
+		//设置动画时间间隔
+		animation1->setDuration(1000);
 
+		//起始位置
+		animation1->setStartValue(QRect(this->x(), y()+1000, width(), height()));
+		//结束位置
+		animation1->setEndValue(QRect(x(), y(), width(), height()));
+
+		//设置弹跳曲线
+		animation1->setEasingCurve(QEasingCurve::OutElastic);
+	}
+	{
+		animation2 = new QPropertyAnimation(this, "geometry");
+		//设置动画时间间隔
+		animation2->setDuration(1000);
+
+		//起始位置
+		animation2->setStartValue(QRect(this->x(), y(), width(), height()));
+		//结束位置
+		animation2->setEndValue(QRect(x(), y()+2000, width(), height()));
+
+		//设置弹跳曲线
+		animation2->setEasingCurve(QEasingCurve::OutElastic);
+	}
+	aniTimer = new QTimer();
+	connect(aniTimer, SIGNAL(timeout()), this, SLOT(closeThis()));
+}
 void LoginDialog::setMaskFun(bool b)
 {
 	//设置窗口圆角
@@ -223,7 +255,8 @@ void LoginDialog::on_pB_Login_clicked()
 		{
 			m_iCloseMode = 3;
 		}
-		close();
+		animation2->start();
+		aniTimer->start(500);
 	}
 	else
 	{
@@ -316,4 +349,8 @@ void LoginDialog::on_lE_Password_textChanged(const QString &arg1)
 		ui.pB_Login->setEnabled(true);
 		ui.pB_Login->setStyleSheet("background-color: rgba(0, 170, 0, 125);font-size:29pt");
 	}
+}
+void LoginDialog::closeThis()
+{
+	close();
 }

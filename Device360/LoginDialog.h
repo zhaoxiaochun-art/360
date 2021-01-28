@@ -6,6 +6,8 @@
 #include <QPainter>
 #include <QMessageBox>
 #include <QButtonGroup>
+#include <QPropertyAnimation>
+#include <QTimer>
 
 class LoginDialog : public QDialog
 {
@@ -13,6 +15,7 @@ class LoginDialog : public QDialog
 public:
 	LoginDialog(QWidget *parent = Q_NULLPTR);
 	~LoginDialog();
+	void initMovie();
 	void setMaskFun(bool);
 	void initUI();
 	int LoginDlgCloseMode();
@@ -21,6 +24,9 @@ public:
 	int showMsgBox(const char * titleStr, const char * contentStr, const char * button1Str, const char * button2Str);
 private:
 	Ui::LoginDialog ui;
+	QPropertyAnimation *animation1 = nullptr;
+	QPropertyAnimation *animation2 = nullptr;
+	QTimer *aniTimer = nullptr;
 	bool m_bSec = false;
 	QString AppPath;
 	QString m_autoStartPath; 
@@ -33,4 +39,5 @@ public slots:
 	void on_cB_turnOn_toggled(bool checked);
 	void on_cB_turnOff_toggled(bool checked);
 	void on_lE_Password_textChanged(const QString & arg1);
+	void closeThis();
 };
