@@ -1,5 +1,5 @@
 #include "ProgramSet.h"
-
+#include <Windows.h>
 ProgramSet::ProgramSet(QWidget *parent)
 	: QDialog(parent)
 {
@@ -25,12 +25,108 @@ ProgramSet::ProgramSet(QWidget *parent)
 				QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), str+QString::fromLocal8Bit("号剔废气缸动作"));
 			}
 	});
+
+	ui.tabWidget->removeTab(3);
+	ui.tabWidget->removeTab(3);
+
+	AppPath = qApp->applicationDirPath();//exe所在目录
+	AppPath.replace("/", "\\");
+
+	ui.pB_Keyboard->setFocusPolicy(Qt::NoFocus);
+	ui.pB_Keyboard->setText("");
+	ui.pB_Keyboard->setStyleSheet("QPushButton{border:0px;}");
+	ui.pB_Keyboard->setIcon(QPixmap(AppPath + "/ico/dr_keyboard.ico"));
+	ui.pB_Keyboard->setIconSize(QSize(60, 40));
 	
+	ui.pB_Exit->setText("");
+	ui.pB_Exit->setStyleSheet("QPushButton{border:0px;}");
+	ui.pB_Exit->setIcon(QPixmap(AppPath + "/ico/exitgreen.png"));
+	ui.pB_Exit->setIconSize(QSize(60, 54));
+
+	initMovie();
 }
 ProgramSet::~ProgramSet()
 {
 }
 
+void ProgramSet::initMovie()
+{//创建动态对象
+	{
+		animation1 = new QPropertyAnimation(ui.pB_Exit, "geometry");
+		//设置动画时间间隔
+		animation1->setDuration(200);
+
+		//起始位置
+		animation1->setStartValue(QRect(ui.pB_Exit->x(), ui.pB_Exit->y(), ui.pB_Exit->width(), ui.pB_Exit->height()));
+		//结束位置
+		animation1->setEndValue(QRect(ui.pB_Exit->x(), ui.pB_Exit->y()+10, ui.pB_Exit->width(), ui.pB_Exit->height()));
+
+		//设置弹跳曲线
+		animation1->setEasingCurve(QEasingCurve::OutBounce);
+	}
+	{    //创建动态对象
+		animation2 = new QPropertyAnimation(ui.pB_Exit, "geometry");
+		//设置动画时间间隔
+		animation2->setDuration(200);
+
+		//起始位置
+		animation2->setStartValue(QRect(ui.pB_Exit->x(), ui.pB_Exit->y()+10, ui.pB_Exit->width(), ui.pB_Exit->height()));
+		//结束位置
+		animation2->setEndValue(QRect(ui.pB_Exit->x(), ui.pB_Exit->y(), ui.pB_Exit->width(), ui.pB_Exit->height()));
+
+		//设置弹跳曲线
+		animation2->setEasingCurve(QEasingCurve::OutBounce);
+	}
+	{
+		animation3 = new QPropertyAnimation(ui.pB_Keyboard, "geometry");
+		//设置动画时间间隔
+		animation3->setDuration(200);
+
+		//起始位置
+		animation3->setStartValue(QRect(ui.pB_Keyboard->x(), ui.pB_Keyboard->y(), ui.pB_Keyboard->width(), ui.pB_Keyboard->height()));
+		//结束位置
+		animation3->setEndValue(QRect(ui.pB_Keyboard->x(), ui.pB_Keyboard->y() + 10, ui.pB_Keyboard->width(), ui.pB_Keyboard->height()));
+
+		//设置弹跳曲线
+		animation3->setEasingCurve(QEasingCurve::OutBounce);
+	}
+	{    //创建动态对象
+		animation4 = new QPropertyAnimation(ui.pB_Keyboard, "geometry");
+		//设置动画时间间隔
+		animation4->setDuration(200);
+
+		//起始位置
+		animation4->setStartValue(QRect(ui.pB_Keyboard->x(), ui.pB_Keyboard->y() + 10, ui.pB_Keyboard->width(), ui.pB_Keyboard->height()));
+		//结束位置
+		animation4->setEndValue(QRect(ui.pB_Keyboard->x(), ui.pB_Keyboard->y(), ui.pB_Keyboard->width(), ui.pB_Keyboard->height()));
+
+		//设置弹跳曲线
+		animation4->setEasingCurve(QEasingCurve::OutBounce);
+	}
+}
+int ProgramSet::showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)//全是中文
+{
+	if (QString::fromLocal8Bit(button2Str) == "")
+	{
+		QMessageBox msg(QMessageBox::Information, QString::fromLocal8Bit(titleStr), QString::fromLocal8Bit(contentStr), QMessageBox::Ok);
+		msg.setButtonText(QMessageBox::Ok, QString::fromLocal8Bit(button1Str));
+		msg.setWindowIcon(QIcon("./ico/dr.ico"));
+		return msg.exec();
+	}
+	else
+	{
+		QMessageBox msg(QMessageBox::Question, QString::fromLocal8Bit(titleStr), QString::fromLocal8Bit(contentStr), QMessageBox::Yes | QMessageBox::No);
+		msg.setButtonText(QMessageBox::Yes, QString::fromLocal8Bit(button1Str));
+		msg.setButtonText(QMessageBox::No, QString::fromLocal8Bit(button2Str));
+		msg.setWindowIcon(QIcon("./ico/dr.ico"));
+		return msg.exec();
+	}
+	//  QMessageBox::NoIcon
+	//	QMessageBox::Question
+	//	QMessageBox::Information
+	//	QMessageBox::Warning
+	//	QMessageBox::Critical
+}
 #pragma region 模板管理
 void ProgramSet::on_pB_Model_Apply_clicked()
 {
@@ -61,12 +157,7 @@ void ProgramSet::on_pB_AlgSetting_toggled(bool checked)
 		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("hide frame_dlg"));
 	}
 }
-void ProgramSet::on_pB_Model_Exit1_clicked()
-{
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("退出设置界面，升降气缸置为1，其他所有命令报文归零。"));
-	close();
 
-}
 void ProgramSet::on_cB_photoTimes_activated(const QString &arg1)
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置拍照次数"));
@@ -132,10 +223,28 @@ void ProgramSet::on_pB_StartGrab_toggled(bool checked)
 		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("停止采集测试"));
 	}
 }
-void ProgramSet::on_pB_Model_Exit_clicked()
+void ProgramSet::on_pB_Keyboard_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("退出设置界面，升降气缸置为1，其他所有命令报文归零。"));
-	close();
+	animation3->start();
+	animation4->start();
+	PVOID OldValue = nullptr;
+	BOOL bRet = Wow64DisableWow64FsRedirection(&OldValue);
+	QString csProcess = "C:\\Windows\\System32\\osk.exe";
+	QString params = "";
+	ShellExecute(nullptr, L"open", (LPCWSTR)csProcess.utf16(), (LPCWSTR)params.utf16(), nullptr, SW_SHOWNORMAL);
+	if (bRet)
+	{
+		Wow64RevertWow64FsRedirection(OldValue);
+	}
+}
+void ProgramSet::on_pB_Exit_clicked()
+{
+	animation1->start();
+	animation2->start();
+	if (QMessageBox::Yes == showMsgBox("退出提示", "是否确认退出参数设置界面？", "确认", "取消"))
+	{
+		close();
+	}
 }
 #pragma endregion
 
@@ -314,11 +423,7 @@ void ProgramSet::on_pb_cmdParaSave_clicked()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("保存当前显示数据至PLC的掉电保存区中"));
 }
-void ProgramSet::on_pB_Model_Exit3_clicked()
-{
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("退出设置界面，升降气缸置为1，其他所有命令报文归零。"));
-	close();
-}
+
 void ProgramSet::on_lE_ClipPhase1_returnPressed()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置夹紧气缸动作相位 0-360"));
@@ -466,11 +571,7 @@ void ProgramSet::on_pB_Users_Delete_clicked()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("删除自定义用户"));
 }
-void ProgramSet::on_pB_Users_Exit_clicked()
-{
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("退出设置界面，升降气缸置为1，其他所有命令报文归零。"));
-	close();
-}
+
 void ProgramSet::on_cB_Users_activated(int index)
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("根据该combobox在权限描述中说明"));

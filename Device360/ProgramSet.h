@@ -3,6 +3,7 @@
 #include <QDialog>
 #include <QMessageBox>
 #include "ui_ProgramSet.h"
+#include <QPropertyAnimation>
 
 class ProgramSet : public QDialog
 {
@@ -12,13 +13,25 @@ public:
 	ProgramSet(QWidget *parent = Q_NULLPTR);
 	~ProgramSet();
 
+	void initMovie();
+
+	int showMsgBox(const char * titleStr, const char * contentStr, const char * button1Str, const char * button2Str);
+
+private:
+	Ui::ProgramSet ui;
+	QString AppPath;
+	//µ¯ÌøÌØÐ§
+	QPropertyAnimation * animation1 = nullptr;
+	QPropertyAnimation * animation2 = nullptr;
+
+	QPropertyAnimation * animation3 = nullptr;
+	QPropertyAnimation * animation4 = nullptr;
 public slots: 
 	void on_pB_Model_Apply_clicked();
 	void on_pB_Model_Add_clicked();
 	void on_pB_Model_Delete_clicked();
 	void on_pB_Model_ChangeName_clicked();
 	void on_pB_AlgSetting_toggled(bool checked);
-	void on_pB_Model_Exit1_clicked();
 	void on_cB_photoTimes_activated(const QString & arg1);
 	void on_cB_freeSpace_activated(int index);
 	void on_pB_brightness_toggled(bool checked);
@@ -27,7 +40,8 @@ public slots:
 	void on_cB_flash_toggled(bool checked);
 	void on_pB_StartContinueGrab_toggled(bool checked);
 	void on_pB_StartGrab_toggled(bool checked);
-	void on_pB_Model_Exit_clicked();
+	void on_pB_Keyboard_clicked();
+	void on_pB_Exit_clicked();
 	void on_pb_cmdJog_clicked();
 	void on_pb_cmdTestFlash0_toggled(bool checked);
 	void on_pb_cmdTestFlash1_toggled(bool checked);
@@ -47,7 +61,6 @@ public slots:
 	void on_pb_cmdTestKick30_toggled(bool checked);
 	void on_cB_debugMode_toggled(bool checked);
 	void on_pb_cmdParaSave_clicked();
-	void on_pB_Model_Exit3_clicked();
 	void on_lE_ClipPhase1_returnPressed();
 	void on_lE_ClipPhase2_returnPressed();
 	void on_lE_tClip1_returnPressed();
@@ -84,11 +97,6 @@ public slots:
 	void on_pB_ContinueKickCancel_clicked();
 	void on_pB_AddUser_clicked();
 	void on_pB_Users_Delete_clicked();
-	void on_pB_Users_Exit_clicked();
-
 	void on_cB_Users_activated(int index);
 
-
-private:
-	Ui::ProgramSet ui;
 };

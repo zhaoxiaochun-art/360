@@ -80,7 +80,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab_Model">
      <attribute name="title">
@@ -241,28 +241,6 @@
                </property>
                <property name="checkable">
                 <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pB_Model_Exit1">
-               <property name="minimumSize">
-                <size>
-                 <width>200</width>
-                 <height>66</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>200</width>
-                 <height>66</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">font: 20pt &quot;幼圆&quot;;</string>
-               </property>
-               <property name="text">
-                <string>退出</string>
                </property>
               </widget>
              </item>
@@ -1257,40 +1235,6 @@ font: 18pt &quot;Arial&quot;;</string>
         </layout>
        </item>
        <item>
-        <widget class="QPushButton" name="pB_Model_Exit">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>66</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>66</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <family>幼圆</family>
-           <pointsize>20</pointsize>
-           <weight>50</weight>
-           <italic>false</italic>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">font: 20pt &quot;幼圆&quot;;</string>
-         </property>
-         <property name="text">
-          <string>退出</string>
-         </property>
-         <property name="checkable">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
         <spacer name="verticalSpacer_3">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -1428,6 +1372,82 @@ font: 20pt &quot;Arial&quot;;</string>
      <zorder>pushButton_9_1</zorder>
      <zorder>pushButton_2_1</zorder>
     </widget>
+    <widget class="QWidget" name="tab_7">
+     <attribute name="title">
+      <string>其他设置</string>
+     </attribute>
+     <widget class="QWidget" name="layoutWidget_4">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>490</y>
+        <width>597</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_14">
+       <item>
+        <layout class="QGridLayout" name="gridLayout_12">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_101">
+           <property name="text">
+            <string>IP地址</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="lE_IP_2"/>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_102">
+           <property name="text">
+            <string>通讯端口</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="lE_Port_2"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pB_changeIPPort_2">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>55</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>200</width>
+           <height>55</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>幼圆</family>
+           <pointsize>20</pointsize>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(0, 170, 127);
+font: 20pt &quot;幼圆&quot;;</string>
+         </property>
+         <property name="text">
+          <string>确定修改</string>
+         </property>
+         <property name="flat">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
     <widget class="QWidget" name="tab_PLC">
      <attribute name="title">
       <string>PLC控制</string>
@@ -1465,32 +1485,6 @@ font: 20pt &quot;Arial&quot;;</string>
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QPushButton" name="pB_Model_Exit3">
-         <property name="minimumSize">
-          <size>
-           <width>55</width>
-           <height>90</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>55</width>
-           <height>90</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">font: 20pt &quot;幼圆&quot;;</string>
-         </property>
-         <property name="text">
-          <string>退
-出</string>
-         </property>
-         <property name="checkable">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
       </layout>
      </widget>
      <widget class="QTabWidget" name="tabWidget_PLC">
@@ -1509,7 +1503,7 @@ font: 20pt &quot;Arial&quot;;</string>
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="tab_5">
        <attribute name="title">
@@ -5845,31 +5839,41 @@ font: 18pt &quot;幼圆&quot;;</string>
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QPushButton" name="pB_Users_Exit">
-         <property name="minimumSize">
-          <size>
-           <width>180</width>
-           <height>66</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>180</width>
-           <height>66</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">font: 20pt &quot;幼圆&quot;;</string>
-         </property>
-         <property name="text">
-          <string>退出</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </widget>
     </widget>
+   </widget>
+   <widget class="QPushButton" name="pB_Exit">
+    <property name="geometry">
+     <rect>
+      <x>674</x>
+      <y>2</y>
+      <width>60</width>
+      <height>44</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>s</string>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pB_Keyboard">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>2</y>
+      <width>60</width>
+      <height>44</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>s</string>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
    </widget>
   </widget>
   <widget class="QLabel" name="lb_style2">
@@ -5924,7 +5928,7 @@ font: 18pt &quot;幼圆&quot;;</string>
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="KickButtonGroup"/>
   <buttongroup name="AlgButtonGroup"/>
+  <buttongroup name="KickButtonGroup"/>
  </buttongroups>
 </ui>
