@@ -1,19 +1,19 @@
-#include "ProgramSet.h"
+ï»¿#include "ProgramSet.h"
 #include <Windows.h>
 #include <QSettings>
-
+#include <QDir>
 ProgramSet::ProgramSet(QWidget *parent)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
-	setWindowFlags(Qt::FramelessWindowHint);//ÎŞ±ß¿ò 
+	setWindowFlags(Qt::FramelessWindowHint);//æ— è¾¹æ¡† 
 
 	connect(ui.AlgButtonGroup, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked),
 		[=](QAbstractButton* button) {
 		//if (button->objectName() == "pushButton_1")
 		QString str = button->text();
 			{
-				QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("´ò¿ª")+str+QString::fromLocal8Bit("ºÅÏà»úËã·¨ÉèÖÃ½çÃæ"));
+				QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("æ‰“å¼€")+str+QString::fromLocal8Bit("å·ç›¸æœºç®—æ³•è®¾ç½®ç•Œé¢"));
 			}
 	});
 	connect(ui.KickButtonGroup, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked),
@@ -21,15 +21,16 @@ ProgramSet::ProgramSet(QWidget *parent)
 		//if (button->objectName() == "pushButton_1")
 		QString str = button->text();
 			{
-				QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), str+QString::fromLocal8Bit("ºÅÌŞ·ÏÆø¸×¶¯×÷"));
+				QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), str+QString::fromLocal8Bit("å·å‰”åºŸæ°”ç¼¸åŠ¨ä½œ"));
 			}
 	});
 
-	AppPath = qApp->applicationDirPath();//exeËùÔÚÄ¿Â¼
+	AppPath = qApp->applicationDirPath();//exeæ‰€åœ¨ç›®å½•
 	AppPath.replace("/", "\\");
 
-	initMovie(); 
 	initUI();
+	initMovie(); 
+	initListWidgetofModel();
 }
 ProgramSet::~ProgramSet()
 {
@@ -64,63 +65,114 @@ void ProgramSet::initUI()
 	ui.lb_pic2->raise();
 	ui.lb_pic2->setPixmap(QPixmap(AppPath + "/ico/dr-pharmmatch2.png"));
 	ui.lb_pic2->setScaledContents(true);
+
 }
 void ProgramSet::initMovie()
-{//´´½¨¶¯Ì¬¶ÔÏó
+{//åˆ›å»ºåŠ¨æ€å¯¹è±¡
 	{
 		animation1 = new QPropertyAnimation(ui.pB_Exit, "geometry");
-		//ÉèÖÃ¶¯»­Ê±¼ä¼ä¸ô
+		//è®¾ç½®åŠ¨ç”»æ—¶é—´é—´éš”
 		animation1->setDuration(200);
 
-		//ÆğÊ¼Î»ÖÃ
+		//èµ·å§‹ä½ç½®
 		animation1->setStartValue(QRect(ui.pB_Exit->x(), ui.pB_Exit->y(), ui.pB_Exit->width(), ui.pB_Exit->height()));
-		//½áÊøÎ»ÖÃ
+		//ç»“æŸä½ç½®
 		animation1->setEndValue(QRect(ui.pB_Exit->x(), ui.pB_Exit->y()+10, ui.pB_Exit->width(), ui.pB_Exit->height()));
 
-		//ÉèÖÃµ¯ÌøÇúÏß
+		//è®¾ç½®å¼¹è·³æ›²çº¿
 		animation1->setEasingCurve(QEasingCurve::OutBounce);
 	}
-	{    //´´½¨¶¯Ì¬¶ÔÏó
+	{    //åˆ›å»ºåŠ¨æ€å¯¹è±¡
 		animation2 = new QPropertyAnimation(ui.pB_Exit, "geometry");
-		//ÉèÖÃ¶¯»­Ê±¼ä¼ä¸ô
+		//è®¾ç½®åŠ¨ç”»æ—¶é—´é—´éš”
 		animation2->setDuration(200);
 
-		//ÆğÊ¼Î»ÖÃ
+		//èµ·å§‹ä½ç½®
 		animation2->setStartValue(QRect(ui.pB_Exit->x(), ui.pB_Exit->y()+10, ui.pB_Exit->width(), ui.pB_Exit->height()));
-		//½áÊøÎ»ÖÃ
+		//ç»“æŸä½ç½®
 		animation2->setEndValue(QRect(ui.pB_Exit->x(), ui.pB_Exit->y(), ui.pB_Exit->width(), ui.pB_Exit->height()));
 
-		//ÉèÖÃµ¯ÌøÇúÏß
+		//è®¾ç½®å¼¹è·³æ›²çº¿
 		animation2->setEasingCurve(QEasingCurve::OutBounce);
 	}
 	{
 		animation3 = new QPropertyAnimation(ui.pB_Keyboard, "geometry");
-		//ÉèÖÃ¶¯»­Ê±¼ä¼ä¸ô
+		//è®¾ç½®åŠ¨ç”»æ—¶é—´é—´éš”
 		animation3->setDuration(200);
 
-		//ÆğÊ¼Î»ÖÃ
+		//èµ·å§‹ä½ç½®
 		animation3->setStartValue(QRect(ui.pB_Keyboard->x(), ui.pB_Keyboard->y(), ui.pB_Keyboard->width(), ui.pB_Keyboard->height()));
-		//½áÊøÎ»ÖÃ
+		//ç»“æŸä½ç½®
 		animation3->setEndValue(QRect(ui.pB_Keyboard->x(), ui.pB_Keyboard->y() + 10, ui.pB_Keyboard->width(), ui.pB_Keyboard->height()));
 
-		//ÉèÖÃµ¯ÌøÇúÏß
+		//è®¾ç½®å¼¹è·³æ›²çº¿
 		animation3->setEasingCurve(QEasingCurve::OutBounce);
 	}
-	{    //´´½¨¶¯Ì¬¶ÔÏó
+	{    //åˆ›å»ºåŠ¨æ€å¯¹è±¡
 		animation4 = new QPropertyAnimation(ui.pB_Keyboard, "geometry");
-		//ÉèÖÃ¶¯»­Ê±¼ä¼ä¸ô
+		//è®¾ç½®åŠ¨ç”»æ—¶é—´é—´éš”
 		animation4->setDuration(200);
 
-		//ÆğÊ¼Î»ÖÃ
+		//èµ·å§‹ä½ç½®
 		animation4->setStartValue(QRect(ui.pB_Keyboard->x(), ui.pB_Keyboard->y() + 10, ui.pB_Keyboard->width(), ui.pB_Keyboard->height()));
-		//½áÊøÎ»ÖÃ
+		//ç»“æŸä½ç½®
 		animation4->setEndValue(QRect(ui.pB_Keyboard->x(), ui.pB_Keyboard->y(), ui.pB_Keyboard->width(), ui.pB_Keyboard->height()));
 
-		//ÉèÖÃµ¯ÌøÇúÏß
+		//è®¾ç½®å¼¹è·³æ›²çº¿
 		animation4->setEasingCurve(QEasingCurve::OutBounce);
 	}
 }
-int ProgramSet::showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)//È«ÊÇÖĞÎÄ
+void ProgramSet::initListWidgetofModel()//æ¨¡å‹listwidgetåˆå§‹åŒ–æ˜¾ç¤ºï¼Œéå†æ–‡ä»¶å¤¹ï¼Œæ‰¾åˆ°æ¨¡æ¿åç§°å¹¶æ˜¾ç¤º
+{
+	QSettings readDefaultModel(AppPath + "\\ModelFile\\GeneralSet.ini", QSettings::IniFormat);
+	QString defaultModel = readDefaultModel.value("ModelSetting/DefaultModel", "testA").toString();
+	ui.lb_DefaultName->setText(defaultModel);//æ›´æ–°lable 4-4
+	QDir dir(AppPath + "\\ModelFile");
+	if (!dir.exists())//ä¸å­˜åœ¨ï¼Œé€€å‡º
+	{
+		return;
+	}
+	dir.setFilter(QDir::Dirs);//ç­›é€‰ç›®å½•
+	QFileInfoList list = dir.entryInfoList();//æ–‡ä»¶ä¿¡æ¯list
+	int file_count = list.count();
+	if (file_count <= 0)
+	{
+		return;
+	}
+	QStringList string_list;
+	int i, j = 1;//jç”¨äºæ ‡è®°æ˜¯å¦å­˜åœ¨é»˜è®¤æ¨¡æ¿
+	for (i = 0; i < file_count; i++)
+	{
+		QFileInfo file_info = list.at(i);
+		QString folderName = file_info.fileName();
+		string_list.append(folderName);
+	}
+	string_list.removeAt(0);//å»æ‰.
+	string_list.removeAt(0);//å»æ‰..
+	ui.listWidget->addItems(string_list);
+	ui.listWidget->sortItems();
+	QFont font("Arial", 24);
+	ui.listWidget->setStyleSheet("QListWidget::Item:hover{background:grey; }"
+	);
+	int rowcount = ui.listWidget->count();
+	for (int cnt = 0; cnt < rowcount; cnt++)
+	{
+		ui.listWidget->item(cnt)->setFont(font);
+	}
+	//æ˜¾ç¤ºæ¨¡æ¿ğŸ‘‡ğŸ‘‡å½“å‰åº”ç”¨æ¨¡æ¿
+	/*for (i = 0; i < string_list.count(); i++)
+	{
+		if (string_list.at(i) == g_qModelName)//æ‰¾åˆ°çš„é»˜è®¤æ¨¡æ¿å’Œiniè®¾ç½®çš„ä¸€è‡´
+		{
+			ui.listWidget->setCurrentRow(i);
+			j = 0;//å¦‚æœå­˜åœ¨ç½®ä¸º0
+		}
+	}
+	if (j) {
+		showWindowOut(QString::fromLocal8Bit("ä¸¥é‡é”™è¯¯ï¼ä¸å­˜åœ¨åˆå§‹æ¨¡æ¿ï¼"));
+	}*/
+}
+int ProgramSet::showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)//å…¨æ˜¯ä¸­æ–‡
 {
 	if (QString::fromLocal8Bit(button2Str) == "")
 	{
@@ -143,100 +195,100 @@ int ProgramSet::showMsgBox(const char* titleStr, const char* contentStr, const c
 	//	QMessageBox::Warning
 	//	QMessageBox::Critical
 }
-#pragma region Ä£°å¹ÜÀí
+#pragma region æ¨¡æ¿ç®¡ç†
 void ProgramSet::on_pB_Model_Apply_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("±£´æµ±Ç°Ä£°åÍ¬Ê±Ó¦ÓÃÑ¡ÖĞµÄÄ£°å"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("ä¿å­˜å½“å‰æ¨¡æ¿åŒæ—¶åº”ç”¨é€‰ä¸­çš„æ¨¡æ¿"));
 }
 void ProgramSet::on_pB_Model_Add_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("Ìí¼ÓÒ»¸öÄ£°å"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("æ·»åŠ ä¸€ä¸ªæ¨¡æ¿"));
 }
 void ProgramSet::on_pB_Model_Delete_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("É¾³ıÑ¡ÖĞµÄÄ£°å£¨·ÇÄ¬ÈÏºÍµ±Ç°Ó¦ÓÃµÄÄ£°å£©"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("åˆ é™¤é€‰ä¸­çš„æ¨¡æ¿ï¼ˆéé»˜è®¤å’Œå½“å‰åº”ç”¨çš„æ¨¡æ¿ï¼‰"));
 }
 void ProgramSet::on_pB_Model_ChangeName_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÖØÃüÃûÑ¡ÖĞµÄÄ£°å£¨·ÇÄ¬ÈÏºÍµ±Ç°Ó¦ÓÃµÄÄ£°å£©"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("é‡å‘½åé€‰ä¸­çš„æ¨¡æ¿ï¼ˆéé»˜è®¤å’Œå½“å‰åº”ç”¨çš„æ¨¡æ¿ï¼‰"));
 }
 void ProgramSet::on_pB_AlgSetting_toggled(bool checked)
 {
 	if (checked)
 	{
 		ui.frame_Alg->setVisible(true);
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("show frame_dlg"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("show frame_dlg"));
 	}
 	else
 	{
 		ui.frame_Alg->setVisible(false);
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("hide frame_dlg"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("hide frame_dlg"));
 	}
 }
 
 void ProgramSet::on_cB_photoTimes_activated(const QString &arg1)
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÉèÖÃÅÄÕÕ´ÎÊı"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾ç½®æ‹ç…§æ¬¡æ•°"));
 }
 void ProgramSet::on_cB_freeSpace_activated(int index)
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÉèÖÃ×îĞ¡¿ÕÏĞ£¬Ğ¡ÓÚµÈÓÚ¸ÃÖµ¿ªÊ¼É¾³ı´æ´¢µÄÍ¼Æ¬"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾ç½®æœ€å°ç©ºé—²ï¼Œå°äºç­‰äºè¯¥å€¼å¼€å§‹åˆ é™¤å­˜å‚¨çš„å›¾ç‰‡"));
 }
 #pragma endregion
 
-#pragma region Ïà»ú²ÎÊı
+#pragma region ç›¸æœºå‚æ•°
 void ProgramSet::on_pB_brightness_toggled(bool checked)
 {
 	if (checked)
 	{
 		ui.frame_light->setVisible(true);
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("show frame_light"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("show frame_light"));
 	}
 	else
 	{
 		ui.frame_light->setVisible(false);
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("hide frame_light"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("hide frame_light"));
 	}
 }
 void ProgramSet::on_cB_232Port_activated(int index)
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÉèÖÃ¹âÔ´¿ØÖÆÆ÷´®¿ÚºÅ"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾ç½®å…‰æºæ§åˆ¶å™¨ä¸²å£å·"));
 }
 void ProgramSet::on_pB_adjustBrightness_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÉèÖÃ¹âÔ´µÄÁÁ¶È£¬Öµ0-255"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾ç½®å…‰æºçš„äº®åº¦ï¼Œå€¼0-255"));
 }
 void ProgramSet::on_cB_flash_toggled(bool checked)
 {
 	if (checked)
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("´ò¿ªËùÓĞ¹âÔ´"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("æ‰“å¼€æ‰€æœ‰å…‰æº"));
 	}
 	else
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("¹Ø±ÕËùÓĞ¹âÔ´"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("å…³é—­æ‰€æœ‰å…‰æº"));
 	}
 }
 void ProgramSet::on_pB_StartContinueGrab_toggled(bool checked)
 {
 	if (checked)
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("Checkable ÔÚÉÏ²àÏÔÊ¾Ñ¡ÖĞÏà»úÊµÊ±²É¼¯µ½µÄÍ¼Ïñ"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("Checkable åœ¨ä¸Šä¾§æ˜¾ç¤ºé€‰ä¸­ç›¸æœºå®æ—¶é‡‡é›†åˆ°çš„å›¾åƒ"));
 	}
 	else
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("Í£Ö¹µ÷ÊÔ"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("åœæ­¢è°ƒè¯•"));
 	}
 }
 void ProgramSet::on_pB_StartGrab_toggled(bool checked)
 {
 	if (checked)
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("²É¼¯²âÊÔ£ºµ±×ªÄÒÑ¡ÖĞÊ±£¬Ïà»ú²É¼¯ÆµÂÊ¸ù¾İÉèÖÃµÄÖ¡ÂÊ½øĞĞ²É¼¯¡£µ±ÏÂÁÏÑ¡ÖĞÊ±£¬²É¼¯³ÌĞòºÍ×Ô¶¯³ÌĞòÒ»Ñù¡£µ±´æÍ¼Ñ¡ÖĞÓë·ñ£¬ÔÚ´æÍ¼Ä¿Â¼testsaveÄ¿Â¼»á´æ»ò²»´æÍ¼¡£"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("é‡‡é›†æµ‹è¯•ï¼šå½“è½¬å›Šé€‰ä¸­æ—¶ï¼Œç›¸æœºé‡‡é›†é¢‘ç‡æ ¹æ®è®¾ç½®çš„å¸§ç‡è¿›è¡Œé‡‡é›†ã€‚å½“ä¸‹æ–™é€‰ä¸­æ—¶ï¼Œé‡‡é›†ç¨‹åºå’Œè‡ªåŠ¨ç¨‹åºä¸€æ ·ã€‚å½“å­˜å›¾é€‰ä¸­ä¸å¦ï¼Œåœ¨å­˜å›¾ç›®å½•testsaveç›®å½•ä¼šå­˜æˆ–ä¸å­˜å›¾ã€‚"));
 	}
 	else
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("Í£Ö¹²É¼¯²âÊÔ"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("åœæ­¢é‡‡é›†æµ‹è¯•"));
 	}
 }
 void ProgramSet::on_pB_Keyboard_clicked()
@@ -257,339 +309,339 @@ void ProgramSet::on_pB_Exit_clicked()
 {
 	animation1->start();
 	animation2->start();
-	if (QMessageBox::Yes == showMsgBox("ÍË³öÌáÊ¾", "ÊÇ·ñÈ·ÈÏÍË³ö²ÎÊıÉèÖÃ½çÃæ£¿", "È·ÈÏ", "È¡Ïû"))
+	if (QMessageBox::Yes == showMsgBox("é€€å‡ºæç¤º", "æ˜¯å¦ç¡®è®¤é€€å‡ºå‚æ•°è®¾ç½®ç•Œé¢ï¼Ÿ", "ç¡®è®¤", "å–æ¶ˆ"))
 	{
 		close();
 	}
 }
 #pragma endregion
 
-#pragma region PLC¿ØÖÆ
+#pragma region PLCæ§åˆ¶
 void ProgramSet::on_pb_cmdJog_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("Éè±¸µã¶¯ÔËĞĞ£¬Ç°ÃæµÄlineeditÏÔÊ¾µ±Ç°Éè±¸Ëù´¦µÄÏàÎ»£º0-360¡ã£¬ÉÏÃæµÄÏÔÊ¾µ±Ç°ËùÓĞÊäÈëµãµÄ×´Ì¬£¬ĞèÒªÌùÍ¼"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾å¤‡ç‚¹åŠ¨è¿è¡Œï¼Œå‰é¢çš„lineeditæ˜¾ç¤ºå½“å‰è®¾å¤‡æ‰€å¤„çš„ç›¸ä½ï¼š0-360Â°ï¼Œä¸Šé¢çš„æ˜¾ç¤ºå½“å‰æ‰€æœ‰è¾“å…¥ç‚¹çš„çŠ¶æ€ï¼Œéœ€è¦è´´å›¾"));
 }
 void ProgramSet::on_pb_cmdTestFlash0_toggled(bool checked)
 {
 	if (checked)
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable ¹âÔ´1ÁÁ"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable å…‰æº1äº®"));
 	}
 	else
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable ¹âÔ´1Ãğ"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable å…‰æº1ç­"));
 	}
 }
 void ProgramSet::on_pb_cmdTestFlash1_toggled(bool checked)
 {
 	if (checked)
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable ¹âÔ´2ÁÁ"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable å…‰æº2äº®"));
 	}
 	else
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable ¹âÔ´2Ãğ"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable å…‰æº2ç­"));
 	}
 }
 void ProgramSet::on_pb_cmdTestFlash2_toggled(bool checked)
 {
 	if (checked)
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable ¹âÔ´3ÁÁ"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable å…‰æº3äº®"));
 	}
 	else
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable ¹âÔ´3Ãğ"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable å…‰æº3ç­"));
 	}
 }
 void ProgramSet::on_pb_cmdTestPhoto_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("´¥·¢ÅÄÕÕ"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è§¦å‘æ‹ç…§"));
 }
 void ProgramSet::on_pb_cmdTestFlashPhoto_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("´¥·¢ÉÁ¹â+ÅÄÕÕ"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è§¦å‘é—ªå…‰+æ‹ç…§"));
 }
 void ProgramSet::on_pb_cmdTestCapPhoto_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("´¥·¢½ºÄÒÅÄÕÕ£¬¹ö×ÓĞı×ªÖĞ½øĞĞ¶à´ÎÅÄÕÕ£¬ÅÄÕÕ´ÎÊıÓëÉèÖÃÓĞ¹Ø"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è§¦å‘èƒ¶å›Šæ‹ç…§ï¼Œæ»šå­æ—‹è½¬ä¸­è¿›è¡Œå¤šæ¬¡æ‹ç…§ï¼Œæ‹ç…§æ¬¡æ•°ä¸è®¾ç½®æœ‰å…³"));
 }
 void ProgramSet::on_pb_cmdTestValveUp_toggled(bool checked)
 {
 	if (checked)
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable Éı½µÆø¸×Ì§Æğ"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable å‡é™æ°”ç¼¸æŠ¬èµ·"));
 	}
 	else
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable Éı½µÆø¸×ÂäÏÂ"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable å‡é™æ°”ç¼¸è½ä¸‹"));
 	}
 }
 void ProgramSet::on_pb_cmdTestValveClip_toggled(bool checked)
 {
 	if (checked)
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable ÉìËõÆø¸×Éì³ö"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable ä¼¸ç¼©æ°”ç¼¸ä¼¸å‡º"));
 	}
 	else
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable ÉìËõÆø¸×Ëõ»Ø"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable ä¼¸ç¼©æ°”ç¼¸ç¼©å›"));
 	}
 }
 void ProgramSet::on_pb_cmdTestValveDrop_toggled(bool checked)
 {
 	if (checked)
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable ÂäÄÒÆø¸×ÂäÏÂ"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable è½å›Šæ°”ç¼¸è½ä¸‹"));
 	}
 	else
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable ÂäÄÒÆø¸×Ì§Æğ"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable è½å›Šæ°”ç¼¸æŠ¬èµ·"));
 	}
 }
 void ProgramSet::on_pb_cmdTestLampRed_toggled(bool checked)
 {
 	if (checked)
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable ºìµÆÁÁ"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable çº¢ç¯äº®"));
 	}
 	else
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable ºìµÆÃğ"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable çº¢ç¯ç­"));
 	}
 }
 void ProgramSet::on_pb_cmdTestLampYellow_toggled(bool checked)
 {
 	if (checked)
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable »ÆµÆÁÁ"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable é»„ç¯äº®"));
 	}
 	else
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable »ÆµÆÃğ"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable é»„ç¯ç­"));
 	}
 }
 void ProgramSet::on_pb_cmdTestLampGreen_toggled(bool checked)
 {
 	if (checked)
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable ÂÌµÆÁÁ"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable ç»¿ç¯äº®"));
 	}
 	else
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable ÂÌµÆÃğ"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable ç»¿ç¯ç­"));
 	}
 }
 void ProgramSet::on_pb_cmdTestBuzzer_toggled(bool checked)
 {
 	if (checked)
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable ·äÃùÆ÷Ïì"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable èœ‚é¸£å™¨å“"));
 	}
 	else
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable ·äÃùÆ÷Í£"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable èœ‚é¸£å™¨åœ"));
 	}
 }
 void ProgramSet::on_pb_cmdTestInverter_toggled(bool checked)
 {
 	if (checked)
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable Â©¶·µç»ú¶¯×÷"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable æ¼æ–—ç”µæœºåŠ¨ä½œ"));
 	}
 	else
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable Â©¶·µç»úÍ£Ö¹"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable æ¼æ–—ç”µæœºåœæ­¢"));
 	}
 }
 void ProgramSet::on_pb_cmdRotateCtl_toggled(bool checked)
 {
 	if (checked)
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable ×ªÄÒµç»ú¶¯×÷"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable è½¬å›Šç”µæœºåŠ¨ä½œ"));
 	}
 	else
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable ×ªÄÒµç»úÍ£Ö¹"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable è½¬å›Šç”µæœºåœæ­¢"));
 	}
 }
 void ProgramSet::on_pb_cmdTestKick30_toggled(bool checked)
 {
 	if (checked)
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable È«²¿¶¯×÷£¬¶¯¾²Ì«´ó£¬¸Ã°´Å¥¹¦ÄÜ½¨ÒéÈ¡Ïû"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable å…¨éƒ¨åŠ¨ä½œï¼ŒåŠ¨é™å¤ªå¤§ï¼Œè¯¥æŒ‰é’®åŠŸèƒ½å»ºè®®å–æ¶ˆ"));
 	}
 	else
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("checkable È«²¿¶¯×÷£¬¶¯¾²Ì«´ó£¬¸Ã°´Å¥¹¦ÄÜ½¨ÒéÈ¡Ïû"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("checkable å…¨éƒ¨åŠ¨ä½œï¼ŒåŠ¨é™å¤ªå¤§ï¼Œè¯¥æŒ‰é’®åŠŸèƒ½å»ºè®®å–æ¶ˆ"));
 	}
 }
 void ProgramSet::on_cB_debugMode_toggled(bool checked)
 {
 	if (checked)
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("Æø¸×À´»Ø¶¯×÷¡£¸¨Öú¹¦ÄÜÓÃ´¦²»´ó£¬½¨ÒéÈ¡Ïû"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("æ°”ç¼¸æ¥å›åŠ¨ä½œã€‚è¾…åŠ©åŠŸèƒ½ç”¨å¤„ä¸å¤§ï¼Œå»ºè®®å–æ¶ˆ"));
 	}
 	else
 	{
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("Æø¸×À´»Ø¶¯×÷¡£¸¨Öú¹¦ÄÜÓÃ´¦²»´ó£¬½¨ÒéÈ¡Ïû"));
+		QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("æ°”ç¼¸æ¥å›åŠ¨ä½œã€‚è¾…åŠ©åŠŸèƒ½ç”¨å¤„ä¸å¤§ï¼Œå»ºè®®å–æ¶ˆ"));
 	}
 }
 void ProgramSet::on_pb_cmdParaSave_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("±£´æµ±Ç°ÏÔÊ¾Êı¾İÖÁPLCµÄµôµç±£´æÇøÖĞ"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("ä¿å­˜å½“å‰æ˜¾ç¤ºæ•°æ®è‡³PLCçš„æ‰ç”µä¿å­˜åŒºä¸­"));
 }
 
 void ProgramSet::on_lE_ClipPhase1_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÉèÖÃ¼Ğ½ôÆø¸×¶¯×÷ÏàÎ» 0-360"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾ç½®å¤¹ç´§æ°”ç¼¸åŠ¨ä½œç›¸ä½ 0-360"));
 }
 void ProgramSet::on_lE_ClipPhase2_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÉèÖÃ¼Ğ½ôÆø¸×ÊÍ·ÅÏàÎ» 0-360"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾ç½®å¤¹ç´§æ°”ç¼¸é‡Šæ”¾ç›¸ä½ 0-360"));
 }
 void ProgramSet::on_lE_tClip1_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÉèÖÃ¼Ğ½ôÆø¸×¶¯×÷ÑÓ³Ù£¬µ¥Î»ms"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾ç½®å¤¹ç´§æ°”ç¼¸åŠ¨ä½œå»¶è¿Ÿï¼Œå•ä½ms"));
 }
 void ProgramSet::on_lE_tClip2_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÉèÖÃ¼Ğ½ôÆø¸×ÊÍ·ÅÑÓ³Ù£¬µ¥Î»ms"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾ç½®å¤¹ç´§æ°”ç¼¸é‡Šæ”¾å»¶è¿Ÿï¼Œå•ä½ms"));
 }
 void ProgramSet::on_lE_UpPhase1_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÉèÖÃÌ§ÉıÆø¸×¶¯×÷ÏàÎ» 0-360"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾ç½®æŠ¬å‡æ°”ç¼¸åŠ¨ä½œç›¸ä½ 0-360"));
 }
 void ProgramSet::on_lE_UpPhase2_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÉèÖÃÌ§ÉıÆø¸×ÊÍ·ÅÏàÎ» 0-360"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾ç½®æŠ¬å‡æ°”ç¼¸é‡Šæ”¾ç›¸ä½ 0-360"));
 }
 void ProgramSet::on_lE_tUp1_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÉèÖÃÌ§ÉıÆø¸×¶¯×÷ÑÓ³Ù£¬µ¥Î»ms"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾ç½®æŠ¬å‡æ°”ç¼¸åŠ¨ä½œå»¶è¿Ÿï¼Œå•ä½ms"));
 }
 void ProgramSet::on_lE_tUp2_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÉèÖÃÌ§ÉıÆø¸×ÊÍ·ÅÑÓ³Ù£¬µ¥Î»ms"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾ç½®æŠ¬å‡æ°”ç¼¸é‡Šæ”¾å»¶è¿Ÿï¼Œå•ä½ms"));
 }
 void ProgramSet::on_lE_DropPhase1_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÉèÖÃÂäÁÏÆø¸×¶¯×÷ÏàÎ» 0-360"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾ç½®è½æ–™æ°”ç¼¸åŠ¨ä½œç›¸ä½ 0-360"));
 }
 void ProgramSet::on_lE_DropPhase2_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÉèÖÃÂäÁÏÆø¸×ÊÍ·ÅÏàÎ» 0-360"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾ç½®è½æ–™æ°”ç¼¸é‡Šæ”¾ç›¸ä½ 0-360"));
 }
 void ProgramSet::on_lE_tDrop1_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÉèÖÃÂäÁÏÆø¸×¶¯×÷ÑÓ³Ù£¬µ¥Î»ms"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾ç½®è½æ–™æ°”ç¼¸åŠ¨ä½œå»¶è¿Ÿï¼Œå•ä½ms"));
 }
 void ProgramSet::on_lE_tDrop2_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÉèÖÃÂäÁÏÆø¸×ÊÍ·ÅÑÓ³Ù£¬µ¥Î»ms"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾ç½®è½æ–™æ°”ç¼¸é‡Šæ”¾å»¶è¿Ÿï¼Œå•ä½ms"));
 }
 void ProgramSet::on_lE_FlashTime_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÉèÖÃÉÁ¹â³ÖĞøµÄÊ±¼ä£¬µ¥Î»ms"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾ç½®é—ªå…‰æŒç»­çš„æ—¶é—´ï¼Œå•ä½ms"));
 }
 void ProgramSet::on_lE_PhotoTime_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÉèÖÃÅÄÕÕ´¥·¢µÄ¸ßµçÆ½³ÖĞøÊ±¼ä£¬µ¥Î»ms"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾ç½®æ‹ç…§è§¦å‘çš„é«˜ç”µå¹³æŒç»­æ—¶é—´ï¼Œå•ä½ms"));
 }
 void ProgramSet::on_lE_PhotoDelay_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÉèÖÃÉÁ¹â´ò¿ª¶à¾ÃÒÔºó¿ªÊ¼ÅÄÕÕ£¬µ¥Î»ms"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾ç½®é—ªå…‰æ‰“å¼€å¤šä¹…ä»¥åå¼€å§‹æ‹ç…§ï¼Œå•ä½ms"));
 }
 void ProgramSet::on_lE_PhotoPhase_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÉèÖÃÉÁ¹âÅÄÕÕµÄÏàÎ»Ê±»ú£¬0-360"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾ç½®é—ªå…‰æ‹ç…§çš„ç›¸ä½æ—¶æœºï¼Œ0-360"));
 }
 void ProgramSet::on_lE_PhotoTimes_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("Ã¿´Î¹öÂÖ×ªÒ»È¦Ö´ĞĞ¼¸´ÎÅÄÕÕ"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("æ¯æ¬¡æ»šè½®è½¬ä¸€åœˆæ‰§è¡Œå‡ æ¬¡æ‹ç…§"));
 }
 void ProgramSet::on_lE_PhotoInterval_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("Ã¿´Î¹öÂÖ×ª¶àÉÙ¶ÈÖ´ĞĞÒ»´ÎÅÄÕÕ£¬×¢ÒâÒ»°ã²»ÊÇ120¡ã£¬ÒòÎª½ºÄÒµÄ½ÇËÙ¶È»á´óºÜ¶à"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("æ¯æ¬¡æ»šè½®è½¬å¤šå°‘åº¦æ‰§è¡Œä¸€æ¬¡æ‹ç…§ï¼Œæ³¨æ„ä¸€èˆ¬ä¸æ˜¯120Â°ï¼Œå› ä¸ºèƒ¶å›Šçš„è§’é€Ÿåº¦ä¼šå¤§å¾ˆå¤š"));
 }
 void ProgramSet::on_lE_RejectTime_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÌŞ·ÏÆø¸×¶¯×÷ºó£¬¸ô¶à¾Ã¸´Î»£¬µ¥Î»ms"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("å‰”åºŸæ°”ç¼¸åŠ¨ä½œåï¼Œéš”å¤šä¹…å¤ä½ï¼Œå•ä½ms"));
 }
 void ProgramSet::on_lE_RejectPhase_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÌŞ·Ï¶¯×÷ÏàÎ»£¬0-360"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("å‰”åºŸåŠ¨ä½œç›¸ä½ï¼Œ0-360"));
 }
 void ProgramSet::on_lE_DisableForceReject_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("0¿ªÆôÇ¿ÖÆÌŞ·Ï£¬1¹Ø±ÕÇ¿ÖÆÌŞ·Ï"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("0å¼€å¯å¼ºåˆ¶å‰”åºŸï¼Œ1å…³é—­å¼ºåˆ¶å‰”åºŸ"));
 }
 void ProgramSet::on_lE_CapCheckAlarmTime_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÌŞ·Ï½ºÄÒÏÂÂäµÄÊ±¼ä¹ıÈ¥ºóÎ´¼ì²âµ½ĞÅºÅ£¬Ôò±¨¾¯£¬±¨¾¯³ÖĞøµÄÊ±¼ä¡£µ¥Î»ms"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("å‰”åºŸèƒ¶å›Šä¸‹è½çš„æ—¶é—´è¿‡å»åæœªæ£€æµ‹åˆ°ä¿¡å·ï¼Œåˆ™æŠ¥è­¦ï¼ŒæŠ¥è­¦æŒç»­çš„æ—¶é—´ã€‚å•ä½ms"));
 }
 void ProgramSet::on_lE_RejectFallingTime_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÌŞ·Ï½ºÄÒÏÂÂäµÄÊ±¼äms£¬ÔİÊ±Ã»ÓÃ"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("å‰”åºŸèƒ¶å›Šä¸‹è½çš„æ—¶é—´msï¼Œæš‚æ—¶æ²¡ç”¨"));
 }
 void ProgramSet::on_lE_FeedAxisHomeOffset_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ËÍ½øÑ°²ÎÆ«ÒÆ£¬Éè±¸Ñ°²ÎÒÔºóÒª¼ÌĞøÖ´ĞĞµÄÆ«ÒÆÁ¿£¬µ¥Î»0.01¡ã"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("é€è¿›å¯»å‚åç§»ï¼Œè®¾å¤‡å¯»å‚ä»¥åè¦ç»§ç»­æ‰§è¡Œçš„åç§»é‡ï¼Œå•ä½0.01Â°"));
 }
 void ProgramSet::on_lE_FeedLength_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ËÍ½ø×î´ó³¤¶È£¬µ¥Î»0.01mm"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("é€è¿›æœ€å¤§é•¿åº¦ï¼Œå•ä½0.01mm"));
 }
 void ProgramSet::on_lE_RotateSpeed_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("Ğı×ªÖáµÄ×î´óËÙ¶È£¬RPM"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("æ—‹è½¬è½´çš„æœ€å¤§é€Ÿåº¦ï¼ŒRPM"));
 }
 void ProgramSet::on_pB_changeIPPort_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÉèÖÃPLC IPµØÖ·ºÍ¶Ë¿ÚºÅ£¬Ò»°ãÇé¿öÏÂµÚÒ»´ÎÉèÖÃÒ»´ÎÖ®ºó¾Í²»ÓÃÔÙ±ä»¯ÁË£¬ÇÒÄ¬ÈÏIP£º10.86.50.210£¬Ä¬ÈÏport£º5000"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾ç½®PLC IPåœ°å€å’Œç«¯å£å·ï¼Œä¸€èˆ¬æƒ…å†µä¸‹ç¬¬ä¸€æ¬¡è®¾ç½®ä¸€æ¬¡ä¹‹åå°±ä¸ç”¨å†å˜åŒ–äº†ï¼Œä¸”é»˜è®¤IPï¼š10.86.50.210ï¼Œé»˜è®¤portï¼š5000"));
 }
 void ProgramSet::on_pB_enPhoto_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("Ê¹ÄÜÅÄÕÕ¹¦ÄÜ"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("ä½¿èƒ½æ‹ç…§åŠŸèƒ½"));
 }
 void ProgramSet::on_pB_enReject_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("Ê¹ÄÜÌŞ·Ï¹¦ÄÜ"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("ä½¿èƒ½å‰”åºŸåŠŸèƒ½"));
 }
 void ProgramSet::on_pB_enFeed_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("Ê¹ÄÜÁÏ¶·¹¦ÄÜ"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("ä½¿èƒ½æ–™æ–—åŠŸèƒ½"));
 }
 void ProgramSet::on_pB_enRotate_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("Ê¹ÄÜ×ªÄÒ¹¦ÄÜ"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("ä½¿èƒ½è½¬å›ŠåŠŸèƒ½"));
 }
 void ProgramSet::on_lE_RunSpeed_returnPressed()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÉèÖÃÏµÍ³ÔËĞĞËÙ¶È£¬0-120µ¥Î»£º´ÎÃ¿·ÖÖÓ"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾ç½®ç³»ç»Ÿè¿è¡Œé€Ÿåº¦ï¼Œ0-120å•ä½ï¼šæ¬¡æ¯åˆ†é’Ÿ"));
 }
 void ProgramSet::on_pB_ContinueKickOK_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("ÉèÖÃÁ¬ÌŞ±¨¾¯¿ª¹Ø¼°ÊıÁ¿¡¢Á¬ÌŞÍ£»ú¿ª¹Ø¼°ÊıÁ¿£¬Í£»úÊıÒª´óÓÚ±¨¾¯Êı¡£Á¬ÌŞÊÇÓÉÓÚÍâ½çÌõ¼ş±ä»¯µ¼ÖÂµÄÁ¬ĞøÌŞ·Ï¡£"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("è®¾ç½®è¿å‰”æŠ¥è­¦å¼€å…³åŠæ•°é‡ã€è¿å‰”åœæœºå¼€å…³åŠæ•°é‡ï¼Œåœæœºæ•°è¦å¤§äºæŠ¥è­¦æ•°ã€‚è¿å‰”æ˜¯ç”±äºå¤–ç•Œæ¡ä»¶å˜åŒ–å¯¼è‡´çš„è¿ç»­å‰”åºŸã€‚"));
 }
 void ProgramSet::on_pB_ContinueKickCancel_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("»Ö¸´Á¬ÌŞ±¨¾¯¿ª¹Ø¼°ÊıÁ¿¡¢Á¬ÌŞÍ£»ú¿ª¹Ø¼°ÊıÁ¿µÄÄ¬ÈÏÖµ¡£"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("æ¢å¤è¿å‰”æŠ¥è­¦å¼€å…³åŠæ•°é‡ã€è¿å‰”åœæœºå¼€å…³åŠæ•°é‡çš„é»˜è®¤å€¼ã€‚"));
 }
 #pragma endregion
 
-#pragma region ÓÃ»§¹ÜÀí
+#pragma region ç”¨æˆ·ç®¡ç†
 void ProgramSet::on_pB_AddUser_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("Ìí¼Ó×Ô¶¨ÒåÓÃ»§"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("æ·»åŠ è‡ªå®šä¹‰ç”¨æˆ·"));
 }
 void ProgramSet::on_pB_Users_Delete_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("É¾³ı×Ô¶¨ÒåÓÃ»§"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("åˆ é™¤è‡ªå®šä¹‰ç”¨æˆ·"));
 }
 
 void ProgramSet::on_cB_Users_activated(int index)
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("¹¦ÄÜ"), QString::fromLocal8Bit("¸ù¾İ¸ÃcomboboxÔÚÈ¨ÏŞÃèÊöÖĞËµÃ÷"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("åŠŸèƒ½"), QString::fromLocal8Bit("æ ¹æ®è¯¥comboboxåœ¨æƒé™æè¿°ä¸­è¯´æ˜"));
 }
 #pragma endregion

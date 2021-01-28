@@ -68,25 +68,37 @@ void LoginDialog::initUI()
 		ui.cB_style->setCurrentIndex(3);
 	}
 
+	ui.cB_turnOn->setFixedSize(163, 29);
+	ui.cB_turnOn->setStyleSheet("QPushButton{border:0px;}");
+	ui.cB_turnOn->setIconSize(QSize(163, 29));
 	QString key_turnOn = configIniRead.value("UISetting/AutoRun", "").toString();
 	if (key_turnOn == "1")
 	{
 		ui.cB_turnOn->setChecked(true);
+		ui.cB_turnOn->setIcon(QPixmap(AppPath + "/ico/startup1.png"));
 	}
 	else
 	{
 		ui.cB_turnOn->setChecked(false);
+		ui.cB_turnOn->setIcon(QPixmap(AppPath + "/ico/startup2.png"));
 	}
 
+	ui.cB_turnOff->setFixedSize(163, 29);
+	ui.cB_turnOff->setStyleSheet("QPushButton{border:0px;}");
+	ui.cB_turnOff->setIconSize(QSize(163, 29));
 	key_turnOff = configIniRead.value("UISetting/AutoClose", "").toString();
 	if (key_turnOff == "1")
 	{
 		ui.cB_turnOff->setChecked(true);
+		ui.cB_turnOff->setIcon(QPixmap(AppPath + "/ico/shutdown1.png"));
 	}
 	else
 	{
 		ui.cB_turnOff->setChecked(false);
+		ui.cB_turnOff->setIcon(QPixmap(AppPath + "/ico/shutdown2.png"));
 	}
+
+
 }
 int LoginDialog::LoginDlgCloseMode()
 {
@@ -245,11 +257,13 @@ void LoginDialog::on_cB_turnOn_toggled(bool checked)
 	{
 		configIniRead.setValue("UISetting/AutoRun", 1);//写当前模板
 		copyDirectoryFiles(AppPath + "/startup", m_autoStartPath, true);
+		ui.cB_turnOn->setIcon(QPixmap(AppPath + "/ico/startup1.png"));
 	}
 	else
 	{
 		configIniRead.setValue("UISetting/AutoRun", 0);//写当前模板
 		deleteDir(m_autoStartPath);
+		ui.cB_turnOn->setIcon(QPixmap(AppPath + "/ico/startup2.png"));
 	}
 }
 void LoginDialog::on_cB_turnOff_toggled(bool checked)
@@ -259,11 +273,13 @@ void LoginDialog::on_cB_turnOff_toggled(bool checked)
 	{
 		key_turnOff = "1";
 		configIniRead.setValue("UISetting/AutoClose", 1);//写当前模板
+		ui.cB_turnOff->setIcon(QPixmap(AppPath + "/ico/shutdown1.png"));
 	}
 	else
 	{
 		key_turnOff = "0";
 		configIniRead.setValue("UISetting/AutoClose", 0);//写当前模板
+		ui.cB_turnOff->setIcon(QPixmap(AppPath + "/ico/shutdown2.png"));
 	}
 }
 

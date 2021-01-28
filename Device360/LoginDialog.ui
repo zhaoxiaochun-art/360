@@ -253,8 +253,13 @@
        </property>
        <property name="font">
         <font>
-         <family>Arial</family>
-         <pointsize>30</pointsize>
+         <family>Imprint MT Shadow</family>
+         <pointsize>60</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+         <underline>false</underline>
+         <strikeout>false</strikeout>
         </font>
        </property>
        <property name="text">
@@ -284,8 +289,13 @@
        </property>
        <property name="font">
         <font>
-         <family>Arial</family>
-         <pointsize>30</pointsize>
+         <family>Imprint MT Shadow</family>
+         <pointsize>60</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+         <underline>false</underline>
+         <strikeout>false</strikeout>
         </font>
        </property>
        <property name="text">
@@ -315,8 +325,13 @@
        </property>
        <property name="font">
         <font>
-         <family>Arial</family>
-         <pointsize>30</pointsize>
+         <family>Imprint MT Shadow</family>
+         <pointsize>60</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+         <underline>false</underline>
+         <strikeout>false</strikeout>
         </font>
        </property>
        <property name="text">
@@ -346,8 +361,13 @@
        </property>
        <property name="font">
         <font>
-         <family>Arial</family>
-         <pointsize>30</pointsize>
+         <family>Imprint MT Shadow</family>
+         <pointsize>60</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+         <underline>false</underline>
+         <strikeout>false</strikeout>
         </font>
        </property>
        <property name="text">
@@ -377,8 +397,13 @@
        </property>
        <property name="font">
         <font>
-         <family>Arial</family>
-         <pointsize>30</pointsize>
+         <family>Imprint MT Shadow</family>
+         <pointsize>60</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+         <underline>false</underline>
+         <strikeout>false</strikeout>
         </font>
        </property>
        <property name="text">
@@ -408,8 +433,13 @@
        </property>
        <property name="font">
         <font>
-         <family>Arial</family>
-         <pointsize>30</pointsize>
+         <family>Imprint MT Shadow</family>
+         <pointsize>60</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+         <underline>false</underline>
+         <strikeout>false</strikeout>
         </font>
        </property>
        <property name="text">
@@ -439,8 +469,13 @@
        </property>
        <property name="font">
         <font>
-         <family>Arial</family>
-         <pointsize>30</pointsize>
+         <family>Imprint MT Shadow</family>
+         <pointsize>60</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+         <underline>false</underline>
+         <strikeout>false</strikeout>
         </font>
        </property>
        <property name="text">
@@ -470,8 +505,13 @@
        </property>
        <property name="font">
         <font>
-         <family>Arial</family>
-         <pointsize>30</pointsize>
+         <family>Imprint MT Shadow</family>
+         <pointsize>60</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+         <underline>false</underline>
+         <strikeout>false</strikeout>
         </font>
        </property>
        <property name="text">
@@ -501,8 +541,13 @@
        </property>
        <property name="font">
         <font>
-         <family>Arial</family>
-         <pointsize>30</pointsize>
+         <family>Imprint MT Shadow</family>
+         <pointsize>60</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+         <underline>false</underline>
+         <strikeout>false</strikeout>
         </font>
        </property>
        <property name="text">
@@ -560,8 +605,13 @@
        </property>
        <property name="font">
         <font>
-         <family>Arial</family>
-         <pointsize>30</pointsize>
+         <family>Imprint MT Shadow</family>
+         <pointsize>60</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+         <underline>false</underline>
+         <strikeout>false</strikeout>
         </font>
        </property>
        <property name="text">
@@ -710,7 +760,7 @@
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>40</width>
+         <width>20</width>
          <height>1</height>
         </size>
        </property>
@@ -719,7 +769,7 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QCheckBox" name="cB_turnOn">
+        <widget class="QPushButton" name="cB_turnOn">
          <property name="font">
           <font>
            <family>幼圆</family>
@@ -727,12 +777,15 @@
           </font>
          </property>
          <property name="text">
-          <string>开机自启动</string>
+          <string/>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="cB_turnOff">
+        <widget class="QPushButton" name="cB_turnOff">
          <property name="font">
           <font>
            <family>幼圆</family>
@@ -740,11 +793,27 @@
           </font>
          </property>
          <property name="text">
-          <string>退出时关机</string>
+          <string/>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
       </layout>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>
