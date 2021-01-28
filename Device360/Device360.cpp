@@ -41,7 +41,7 @@ Device360::Device360(QWidget *parent)
 	ui.lb_style->setStyleSheet(style1);
 	ui.lb_style->setAttribute(Qt::WA_TransparentForMouseEvents);
 
-	ui.lb_Picture->setPixmap(QPixmap("./ico/dr-pharm.png"));
+	ui.lb_Picture->setPixmap(QPixmap(AppPath + "/ico/dr-pharmmatch.png"));
 	ui.lb_Picture->setScaledContents(true);
 
 	ui.pB_Keyboard->setFocusPolicy(Qt::NoFocus);

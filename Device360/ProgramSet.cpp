@@ -1,5 +1,7 @@
 #include "ProgramSet.h"
 #include <Windows.h>
+#include <QSettings>
+
 ProgramSet::ProgramSet(QWidget *parent)
 	: QDialog(parent)
 {
@@ -43,7 +45,14 @@ ProgramSet::ProgramSet(QWidget *parent)
 	ui.pB_Exit->setIcon(QPixmap(AppPath + "/ico/exitgreen.png"));
 	ui.pB_Exit->setIconSize(QSize(60, 54));
 
-	initMovie();
+	initMovie(); 
+		
+	QSettings readPara(AppPath + "\\ModelFile\\ProgramSet.ini", QSettings::IniFormat);
+	QString text = readPara.value("UISetting/Style", "").toString();
+	QString style2 = "background-image:url(./ico/" + text + "2.png);";
+	ui.lb_style2->raise();
+	ui.lb_style2->setStyleSheet(style2);
+	ui.lb_style2->setAttribute(Qt::WA_TransparentForMouseEvents);
 }
 ProgramSet::~ProgramSet()
 {

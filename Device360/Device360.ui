@@ -577,9 +577,9 @@ background-color: rgb(255, 255, 0);</string>
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>735</y>
+      <y>730</y>
       <width>768</width>
-      <height>631</height>
+      <height>636</height>
      </rect>
     </property>
     <property name="font">

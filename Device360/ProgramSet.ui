@@ -5879,10 +5879,10 @@ font: 18pt &quot;幼圆&quot;;</string>
   <widget class="QLabel" name="lb_style2">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>0</x>
      <y>685</y>
-     <width>746</width>
-     <height>673</height>
+     <width>768</width>
+     <height>681</height>
     </rect>
    </property>
    <property name="text">
