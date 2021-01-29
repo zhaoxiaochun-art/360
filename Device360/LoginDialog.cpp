@@ -78,7 +78,7 @@ void LoginDialog::initMovie()
 		animation1->setEndValue(QRect((768 - 423) / 2, (1366 - 760) / 2, width(), height()));
 
 		//设置弹跳曲线
-		animation1->setEasingCurve(QEasingCurve::OutElastic);
+		animation1->setEasingCurve(QEasingCurve::OutBack);
 	}
 	{
 		animation2 = new QPropertyAnimation(this, "geometry");
@@ -466,7 +466,7 @@ void LoginDialog::on_lE_Password_textChanged(const QString &arg1)
 	else
 	{
 		ui.pB_Login->setEnabled(true);
-		ui.pB_Login->setStyleSheet("background-color: rgb(0, 170, 127);font-size:32pt");
+		ui.pB_Login->setStyleSheet("color: rgb(0, 170, 127);font-size:32pt");
 	}
 }
 void LoginDialog::closeThis()
