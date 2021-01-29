@@ -19,12 +19,12 @@ LoginDialog::LoginDialog(QWidget *parent)
 	AppPath.replace("/", "\\");
 	setMaskFun(false);
 	initUI();
-	
+
 	connect(ui.numButtonGroup, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked),
 		[=](QAbstractButton* button) {ui.lE_Password->setText(ui.lE_Password->text() += button->text()); });
 	initMovie();
 	animation1->start();
-	cowTimer->start(2000);
+	cowTimer->start(1000);
 }
 LoginDialog::~LoginDialog()
 {
@@ -37,7 +37,7 @@ void LoginDialog::initMovie()
 		animation1->setDuration(1000);
 
 		//起始位置
-		animation1->setStartValue(QRect((768-423)/2, (1366-760)/2+500, width(), height()));
+		animation1->setStartValue(QRect((768 - 423) / 2, (1366 - 760) / 2 + 500, width(), height()));
 		//结束位置
 		animation1->setEndValue(QRect((768 - 423) / 2, (1366 - 760) / 2, width(), height()));
 
@@ -52,7 +52,7 @@ void LoginDialog::initMovie()
 		//起始位置
 		animation2->setStartValue(QRect((768 - 423) / 2, (1366 - 760) / 2, width(), height()));
 		//结束位置
-		animation2->setEndValue(QRect((768 - 423) / 2, (1366 - 760) / 2 +500, width(), height()));
+		animation2->setEndValue(QRect((768 - 423) / 2, (1366 - 760) / 2 + 500, width(), height()));
 
 		//设置弹跳曲线
 		animation2->setEasingCurve(QEasingCurve::OutElastic);
@@ -133,18 +133,85 @@ void LoginDialog::initUI()
 		ui.cB_turnOff->setIcon(QPixmap(AppPath + "/ico/shutdown2.png"));
 	}
 
-	lb_pic = new QLabel(this);
-	lb_pic->resize(this->size());
-	lb_pic->move(0, 0);
-	lb_pic->setPixmap(QPixmap("./ico/newyear.png"));
-	lb_pic->setScaledContents(true);
-	lb_pic->setAttribute(Qt::WA_TransparentForMouseEvents);
+	lb_pic15 = new QLabel(this);
+	lb_pic15->resize(this->size());
+	lb_pic15->move(0, 0);
+	lb_pic15->setPixmap(QPixmap(AppPath + "/ico/newyear15.png"));
+	lb_pic15->setScaledContents(true);
+	lb_pic15->setAttribute(Qt::WA_TransparentForMouseEvents);
+	lb_pic15->setVisible(false);
 
-	lb_pic2 = new QLabel(this);
-	lb_pic2->resize(this->size());
-	lb_pic2->move(0, 0);
-	lb_pic2->setPixmap(QPixmap("./ico/newyear0.png"));
-	lb_pic2->setScaledContents(true);
+	lb_pic20 = new QLabel(this);
+	lb_pic20->resize(this->size());
+	lb_pic20->move(0, 0);
+	lb_pic20->setPixmap(QPixmap(AppPath + "/ico/newyear20.png"));
+	lb_pic20->setScaledContents(true);
+	lb_pic20->setAttribute(Qt::WA_TransparentForMouseEvents);
+	lb_pic20->setVisible(false);
+
+	lb_pic30 = new QLabel(this);
+	lb_pic30->resize(this->size());
+	lb_pic30->move(0, 0);
+	lb_pic30->setPixmap(QPixmap(AppPath + "/ico/newyear30.png"));
+	lb_pic30->setScaledContents(true);
+	lb_pic30->setAttribute(Qt::WA_TransparentForMouseEvents);
+	lb_pic30->setVisible(false);
+
+	lb_pic40 = new QLabel(this);
+	lb_pic40->resize(this->size());
+	lb_pic40->move(0, 0);
+	lb_pic40->setPixmap(QPixmap(AppPath + "/ico/newyear40.png"));
+	lb_pic40->setScaledContents(true);
+	lb_pic40->setAttribute(Qt::WA_TransparentForMouseEvents);
+	lb_pic40->setVisible(false);
+
+	lb_pic50 = new QLabel(this);
+	lb_pic50->resize(this->size());
+	lb_pic50->move(0, 0);
+	lb_pic50->setPixmap(QPixmap(AppPath + "/ico/newyear50.png"));
+	lb_pic50->setScaledContents(true);
+	lb_pic50->setAttribute(Qt::WA_TransparentForMouseEvents);
+	lb_pic50->setVisible(false);
+
+	lb_pic60 = new QLabel(this);
+	lb_pic60->resize(this->size());
+	lb_pic60->move(0, 0);
+	lb_pic60->setPixmap(QPixmap(AppPath + "/ico/newyear60.png"));
+	lb_pic60->setScaledContents(true);
+	lb_pic60->setAttribute(Qt::WA_TransparentForMouseEvents);
+	lb_pic60->setVisible(false);
+
+	lb_pic70 = new QLabel(this);
+	lb_pic70->resize(this->size());
+	lb_pic70->move(0, 0);
+	lb_pic70->setPixmap(QPixmap(AppPath + "/ico/newyear70.png"));
+	lb_pic70->setScaledContents(true);
+	lb_pic70->setAttribute(Qt::WA_TransparentForMouseEvents);
+	lb_pic70->setVisible(false);
+
+	lb_pic80 = new QLabel(this);
+	lb_pic80->resize(this->size());
+	lb_pic80->move(0, 0);
+	lb_pic80->setPixmap(QPixmap(AppPath + "/ico/newyear80.png"));
+	lb_pic80->setScaledContents(true);
+	lb_pic80->setAttribute(Qt::WA_TransparentForMouseEvents);
+	lb_pic80->setVisible(false);
+
+	lb_pic90 = new QLabel(this);
+	lb_pic90->resize(this->size());
+	lb_pic90->move(0, 0);
+	lb_pic90->setPixmap(QPixmap(AppPath + "/ico/newyear90.png"));
+	lb_pic90->setScaledContents(true);
+	lb_pic90->setAttribute(Qt::WA_TransparentForMouseEvents);
+	lb_pic90->setVisible(false);
+
+	lb_pic100 = new QLabel(this);
+	lb_pic100->resize(this->size());
+	lb_pic100->move(0, 0);
+	lb_pic100->setPixmap(QPixmap(AppPath + "/ico/newyear100.png"));
+	lb_pic100->setScaledContents(true);
+	lb_pic100->setAttribute(Qt::WA_TransparentForMouseEvents);
+
 }
 int LoginDialog::LoginDlgCloseMode()
 {
@@ -259,7 +326,7 @@ void LoginDialog::on_pB_Exit_clicked()
 }
 void LoginDialog::on_pB_Login_clicked()
 {
-	if (ui.lE_Password->text()=="1111")
+	if (ui.lE_Password->text() == "1111")
 	{
 		if (key_turnOff == "1")
 		{
@@ -274,7 +341,7 @@ void LoginDialog::on_pB_Login_clicked()
 	}
 	else
 	{
-		showMsgBox("提示", "默认密码为：1111","我知道了", "");
+		showMsgBox("提示", "默认密码为：1111", "我知道了", "");
 	}
 }
 void LoginDialog::on_cB_style_activated(const QString &arg1)
@@ -371,6 +438,60 @@ void LoginDialog::closeThis()
 
 void LoginDialog::showCow()
 {
-	lb_pic2->setVisible(false);
 	cowTimer->stop();
+	int i = 100;
+	if (m_iValue == 0)
+	{
+		lb_pic100->setVisible(false);
+		lb_pic90->setVisible(true);
+		cowTimer->start(i);
+	}
+	else if (m_iValue == 1)
+	{
+		lb_pic90->setVisible(false);
+		lb_pic80->setVisible(true);
+		cowTimer->start(i);
+	}
+	else if (m_iValue == 2)
+	{
+		lb_pic80->setVisible(false);
+		lb_pic70->setVisible(true);
+		cowTimer->start(i);
+	}
+	else if (m_iValue == 3)
+	{
+		lb_pic70->setVisible(false);
+		lb_pic60->setVisible(true);
+		cowTimer->start(i);
+	}
+	else if (m_iValue == 4)
+	{
+		lb_pic60->setVisible(false);
+		lb_pic50->setVisible(true);
+		cowTimer->start(i);
+	}
+	else if (m_iValue == 5)
+	{
+		lb_pic50->setVisible(false);
+		lb_pic40->setVisible(true);
+		cowTimer->start(i);
+	}
+	else if (m_iValue == 6)
+	{
+		lb_pic40->setVisible(false);
+		lb_pic30->setVisible(true);
+		cowTimer->start(i);
+	}
+	else if (m_iValue == 7)
+	{
+		lb_pic30->setVisible(false);
+		lb_pic20->setVisible(true);
+		cowTimer->start(i);
+	}
+	else if (m_iValue == 8)
+	{
+		lb_pic20->setVisible(false);
+		lb_pic15->setVisible(true);
+	}
+	m_iValue++;
 }
