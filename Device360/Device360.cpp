@@ -8,6 +8,9 @@ Device360::Device360(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+
+	installEventFilter(this);
+
 	setWindowFlags(Qt::FramelessWindowHint);//无边框 
 
 	LoginDialog* dlg = new LoginDialog(this);
@@ -40,6 +43,49 @@ Device360::Device360(QWidget *parent)
 	m_ProgramDlg = new ProgramSet();
 	//m_ResultDlg = new ResultData(); 
 	//m_DailyLogDlg = new DailyLog();
+}
+void Device360::closeEvent(QCloseEvent *event)
+{
+	if (!m_bCloseSignal)
+	{
+		event->ignore();
+		return;
+	}
+}
+
+bool Device360::eventFilter(QObject* obj, QEvent* event)
+{
+	if (obj == this)
+	{
+		switch (event->type())
+		{
+		case QKeyEvent::KeyPress:
+		{
+			int key_type = static_cast<QKeyEvent*>(event)->key();
+			if (key_type == Qt::Key_Alt)
+				m_bAltKeyPressed = true;
+			break;
+		}
+		case QEvent::KeyRelease:
+		{
+			int key_type = static_cast<QKeyEvent*>(event)->key();
+			if (key_type == Qt::Key_Alt)
+				m_bAltKeyPressed = false;
+			break;
+		}
+		case QEvent::Close:
+		{
+			if (m_bAltKeyPressed)
+			{//屏蔽ALT+F4
+				event->ignore();
+				return true;
+				break;
+			}
+		}
+		default:break;
+		}
+	}
+	return QObject::eventFilter(obj, event);
 }
 void Device360::initUI()
 {
@@ -256,6 +302,7 @@ void Device360::on_Button_Exit_released()
 			}
 			else
 			{
+				m_bCloseSignal = true;
 				close();
 			}
 		}
@@ -265,6 +312,7 @@ void Device360::on_Button_Exit_released()
 	{
 		if (QMessageBox::Yes == showMsgBox("退出提示", "是否确认退出系统？", "确认", "取消"))
 		{
+			m_bCloseSignal = true;
 			close();
 		}
 	}

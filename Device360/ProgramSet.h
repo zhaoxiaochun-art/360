@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include "ui_ProgramSet.h"
 #include <QPropertyAnimation>
+#include <QKeyEvent>
 
 class ProgramSet : public QDialog
 {
@@ -13,6 +14,9 @@ public:
 	ProgramSet(QWidget *parent = Q_NULLPTR);
 	~ProgramSet();
 
+	void closeEvent(QCloseEvent * event);
+	bool eventFilter(QObject * obj, QEvent * event);
+
 	void initUI();
 	void initMovie();
 	void initListWidgetofModel();
@@ -20,6 +24,8 @@ public:
 
 private:
 	Ui::ProgramSet ui;
+	bool m_bCloseSignal = false;
+	bool m_bAltKeyPressed = false;
 	QString AppPath;
 	//µ¯ÌøÌØÐ§
 	QPropertyAnimation * animation1 = nullptr;

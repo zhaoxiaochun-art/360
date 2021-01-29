@@ -7,6 +7,9 @@ LoginDialog::LoginDialog(QWidget *parent)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
+
+	installEventFilter(this);
+
 	QString currentPCUserName = QDir::home().dirName();
 	m_autoStartPath = "C:/Users/" + currentPCUserName + "/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup";
 
@@ -28,6 +31,40 @@ LoginDialog::LoginDialog(QWidget *parent)
 }
 LoginDialog::~LoginDialog()
 {
+}
+bool LoginDialog::eventFilter(QObject* obj, QEvent* event)
+{
+	if (obj == this)
+	{
+		switch (event->type())
+		{
+		case QKeyEvent::KeyPress:
+		{
+			int key_type = static_cast<QKeyEvent*>(event)->key();
+			if (key_type == Qt::Key_Alt)
+				m_bAltKeyPressed = true;
+			break;
+		}
+		case QEvent::KeyRelease:
+		{
+			int key_type = static_cast<QKeyEvent*>(event)->key();
+			if (key_type == Qt::Key_Alt)
+				m_bAltKeyPressed = false;
+			break;
+		}
+		case QEvent::Close:
+		{
+			if (m_bAltKeyPressed)
+			{//屏蔽ALT+F4
+				event->ignore();
+				return true;
+				break;
+			}
+		}
+		default:break;
+		}
+	}
+	return QObject::eventFilter(obj, event);
 }
 void LoginDialog::initMovie()
 {//创建动态对象

@@ -6,6 +6,7 @@ ProgramSet::ProgramSet(QWidget *parent)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
+	installEventFilter(this);
 	setWindowFlags(Qt::FramelessWindowHint);//无边框 
 
 	connect(ui.AlgButtonGroup, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked),
@@ -35,7 +36,48 @@ ProgramSet::ProgramSet(QWidget *parent)
 ProgramSet::~ProgramSet()
 {
 }
-
+void ProgramSet::closeEvent(QCloseEvent *event)
+{
+	if (!m_bCloseSignal)
+	{
+		event->ignore();
+		return;
+	}
+}
+bool ProgramSet::eventFilter(QObject* obj, QEvent* event)
+{
+	if (obj == this)
+	{
+		switch (event->type())
+		{
+		case QKeyEvent::KeyPress:
+		{
+			int key_type = static_cast<QKeyEvent*>(event)->key();
+			if (key_type == Qt::Key_Alt)
+				m_bAltKeyPressed = true;
+			break;
+		}
+		case QEvent::KeyRelease:
+		{
+			int key_type = static_cast<QKeyEvent*>(event)->key();
+			if (key_type == Qt::Key_Alt)
+				m_bAltKeyPressed = false;
+			break;
+		}
+		case QEvent::Close:
+		{
+			if (m_bAltKeyPressed)
+			{//屏蔽ALT+F4
+				event->ignore();
+				return true;
+				break;
+			}
+		}
+		default:break;
+		}
+	}
+	return QObject::eventFilter(obj, event);
+}
 void ProgramSet::initUI()
 {
 	ui.frame_Alg->setVisible(false);
@@ -315,6 +357,7 @@ void ProgramSet::on_pB_Exit_clicked()
 	animation2->start();
 	if (QMessageBox::Yes == showMsgBox("退出提示", "是否确认退出参数设置界面？", "确认", "取消"))
 	{
+		m_bCloseSignal = 1;
 		close();
 	}
 }

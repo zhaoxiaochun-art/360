@@ -8,6 +8,7 @@
 #include <QButtonGroup>
 #include <QPropertyAnimation>
 #include <QTimer>
+#include <QKeyEvent>
 
 class LoginDialog : public QDialog
 {
@@ -15,6 +16,7 @@ class LoginDialog : public QDialog
 public:
 	LoginDialog(QWidget *parent = Q_NULLPTR);
 	~LoginDialog();
+	bool eventFilter(QObject * obj, QEvent * event);
 	void initMovie();
 	void setMaskFun(bool);
 	void initUI();
@@ -24,6 +26,7 @@ public:
 	int showMsgBox(const char * titleStr, const char * contentStr, const char * button1Str, const char * button2Str);
 private:
 	Ui::LoginDialog ui;
+	bool m_bAltKeyPressed = false;
 	QPropertyAnimation *animation1 = nullptr;
 	QPropertyAnimation *animation2 = nullptr;
 	QTimer *aniTimer = nullptr;

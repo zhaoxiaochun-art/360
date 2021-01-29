@@ -15,11 +15,15 @@ class Device360 : public QMainWindow
 
 public:
     Device360(QWidget *parent = Q_NULLPTR);
+	void closeEvent(QCloseEvent * event);
+	bool eventFilter(QObject * obj, QEvent * event);
 	void initUI();
 	void initStatistics();
 	int showMsgBox(const char * titleStr, const char * contentStr, const char * button1Str, const char * button2Str);
 private:
 	Ui::Device360Class ui;
+	bool m_bCloseSignal = false;
+	bool m_bAltKeyPressed = false;
 	QString AppPath;
 	ProgramSet *m_ProgramDlg = nullptr;
 	ResultData *m_ResultDlg = nullptr;
