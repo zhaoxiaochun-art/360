@@ -27,7 +27,6 @@ LoginDialog::LoginDialog(QWidget *parent)
 		[=](QAbstractButton* button) {ui.lE_Password->setText(ui.lE_Password->text() += button->text()); });
 	initMovie();
 	animation1->start();
-	cowTimer->start(1000);
 }
 LoginDialog::~LoginDialog()
 {
@@ -89,13 +88,14 @@ void LoginDialog::initMovie()
 		//起始位置
 		animation2->setStartValue(QRect((768 - 423) / 2, (1366 - 760) / 2, width(), height()));
 		//结束位置
-		animation2->setEndValue(QRect((768 - 423) / 2, (1366 - 760) / 2 + 500, width(), height()));
+		animation2->setEndValue(QRect((768 - 423) / 2, (1366 - 760) / 2 + 1500, width(), height()));
 
 		//设置弹跳曲线
 		animation2->setEasingCurve(QEasingCurve::OutElastic);
 	}
-	aniTimer = new QTimer();
-	connect(aniTimer, SIGNAL(timeout()), this, SLOT(closeThis()));
+	connect(animation1, SIGNAL(finished()), this, SLOT(showCow()));
+	connect(animation2, SIGNAL(finished()), this, SLOT(closeThis()));
+
 	cowTimer = new QTimer();
 	connect(cowTimer, SIGNAL(timeout()), this, SLOT(showCow()));
 }
@@ -353,7 +353,7 @@ void LoginDialog::on_pB_Exit_clicked()
 			{
 				m_iCloseMode = 0;
 			}
-			close();
+			animation2->start();
 		}
 	}
 	else
@@ -374,7 +374,6 @@ void LoginDialog::on_pB_Login_clicked()
 			m_iCloseMode = 3;
 		}
 		animation2->start();
-		aniTimer->start(50);
 	}
 	else
 	{

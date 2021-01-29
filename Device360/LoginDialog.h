@@ -29,7 +29,6 @@ private:
 	bool m_bAltKeyPressed = false;
 	QPropertyAnimation *animation1 = nullptr;
 	QPropertyAnimation *animation2 = nullptr;
-	QTimer *aniTimer = nullptr;
 	QTimer * cowTimer = nullptr;
 	QLabel *lb_pic15 = nullptr;
 	QLabel *lb_pic20 = nullptr;
