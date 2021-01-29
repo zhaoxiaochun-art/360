@@ -407,7 +407,9 @@ void LoginDialog::on_cB_turnOn_toggled(bool checked)
 	if (checked)
 	{
 		configIniRead.setValue("UISetting/AutoRun", 1);//写当前模板
-		copyDirectoryFiles(AppPath + "/startup", m_autoStartPath, true);
+		//copyDirectoryFiles(AppPath + "/startup", m_autoStartPath, true);
+		QFile fl;
+		fl.link(AppPath + "/Device360.exe", m_autoStartPath+"/startName.lnk");
 		ui.cB_turnOn->setIcon(QPixmap(AppPath + "/ico/startup1.png"));
 	}
 	else
