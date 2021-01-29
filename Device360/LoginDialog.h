@@ -27,6 +27,9 @@ private:
 	QPropertyAnimation *animation1 = nullptr;
 	QPropertyAnimation *animation2 = nullptr;
 	QTimer *aniTimer = nullptr;
+	QTimer * cowTimer = nullptr;
+	QLabel *lb_pic = nullptr;
+	QLabel *lb_pic2 = nullptr;
 	bool m_bSec = false;
 	QString AppPath;
 	QString m_autoStartPath; 
@@ -40,4 +43,5 @@ public slots:
 	void on_cB_turnOff_toggled(bool checked);
 	void on_lE_Password_textChanged(const QString & arg1);
 	void closeThis();
+	void showCow();
 };

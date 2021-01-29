@@ -24,6 +24,7 @@ LoginDialog::LoginDialog(QWidget *parent)
 		[=](QAbstractButton* button) {ui.lE_Password->setText(ui.lE_Password->text() += button->text()); });
 	initMovie();
 	animation1->start();
+	cowTimer->start(2000);
 }
 LoginDialog::~LoginDialog()
 {
@@ -58,6 +59,8 @@ void LoginDialog::initMovie()
 	}
 	aniTimer = new QTimer();
 	connect(aniTimer, SIGNAL(timeout()), this, SLOT(closeThis()));
+	cowTimer = new QTimer();
+	connect(cowTimer, SIGNAL(timeout()), this, SLOT(showCow()));
 }
 void LoginDialog::setMaskFun(bool b)
 {
@@ -130,12 +133,18 @@ void LoginDialog::initUI()
 		ui.cB_turnOff->setIcon(QPixmap(AppPath + "/ico/shutdown2.png"));
 	}
 
-	QLabel *lb_pic = new QLabel(this);
+	lb_pic = new QLabel(this);
 	lb_pic->resize(this->size());
 	lb_pic->move(0, 0);
 	lb_pic->setPixmap(QPixmap("./ico/newyear.png"));
 	lb_pic->setScaledContents(true);
 	lb_pic->setAttribute(Qt::WA_TransparentForMouseEvents);
+
+	lb_pic2 = new QLabel(this);
+	lb_pic2->resize(this->size());
+	lb_pic2->move(0, 0);
+	lb_pic2->setPixmap(QPixmap("./ico/newyear0.png"));
+	lb_pic2->setScaledContents(true);
 }
 int LoginDialog::LoginDlgCloseMode()
 {
@@ -358,4 +367,10 @@ void LoginDialog::on_lE_Password_textChanged(const QString &arg1)
 void LoginDialog::closeThis()
 {
 	close();
+}
+
+void LoginDialog::showCow()
+{
+	lb_pic2->setVisible(false);
+	cowTimer->stop();
 }
