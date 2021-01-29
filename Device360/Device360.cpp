@@ -175,6 +175,54 @@ void Device360::initStatistics()
 	}
 
 }
+
+void Device360::firstStartInit()
+{
+	ui.lb_Picture->setVisible(false);
+	m_bFirstStartFlag = false;
+
+	QPixmap pix(AppPath + "/ico/dr-pharmmatch.png");//
+	splitpixmap(pix, 3, 5);//ÇÐÍ¼
+	for (int i = 0; i < 5; i++)
+	{
+		for (int z = 0; z < 3; z++)
+		{
+			if (nullptr == this->findChild<QLabel*>("LabelShow" + QString::number(i) + "_" + QString::number(z)))
+			{
+				QLabel* label = new QLabel(this);
+				label->setObjectName(QString::fromUtf8("LabelShow") + QString::number(i) + "_" + QString::number(z));
+				label->setFrameShape(QFrame::Box);
+				label->setLineWidth(1);
+
+				QPixmap mp = m_pixlist.at(i + z * 5);
+				QPainter painter;
+				painter.begin(&mp);	
+				painter.setRenderHint(QPainter::Antialiasing, true);
+				QFont font;
+				font.setPointSize(15);
+				font.setFamily("ËÎÌå");
+				font.setItalic(true);
+				painter.setFont(font);
+				painter.drawText(10, 5, 150, 50, Qt::AlignVCenter, QString::fromLocal8Bit("Ïà»úÎ»ÖÃ: ")+QString::number(i)+"\n"+QString::fromLocal8Bit("ÕÕÆ¬ÐòºÅ: ")+QString::number(z));//0
+				painter.end();
+				label->setPixmap(mp);//¸ÄÇÐ¸îÍ¼Æ¬
+				//label->setPixmap(m_pixlist.at(i + z * 5));//¸ÄÇÐ¸îÍ¼Æ¬
+				label->setScaledContents(true);
+				ui.gridLayout->addWidget(label, i, z, 1, 1);
+			}
+
+		}
+	}
+}
+void Device360::splitpixmap(QPixmap& pixmap, int xnum, int ynum)//ÇÐÍ¼
+{
+	for (int x = 0; x < xnum; ++x) {
+		for (int y = 0; y < ynum; ++y) {
+			m_pixlist << pixmap.copy(x * (pixmap.width() / xnum), y * (pixmap.height() / ynum),
+				pixmap.width() / xnum - 9, pixmap.height() / ynum - 9);
+		}
+	}
+}
 int Device360::showMsgBox(const char* titleStr, const char* contentStr, const char* button1Str, const char* button2Str)//È«ÊÇÖÐÎÄ
 {
 	if (QString::fromLocal8Bit(button2Str) == "")
@@ -220,6 +268,10 @@ void Device360::on_Button_Start_toggled(bool checked)
 		ui.Button_CountReset->setEnabled(false);
 		ui.Button_Exit->setEnabled(false);
 		ui.lE_PN->setEnabled(false);
+		if (m_bFirstStartFlag)
+		{
+			firstStartInit();
+		}
 	}
 	else
 	{

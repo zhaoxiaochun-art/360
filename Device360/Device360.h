@@ -19,6 +19,8 @@ public:
 	bool eventFilter(QObject * obj, QEvent * event);
 	void initUI();
 	void initStatistics();
+	void firstStartInit();
+	void splitpixmap(QPixmap & pixmap, int xnum, int ynum);
 	int showMsgBox(const char * titleStr, const char * contentStr, const char * button1Str, const char * button2Str);
 private:
 	Ui::Device360Class ui;
@@ -30,6 +32,9 @@ private:
 	DailyLog *m_DailyLogDlg = nullptr;
 	int m_iShutDownPC;//0:退出程序不关机 1退出程序且立即关机 2进入主界面随后关机 3进入主界面随后不关机
 	WindowOut* levelOut = nullptr;
+
+	bool m_bFirstStartFlag = true;//第一次按启动
+	QList<QPixmap> m_pixlist;//图片切割
 public slots:
 	void on_Button_Clean_toggled(bool checked);
 	void on_Button_Start_toggled(bool checked);
