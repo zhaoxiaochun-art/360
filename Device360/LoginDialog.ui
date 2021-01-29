@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>423</width>
-    <height>752</height>
+    <height>772</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -642,7 +642,7 @@
        <property name="font">
         <font>
          <family>禅意雪松体</family>
-         <pointsize>20</pointsize>
+         <pointsize>26</pointsize>
         </font>
        </property>
        <property name="styleSheet">

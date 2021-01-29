@@ -117,7 +117,7 @@ void LoginDialog::initUI()
 	ui.label->setScaledContents(true);
 	ui.label_2->setPixmap(QPixmap("./ico/sec.ico"));
 	ui.label_2->setScaledContents(true);
-	ui.pB_Exit->setStyleSheet("color: rgb(0, 170, 127);font-size:20pt");
+	ui.pB_Exit->setStyleSheet("color: rgb(0, 170, 127);font-size:26pt");
 	ui.pB_Login->setStyleSheet("font-size:20pt");
 	ui.pB_Login->setEnabled(false);
 
@@ -446,27 +446,27 @@ void LoginDialog::on_lE_Password_textChanged(const QString &arg1)
 	{
 		ui.pB_Exit->setText(QString::fromLocal8Bit("退出"));
 		ui.pB_Login->setEnabled(false);
-		ui.pB_Login->setStyleSheet("font-size:20pt");
+		ui.pB_Login->setStyleSheet("font-size:23pt");
 	}
 	else if (i == 1)
 	{
 		ui.pB_Login->setEnabled(false);
-		ui.pB_Login->setStyleSheet("font-size:23pt");
+		ui.pB_Login->setStyleSheet("font-size:26pt");
 	}
 	else if (i == 2)
 	{
 		ui.pB_Login->setEnabled(false);
-		ui.pB_Login->setStyleSheet("font-size:26pt");
+		ui.pB_Login->setStyleSheet("font-size:29pt");
 	}
 	else if (i == 3)
 	{
 		ui.pB_Login->setEnabled(false);
-		ui.pB_Login->setStyleSheet("font-size:29pt");
+		ui.pB_Login->setStyleSheet("font-size:32pt");
 	}
 	else
 	{
 		ui.pB_Login->setEnabled(true);
-		ui.pB_Login->setStyleSheet("background-color: rgba(0, 170, 0, 125);font-size:29pt");
+		ui.pB_Login->setStyleSheet("background-color: rgb(0, 170, 127);font-size:32pt");
 	}
 }
 void LoginDialog::closeThis()
