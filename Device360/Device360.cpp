@@ -80,6 +80,10 @@ void Device360::initUI()
 	ui.Button_Exit->setIconSize(QSize(280, 129));
 
 	ui.tabWidget->removeTab(1);
+
+	QRegExp regx("[a-zA-Z0-9_]+$");//正则表达式QRegExp,只允许输入中文、数字、字母、下划线以及空格,[\u4e00 - \u9fa5a - zA - Z0 - 9_] + $
+	ui.lE_PN->setValidator(new QRegExpValidator(regx, this));
+	
 }
 void Device360::initStatistics()
 {

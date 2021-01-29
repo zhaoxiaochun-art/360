@@ -66,6 +66,10 @@ void ProgramSet::initUI()
 	ui.lb_pic2->setPixmap(QPixmap(AppPath + "/ico/dr-pharmmatch2.png"));
 	ui.lb_pic2->setScaledContents(true);
 
+	QRegExp regx("[0-9.]+$");//正则表达式QRegExp,只允许输入中文、数字、字母、下划线以及空格,[\u4e00 - \u9fa5a - zA - Z0 - 9_] + $
+	ui.lE_IP_2->setValidator(new QRegExpValidator(regx, this));
+	QRegExp regx2("[0-9]+$");//正则表达式QRegExp,只允许输入中文、数字、字母、下划线以及空格,[\u4e00 - \u9fa5a - zA - Z0 - 9_] + $
+	ui.lE_Port_2->setValidator(new QRegExpValidator(regx2, this));
 }
 void ProgramSet::initMovie()
 {//创建动态对象
