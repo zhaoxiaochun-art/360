@@ -36,9 +36,9 @@ void LoginDialog::initMovie()
 		animation1->setDuration(1000);
 
 		//起始位置
-		animation1->setStartValue(QRect(this->x(), y()+1000, width(), height()));
+		animation1->setStartValue(QRect((768-423)/2, (1366-760)/2+500, width(), height()));
 		//结束位置
-		animation1->setEndValue(QRect(x(), y(), width(), height()));
+		animation1->setEndValue(QRect((768 - 423) / 2, (1366 - 760) / 2, width(), height()));
 
 		//设置弹跳曲线
 		animation1->setEasingCurve(QEasingCurve::OutElastic);
@@ -46,12 +46,12 @@ void LoginDialog::initMovie()
 	{
 		animation2 = new QPropertyAnimation(this, "geometry");
 		//设置动画时间间隔
-		animation2->setDuration(1000);
+		animation2->setDuration(500);
 
 		//起始位置
-		animation2->setStartValue(QRect(this->x(), y(), width(), height()));
+		animation2->setStartValue(QRect((768 - 423) / 2, (1366 - 760) / 2, width(), height()));
 		//结束位置
-		animation2->setEndValue(QRect(x(), y()+2000, width(), height()));
+		animation2->setEndValue(QRect((768 - 423) / 2, (1366 - 760) / 2 +500, width(), height()));
 
 		//设置弹跳曲线
 		animation2->setEasingCurve(QEasingCurve::OutElastic);
@@ -130,7 +130,12 @@ void LoginDialog::initUI()
 		ui.cB_turnOff->setIcon(QPixmap(AppPath + "/ico/shutdown2.png"));
 	}
 
-
+	QLabel *lb_pic = new QLabel(this);
+	lb_pic->resize(this->size());
+	lb_pic->move(0, 0);
+	lb_pic->setPixmap(QPixmap("./ico/newyear.png"));
+	lb_pic->setScaledContents(true);
+	lb_pic->setAttribute(Qt::WA_TransparentForMouseEvents);
 }
 int LoginDialog::LoginDlgCloseMode()
 {
@@ -256,7 +261,7 @@ void LoginDialog::on_pB_Login_clicked()
 			m_iCloseMode = 3;
 		}
 		animation2->start();
-		aniTimer->start(500);
+		aniTimer->start(50);
 	}
 	else
 	{
