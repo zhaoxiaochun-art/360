@@ -113,6 +113,11 @@ void ProgramSet::initUI()
 	ui.lE_IP_2->setValidator(new QRegExpValidator(regx, this));
 	QRegExp regx2("[0-9]+$");//正则表达式QRegExp,只允许输入中文、数字、字母、下划线以及空格,[\u4e00 - \u9fa5a - zA - Z0 - 9_] + $
 	ui.lE_Port_2->setValidator(new QRegExpValidator(regx2, this));
+
+	QString ipAddress = readPara.value("PLCSetting/IpAddress", "127.0.0.1").toString();
+	QString port = readPara.value("PLCSetting/Port", 5000).toString();
+	ui.lE_IP_2->setText(ipAddress);
+	ui.lE_Port_2->setText(port);
 }
 void ProgramSet::initMovie()
 {//创建动态对象
@@ -644,6 +649,16 @@ void ProgramSet::on_lE_RotateSpeed_returnPressed()
 void ProgramSet::on_pB_changeIPPort_clicked()
 {
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置PLC IP地址和端口号，一般情况下第一次设置一次之后就不用再变化了，且默认IP：10.86.50.210，默认port：5000"));
+}
+void ProgramSet::on_pB_changeIPPort_2_clicked()
+{
+	QSettings configIniWrite(AppPath + "\\ModelFile\\testA\\ProgramSet.ini", QSettings::IniFormat);
+	configIniWrite.setValue("PLCSetting/IpAddress", ui.lE_IP_2->text());
+	configIniWrite.setValue("PLCSetting/Port", ui.lE_Port_2->text());
+	levelOut = new WindowOut();
+	levelOut->setWindowCount(0);//动画窗弹出数，防止覆盖
+	levelOut->getString(QString::fromLocal8Bit("PLC IP、PORT已经成功修改！"), 2000);
+	levelOut->show();
 }
 void ProgramSet::on_pB_enPhoto_clicked()
 {

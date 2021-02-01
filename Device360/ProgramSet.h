@@ -5,6 +5,7 @@
 #include "ui_ProgramSet.h"
 #include <QPropertyAnimation>
 #include <QKeyEvent>
+#include "WindowOut.h"
 
 class ProgramSet : public QDialog
 {
@@ -42,6 +43,7 @@ private:
 
 	QPropertyAnimation * animation3 = nullptr;
 	QPropertyAnimation * animation4 = nullptr;
+	WindowOut* levelOut = nullptr;
 public slots: 
 	void on_pB_Model_Apply_clicked();
 	void on_pB_Model_Add_clicked();
@@ -104,6 +106,7 @@ public slots:
 	void on_lE_FeedLength_returnPressed();
 	void on_lE_RotateSpeed_returnPressed();
 	void on_pB_changeIPPort_clicked();
+	void on_pB_changeIPPort_2_clicked();
 	void on_pB_enPhoto_clicked();
 	void on_pB_enReject_clicked();
 	void on_pB_enFeed_clicked();
