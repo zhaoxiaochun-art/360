@@ -355,6 +355,7 @@ void Device360::on_Button_Exit_released()
 			else
 			{
 				m_bCloseSignal = true;
+				m_bAltKeyPressed = false;
 				close();
 			}
 		}
@@ -365,6 +366,7 @@ void Device360::on_Button_Exit_released()
 		if (QMessageBox::Yes == showMsgBox("退出提示", "是否确认退出系统？", "确认", "取消"))
 		{
 			m_bCloseSignal = true;
+			m_bAltKeyPressed = false;
 			close();
 		}
 	}

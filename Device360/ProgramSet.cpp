@@ -8,6 +8,7 @@ ProgramSet::ProgramSet(QWidget *parent)
 	ui.setupUi(this);
 	installEventFilter(this);
 	setWindowFlags(Qt::FramelessWindowHint);//无边框 
+	setWindowModality(Qt::ApplicationModal);//设置窗体模态，要求该窗体没有父类，否则无效
 
 	connect(ui.AlgButtonGroup, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked),
 		[=](QAbstractButton* button) {
@@ -358,6 +359,7 @@ void ProgramSet::on_pB_Exit_clicked()
 	if (QMessageBox::Yes == showMsgBox("退出提示", "是否确认退出参数设置界面？", "确认", "取消"))
 	{
 		m_bCloseSignal = 1;
+		m_bAltKeyPressed = false;
 		close();
 	}
 }
