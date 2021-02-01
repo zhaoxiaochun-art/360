@@ -746,10 +746,13 @@
        <bool>true</bool>
       </property>
       <property name="frameShape">
-       <enum>QFrame::Panel</enum>
+       <enum>QFrame::Box</enum>
       </property>
       <property name="frameShadow">
-       <enum>QFrame::Sunken</enum>
+       <enum>QFrame::Raised</enum>
+      </property>
+      <property name="lineWidth">
+       <number>2</number>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_7">
        <item>
