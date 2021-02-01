@@ -14,6 +14,7 @@ class ProgramSet : public QDialog
 public:
 	ProgramSet(QWidget *parent = Q_NULLPTR);
 	~ProgramSet();
+	void showWindowOut(QString str);
 	void keyPressEvent(QKeyEvent *event)
 	{
 		switch (event->key())
@@ -28,6 +29,7 @@ public:
 	bool eventFilter(QObject * obj, QEvent * event);
 
 	void initUI();
+	void initFrame_light();
 	void initMovie();
 	void initListWidgetofModel();
 	int showMsgBox(const char * titleStr, const char * contentStr, const char * button1Str, const char * button2Str);
@@ -43,7 +45,9 @@ private:
 
 	QPropertyAnimation * animation3 = nullptr;
 	QPropertyAnimation * animation4 = nullptr;
+
 	WindowOut* levelOut = nullptr;
+	int m_iWindowCount = 0;//window out 
 public slots: 
 	void on_pB_Model_Apply_clicked();
 	void on_pB_Model_Add_clicked();
@@ -117,5 +121,7 @@ public slots:
 	void on_pB_AddUser_clicked();
 	void on_pB_Users_Delete_clicked();
 	void on_cB_Users_activated(int index);
+
+	void windowCountMinusOne();
 
 };

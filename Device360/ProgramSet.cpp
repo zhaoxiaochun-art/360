@@ -30,12 +30,21 @@ ProgramSet::ProgramSet(QWidget *parent)
 	AppPath = qApp->applicationDirPath();//exe所在目录
 	AppPath.replace("/", "\\");
 
-	initUI();
+	initUI(); 
 	initMovie(); 
 	initListWidgetofModel();
 }
 ProgramSet::~ProgramSet()
 {
+}
+void ProgramSet::showWindowOut(QString str)
+{
+	levelOut = new WindowOut;
+	connect(levelOut, SIGNAL(MINUSONE()), this, SLOT(windowCountMinusOne()));
+	levelOut->setWindowCount(m_iWindowCount);
+	m_iWindowCount += 1;
+	levelOut->getString(str, 2000);
+	levelOut->show();
 }
 void ProgramSet::closeEvent(QCloseEvent *event)
 {
@@ -118,6 +127,24 @@ void ProgramSet::initUI()
 	QString port = readPara.value("PLCSetting/Port", 5000).toString();
 	ui.lE_IP_2->setText(ipAddress);
 	ui.lE_Port_2->setText(port);
+}
+void ProgramSet::initFrame_light()
+{
+
+	QSettings Dir(AppPath + "\\ModelFile\\testA\\ProgramSet.ini", QSettings::IniFormat);//找到文件
+	int SerialPort = Dir.value("LEDSetting/SerialPort", 1).toInt();
+	ui.cB_232Port->setCurrentIndex(SerialPort - 1);
+
+	int light1 = Dir.value("LEDSetting/Light1", 50).toInt();
+	int light2 = Dir.value("LEDSetting/Light2", 50).toInt();
+	int light3 = Dir.value("LEDSetting/Light3", 50).toInt();	
+	ui.lE_light1->setText(QString::number(light1));
+	ui.lE_light2->setText(QString::number(light2));
+	ui.lE_light3->setText(QString::number(light3));
+	QRegExp regx("[0-9]+$");//正则表达式QRegExp,只允许输入中文、数字、字母、下划线以及空格,[\u4e00 - \u9fa5a - zA - Z0 - 9_] + $
+	ui.lE_light1->setValidator(new QRegExpValidator(regx, this));
+	ui.lE_light2->setValidator(new QRegExpValidator(regx, this));
+	ui.lE_light3->setValidator(new QRegExpValidator(regx, this));
 }
 void ProgramSet::initMovie()
 {//创建动态对象
@@ -291,7 +318,8 @@ void ProgramSet::on_pB_brightness_toggled(bool checked)
 {
 	if (checked)
 	{
-		ui.frame_light->setVisible(true);
+		ui.frame_light->setVisible(true); 
+		initFrame_light();
 	}
 	else
 	{
@@ -300,11 +328,42 @@ void ProgramSet::on_pB_brightness_toggled(bool checked)
 }
 void ProgramSet::on_cB_232Port_activated(int index)
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置光源控制器串口号"));
 }
 void ProgramSet::on_pB_adjustBrightness_clicked()
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置光源的亮度，值0-255"));
+	int light1 = ui.lE_light1->text().toInt();//为了去掉头部的0
+	int light2 = ui.lE_light2->text().toInt();
+	int light3 = ui.lE_light3->text().toInt();
+	ui.lE_light1->setText(QString::number(light1));
+	ui.lE_light2->setText(QString::number(light2));
+	ui.lE_light3->setText(QString::number(light3));
+	if (light1 > 255 || light2 > 255 || light3 > 255)
+	{
+		showWindowOut(QString::fromLocal8Bit("亮度值大于255时，自动设置最大值为255！"));
+		if (light1 > 255)
+		{
+			ui.lE_light1->setText("255");
+			light1 = 255;
+		}
+		if (light2 > 255)
+		{
+			ui.lE_light2->setText("255");
+			light2 = 255;
+		}
+		if (light3 > 255)
+		{
+			ui.lE_light3->setText("255");
+			light3 = 255;
+		}
+	}
+	
+	QSettings configIniRead(AppPath + "\\ModelFile\\testA\\ProgramSet.ini", QSettings::IniFormat);//读取ini文件
+
+	configIniRead.setValue("LEDSetting/SerialPort", ui.cB_232Port->currentIndex() + 1);
+	configIniRead.setValue("LEDSetting/Light1", light1);
+	configIniRead.setValue("LEDSetting/Light2", light2);
+	configIniRead.setValue("LEDSetting/Light3", light3);
+	showWindowOut(QString::fromLocal8Bit("亮度值已修改成功！"));
 }
 void ProgramSet::on_cB_flash_toggled(bool checked)
 {
@@ -655,10 +714,8 @@ void ProgramSet::on_pB_changeIPPort_2_clicked()
 	QSettings configIniWrite(AppPath + "\\ModelFile\\testA\\ProgramSet.ini", QSettings::IniFormat);
 	configIniWrite.setValue("PLCSetting/IpAddress", ui.lE_IP_2->text());
 	configIniWrite.setValue("PLCSetting/Port", ui.lE_Port_2->text());
-	levelOut = new WindowOut();
-	levelOut->setWindowCount(0);//动画窗弹出数，防止覆盖
-	levelOut->getString(QString::fromLocal8Bit("PLC IP、PORT已经成功修改！"), 2000);
-	levelOut->show();
+	showWindowOut(QString::fromLocal8Bit("PLC IP、PORT已经成功修改！"));
+
 }
 void ProgramSet::on_pB_enPhoto_clicked()
 {
@@ -705,3 +762,11 @@ void ProgramSet::on_cB_Users_activated(int index)
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("根据该combobox在权限描述中说明"));
 }
 #pragma endregion
+
+void ProgramSet::windowCountMinusOne()
+{
+	if (m_iWindowCount >= 1)
+	{
+		m_iWindowCount -= 1;
+	}
+}
