@@ -275,11 +275,9 @@ void ProgramSet::on_pB_AlgSetting_toggled(bool checked)
 
 void ProgramSet::on_cB_photoTimes_activated(const QString &arg1)
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置拍照次数"));
 }
 void ProgramSet::on_cB_freeSpace_activated(int index)
 {
-	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("设置最小空闲，小于等于该值开始删除存储的图片"));
 }
 #pragma endregion
 
@@ -289,12 +287,10 @@ void ProgramSet::on_pB_brightness_toggled(bool checked)
 	if (checked)
 	{
 		ui.frame_light->setVisible(true);
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("show frame_light"));
 	}
 	else
 	{
 		ui.frame_light->setVisible(false);
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("hide frame_light"));
 	}
 }
 void ProgramSet::on_cB_232Port_activated(int index)
