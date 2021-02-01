@@ -13,7 +13,16 @@ class ProgramSet : public QDialog
 public:
 	ProgramSet(QWidget *parent = Q_NULLPTR);
 	~ProgramSet();
-
+	void keyPressEvent(QKeyEvent *event)
+	{
+		switch (event->key())
+		{
+		case Qt::Key_Escape:
+			break;
+		default:
+			QDialog::keyPressEvent(event);
+		}
+	}
 	void closeEvent(QCloseEvent * event);
 	bool eventFilter(QObject * obj, QEvent * event);
 

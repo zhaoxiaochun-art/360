@@ -17,6 +17,16 @@ public:
 	LoginDialog(QWidget *parent = Q_NULLPTR);
 	~LoginDialog();
 	bool eventFilter(QObject * obj, QEvent * event);
+	void keyPressEvent(QKeyEvent *event)
+	{
+		switch (event->key())
+		{
+		case Qt::Key_Escape:
+			break;
+		default:
+			QDialog::keyPressEvent(event);
+		}
+	}
 	void initMovie();
 	void setMaskFun(bool);
 	void initUI();
