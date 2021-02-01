@@ -36,7 +36,7 @@ private:
 	bool m_bCloseSignal = false;
 	bool m_bAltKeyPressed = false;
 	QString AppPath;
-	//弹跳特效
+	//弹跳 特效
 	QPropertyAnimation * animation1 = nullptr;
 	QPropertyAnimation * animation2 = nullptr;
 
