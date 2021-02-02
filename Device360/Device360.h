@@ -17,6 +17,7 @@ class Device360 : public QMainWindow
 public:
     Device360(QWidget *parent = Q_NULLPTR);
 	void initCtrl();
+	void initCamera(struCamInfo *camInfo);
 	void closeEvent(QCloseEvent * event);
 	bool eventFilter(QObject * obj, QEvent * event);
 	void initUI();

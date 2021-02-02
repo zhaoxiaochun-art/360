@@ -56,8 +56,22 @@ void Device360::initCtrl()
 	m_CsCtrl = new CServiceCtrl();
 	struPlcConn plcCon;
 	struCamInfo camInfo[5];
+	initCamera(&camInfo[0]);
+
 	struAlgConfig algCfg;
+	QString str = AppPath+"/saveImage/";
+	QByteArray ba = str.toLatin1();
+	char *c = ba.data();
+	strcpy(algCfg.f_resultImagePath, c);
+
 	m_CsCtrl->SysInit(&plcCon,&camInfo[0],&algCfg);
+}
+void Device360::initCamera(struCamInfo *TempcamInfo)
+{
+	for (int i=0;i<5;i++)
+	{
+		TempcamInfo[i].n_CamID = i;
+	}
 }
 void Device360::closeEvent(QCloseEvent *event)
 {
