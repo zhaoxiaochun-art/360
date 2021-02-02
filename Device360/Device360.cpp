@@ -71,9 +71,20 @@ void Device360::initCtrl()
 }
 void Device360::initCamera(struCamInfo *TempcamInfo)
 {
-	for (int i=0;i<5;i++)
+
+	string str = (AppPath + "/ModelFile/testA/cam.json").toStdString();
+	JsonCommand jsc(str);
+	string s[5];
+	string pstr[5];
+	jsc.LoopReadJson("CamInfo", "c_CameraName", s,pstr);
+
+	
+	for (int i = 0; i < 5; i++)
 	{
 		TempcamInfo[i].n_CamID = i;
+		const char *ch = pstr[i].data();
+		strcpy(TempcamInfo[i].c_CameraName, ch);
+		TempcamInfo[i].TypeOFCamera = 0;
 	}
 }
 void Device360::closeEvent(QCloseEvent *event)
