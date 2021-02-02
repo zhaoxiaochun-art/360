@@ -98,7 +98,7 @@ void LoginDialog::initMovie()
 		//起始位置
 		animation2->setStartValue(QRect((768 - 423) / 2, (1366 - 760) / 2, width(), height()));
 		//结束位置
-		animation2->setEndValue(QRect((768 - 423) / 2, (1366 - 760) / 2 + 1500, width(), height()));
+		animation2->setEndValue(QRect((768 - 423) / 2, (1366 - 760) / 2 + 2000, width(), height()));
 
 		//设置弹跳曲线
 		animation2->setEasingCurve(QEasingCurve::OutElastic);
