@@ -104,6 +104,9 @@
     <ClInclude Include="CServiceCtrl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GlobalVar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Device360.rc">
