@@ -40,6 +40,7 @@ private:
 	QList<QPixmap> m_pixlist;//Í¼Æ¬ÇÐ¸î
 
 	CServiceCtrl* m_CsCtrl = nullptr;
+	UIDisplayCb m_MyFunPtr;
 public slots:
 	void on_Button_Clean_toggled(bool checked);
 	void on_Button_Start_toggled(bool checked);

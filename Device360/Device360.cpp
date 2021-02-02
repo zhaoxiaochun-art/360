@@ -13,6 +13,14 @@
 #include "JsonDll.h"
 #pragma comment(lib,"JSONDLL.lib")
 
+
+void MyFun(int nCamID, int nPhotoTimes, unsigned char* pBuf,
+	int IWidth, int IHeight, int IFrameType, void* pResult)
+{
+	QMessageBox::about(nullptr,"1212","222");
+}
+
+
 Device360::Device360(QWidget *parent)
 	: QMainWindow(parent)
 {
@@ -53,6 +61,8 @@ Device360::Device360(QWidget *parent)
 	//m_ResultDlg = new ResultData(); 
 	//m_DailyLogDlg = new DailyLog();
 	initCtrl();
+
+	m_MyFunPtr = MyFun;    // 函数指针初始化
 }
 void Device360::initCtrl()
 {
@@ -316,7 +326,7 @@ void Device360::on_Button_Start_toggled(bool checked)
 		//{
 		//	firstStartInit();
 		//}
-		//m_CsCtrl->SysStartWork();
+		m_CsCtrl->SysStartWork(m_MyFunPtr);
 	}
 	else
 	{
