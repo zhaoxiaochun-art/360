@@ -48,7 +48,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PreprocessorDefinitions>SVC_CTRL_LIBRARY;$(Qt_DEFINES_);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>$(Qt_DEFINES_);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>include\hanlin;include\json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -128,7 +129,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CServiceCtrl.h" />
-    <ClInclude Include="GlobalVar.h" />
+    <ClInclude Include="include\hanlin\GlobalVar.h" />
+    <ClInclude Include="include\json\JsonDll.h" />
     <ClInclude Include="resource.h" />
     <QtMoc Include="WindowOut.h" />
   </ItemGroup>

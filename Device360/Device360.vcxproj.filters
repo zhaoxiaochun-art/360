@@ -104,7 +104,10 @@
     <ClInclude Include="CServiceCtrl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GlobalVar.h">
+    <ClInclude Include="include\json\JsonDll.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hanlin\GlobalVar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

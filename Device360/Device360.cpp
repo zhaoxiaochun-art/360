@@ -10,6 +10,9 @@
 #pragma comment(lib,"ServiceCtrl64.lib")
 #endif
 
+#include "JsonDll.h"
+#pragma comment(lib,"JSONDLL.lib")
+
 Device360::Device360(QWidget *parent)
 	: QMainWindow(parent)
 {
