@@ -4,6 +4,12 @@
 #include <Windows.h>
 #include <QThread>
 
+#ifdef _DEBUG
+#pragma comment(lib,"ServiceCtrl64d.lib")
+#else
+#pragma comment(lib,"ServiceCtrl64.lib")
+#endif
+
 Device360::Device360(QWidget *parent)
 	: QMainWindow(parent)
 {
@@ -43,6 +49,15 @@ Device360::Device360(QWidget *parent)
 	m_ProgramDlg = new ProgramSet();
 	//m_ResultDlg = new ResultData(); 
 	//m_DailyLogDlg = new DailyLog();
+	initCtrl();
+}
+void Device360::initCtrl()
+{
+	m_CsCtrl = new CServiceCtrl();
+	struPlcConn plcCon;
+	struCamInfo camInfo[5];
+	struAlgConfig algCfg;
+	m_CsCtrl->SysInit(&plcCon,&camInfo[0],&algCfg);
 }
 void Device360::closeEvent(QCloseEvent *event)
 {
@@ -51,6 +66,7 @@ void Device360::closeEvent(QCloseEvent *event)
 		event->ignore();
 		return;
 	}
+	m_CsCtrl->SysUnInit();
 }
 
 bool Device360::eventFilter(QObject* obj, QEvent* event)
@@ -268,10 +284,11 @@ void Device360::on_Button_Start_toggled(bool checked)
 		ui.Button_CountReset->setEnabled(false);
 		ui.Button_Exit->setEnabled(false);
 		ui.lE_PN->setEnabled(false);
-		if (m_bFirstStartFlag)
-		{
-			firstStartInit();
-		}
+		//if (m_bFirstStartFlag)
+		//{
+		//	firstStartInit();
+		//}
+		//m_CsCtrl->SysStartWork();
 	}
 	else
 	{
@@ -280,6 +297,7 @@ void Device360::on_Button_Start_toggled(bool checked)
 		ui.Button_CountReset->setEnabled(true);
 		ui.Button_Exit->setEnabled(true);
 		ui.lE_PN->setEnabled(true);
+		m_CsCtrl->SysStopWork();
 	}
 }
 void Device360::on_Button_AlarmReset_clicked()

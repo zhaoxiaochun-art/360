@@ -8,6 +8,7 @@
 #include "ResultData.h"
 #include "DailyLog.h"
 #include "WindowOut.h"
+#include "CServiceCtrl.h"
 
 class Device360 : public QMainWindow
 {
@@ -15,6 +16,7 @@ class Device360 : public QMainWindow
 
 public:
     Device360(QWidget *parent = Q_NULLPTR);
+	void initCtrl();
 	void closeEvent(QCloseEvent * event);
 	bool eventFilter(QObject * obj, QEvent * event);
 	void initUI();
@@ -35,6 +37,8 @@ private:
 
 	bool m_bFirstStartFlag = true;//第一次按启动
 	QList<QPixmap> m_pixlist;//图片切割
+
+	CServiceCtrl* m_CsCtrl = nullptr;
 public slots:
 	void on_Button_Clean_toggled(bool checked);
 	void on_Button_Start_toggled(bool checked);

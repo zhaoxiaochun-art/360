@@ -735,16 +735,6 @@
        </item>
        <item>
         <property name="text">
-         <string>Iron Man</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>大话西游</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
          <string>千岛湖</string>
         </property>
        </item>

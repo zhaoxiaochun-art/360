@@ -133,21 +133,13 @@ void LoginDialog::initUI()
 
 	QSettings configIniRead(AppPath + "\\ModelFile\\testA\\ProgramSet.ini", QSettings::IniFormat);
 	QString text = configIniRead.value("UISetting/Style", "").toString();
-	if (text == "Default Style")
+	if (text == "DefaultStyle")
 	{
 		ui.cB_style->setCurrentIndex(0);
 	}
-	else if (text == "Iron Man")
-	{
-		ui.cB_style->setCurrentIndex(1);
-	}
-	else if (text == "zxc")
-	{
-		ui.cB_style->setCurrentIndex(2);
-	}
 	else if (text == "qdh")
 	{
-		ui.cB_style->setCurrentIndex(3);
+		ui.cB_style->setCurrentIndex(1);
 	}
 
 	ui.cB_turnOn->setFixedSize(163, 29);
@@ -395,15 +387,7 @@ void LoginDialog::on_cB_style_activated(const QString &arg1)
 	QSettings configIniRead(AppPath + "\\ModelFile\\testA\\ProgramSet.ini", QSettings::IniFormat);
 	if (arg1 == QString::fromLocal8Bit("默认风格"))
 	{
-		configIniRead.setValue("UISetting/Style", "Default Style");//写当前模板
-	}
-	else if (arg1 == "Iron Man")
-	{
-		configIniRead.setValue("UISetting/Style", "Iron Man");//写当前模板
-	}
-	else if (arg1 == QString::fromLocal8Bit("大话西游"))
-	{
-		configIniRead.setValue("UISetting/Style", "zxc");//写当前模板
+		configIniRead.setValue("UISetting/Style", "DefaultStyle");//写当前模板
 	}
 	else if (arg1 == QString::fromLocal8Bit("千岛湖"))
 	{
