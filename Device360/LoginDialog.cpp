@@ -23,8 +23,18 @@ LoginDialog::LoginDialog(QWidget *parent)
 	setMaskFun(false);
 	initUI();
 
-	connect(ui.numButtonGroup, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked),
-		[=](QAbstractButton* button) {ui.lE_Password->setText(ui.lE_Password->text() += button->text()); });
+	connect(ui.numButtonGroup, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonPressed),
+		[=](QAbstractButton* button) {
+
+		button->setStyleSheet("background-color: rgb(222, 255, 222);font-size:60pt");
+	});
+
+	connect(ui.numButtonGroup, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonReleased),
+		[=](QAbstractButton* button) {
+
+		button->setStyleSheet("font-size:60pt");
+		ui.lE_Password->setText(ui.lE_Password->text() += button->text());
+	});
 	initMovie();
 	animation1->start();
 }
