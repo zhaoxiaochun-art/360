@@ -55,7 +55,8 @@ Device360::Device360(QWidget *parent)
 	AppPath = qApp->applicationDirPath();//exe所在目录
 	AppPath.replace("/", "\\");
 
-	initUI();
+	initUI(); 
+	firstStartInit();
 	initStatistics();
 	m_ProgramDlg = new ProgramSet();
 	//m_ResultDlg = new ResultData(); 
@@ -231,7 +232,17 @@ void Device360::initStatistics()
 	ui.tableWidget_Result->insertRow(z);//再加一行
 	ui.tableWidget_Result->setItem(z, 0, new QTableWidgetItem(QString::fromLocal8Bit("NGStyle")));//第0列，已隐藏
 	ui.tableWidget_Result->setItem(z, 1, new QTableWidgetItem(QString::fromLocal8Bit("废品种类")));//第1列
+	ui.tableWidget_Result->setItem(z, 2, new QTableWidgetItem(QString::number(0)));//第2列	
+	
+	for(int j=1;j<11;j++)
+	{
+	z++;
+	ui.tableWidget_Result->insertRow(z);//再加一行
+	ui.tableWidget_Result->setItem(z, 0, new QTableWidgetItem(QString::fromLocal8Bit("NG")+QString::number(j)));//第0列，已隐藏
+	ui.tableWidget_Result->setItem(z, 1, new QTableWidgetItem(QString::fromLocal8Bit("废品") + QString::number(j)));//第1列
 	ui.tableWidget_Result->setItem(z, 2, new QTableWidgetItem(QString::number(0)));//第2列
+	}
+
 	for (int rowcount = 0; rowcount < z + 1; rowcount++)
 	{
 		for (int i = 0; i < 3; i++)
@@ -334,19 +345,16 @@ void Device360::on_Button_Start_toggled(bool checked)
 		ui.Button_CountReset->setEnabled(false);
 		ui.Button_Exit->setEnabled(false);
 		ui.lE_PN->setEnabled(false);
-		if (m_bFirstStartFlag)
-		{
-			firstStartInit();
-		}
+
 		m_CsCtrl->SysStartWork(m_MyFunPtr);
 
-		/*unsigned char *buff;
+		unsigned char *buff;
 
 		struAlgResult *finalresult=new struAlgResult();
 		finalresult->NGType[0] = 1;
 		finalresult->NGType[1] = 2;
 		void* pResult = finalresult;
-		MyFunTemp(0, 0, buff, 1080, 1080, 3, pResult);*/
+		MyFunTemp(0, 0, buff, 1080, 1080, 3, pResult);
 	}
 	else
 	{
