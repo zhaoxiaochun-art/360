@@ -385,14 +385,14 @@ void Device360::on_Button_Start_toggled(bool checked)
 		finalresult->isKick[2] = 1;
 		finalresult->isKick[3] = 0;
 		finalresult->isKick[4] = 0;
-		finalresult->NGType[0] = 1;
-		finalresult->NGType[1] = 0;
-		finalresult->NGType[2] = 5;
+		finalresult->NGType[0] = 0;
+		finalresult->NGType[1] = 1;
+		finalresult->NGType[2] = 2;
 		finalresult->NGType[3] = -1;//ºÏ¸ñ
 		finalresult->NGType[4] = -2;//¿Õ
 		static int kk = -2;
 		if (kk == 5) kk = -2;
-		finalresult->NGType[5] = kk++;
+		finalresult->NGType[5] = kk;
 		if (kk>=0)
 		{
 			finalresult->isKick[5] = 1;
@@ -401,6 +401,8 @@ void Device360::on_Button_Start_toggled(bool checked)
 		{
 			finalresult->isKick[5] = 0;
 		}
+		kk++;
+
 		void* pResult = finalresult;
 		MyFunTemp(0, 0, buff, 1080, 1080, 3, pResult);
 	}
