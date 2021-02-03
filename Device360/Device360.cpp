@@ -116,8 +116,16 @@ void Device360::MyFun(int nCamID, int nPhotoTimes, unsigned char* pBuf, int IWid
 
 	emit SignShowImage(nCamID, matGetOnece, nPhotoTimes);
 
-	/*struAlgResult* m_result = (struAlgResult*)pResult;
-	int i = m_result->NGType[0];*/
+	m_result = (struAlgResult*)pResult;
+	for (int k = 0; k < 6; k++)
+	{
+		int i = m_result->NGType[k]; 
+		int oldnum = ui.tableWidget_Result->item(4 + i, 2)->text().toInt();
+		if (i!=0)
+		{
+			ui.tableWidget_Result->item(4 + i, 2)->setText(QString::number(++oldnum));
+		}
+	}
 	
 }
 bool Device360::eventFilter(QObject* obj, QEvent* event)
