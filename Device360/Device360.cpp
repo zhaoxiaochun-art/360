@@ -377,7 +377,7 @@ void Device360::on_Button_Start_toggled(bool checked)
 
 		m_CsCtrl->SysStartWork(m_MyFunPtr);
 
-		unsigned char *buff;
+		unsigned char *buff = new unsigned char[3499200];
 
 		struAlgResult *finalresult = new struAlgResult();
 		finalresult->isKick[0] = 1;
