@@ -114,6 +114,10 @@ void Device360::MyFun(int nCamID, int nPhotoTimes, unsigned char* pBuf, int IWid
 	memcpy(matGetOnece.data, pBuf, sizetotal);
 
 	emit SignShowImage(nCamID, matGetOnece, nPhotoTimes);
+
+	/*struAlgResult* m_result = (struAlgResult*)pResult;
+	int i = m_result->NGType[0];*/
+	
 }
 bool Device360::eventFilter(QObject* obj, QEvent* event)
 {
@@ -336,9 +340,13 @@ void Device360::on_Button_Start_toggled(bool checked)
 		}
 		m_CsCtrl->SysStartWork(m_MyFunPtr);
 
-		unsigned char *buff;
-		void* pResult;
-		MyFunTemp(0, 0, buff, 1080, 1080, 3, pResult);
+		/*unsigned char *buff;
+
+		struAlgResult *finalresult=new struAlgResult();
+		finalresult->NGType[0] = 1;
+		finalresult->NGType[1] = 2;
+		void* pResult = finalresult;
+		MyFunTemp(0, 0, buff, 1080, 1080, 3, pResult);*/
 	}
 	else
 	{
