@@ -16,9 +16,9 @@ extern Device360 *w;
 #pragma comment(lib,"JSONDLL.lib")
 
 
-void MyFunTemp(int nCamID, int nPhotoTimes, unsigned char* pBuf,int IWidth, int IHeight, int IFrameType, void* pResult)
+void MyFunTemp(int nCamID, int nPhotoTimes, unsigned char* pBuf, int IWidth, int IHeight, int IFrameType, void* pResult)
 {
-	w->MyFun(nCamID, nPhotoTimes,pBuf, IWidth, IHeight, IFrameType, pResult);
+	w->MyFun(nCamID, nPhotoTimes, pBuf, IWidth, IHeight, IFrameType, pResult);
 }
 
 Device360::Device360(QWidget *parent)
@@ -33,7 +33,7 @@ Device360::Device360(QWidget *parent)
 	LoginDialog* dlg = new LoginDialog(this);
 	dlg->exec();
 	m_iShutDownPC = dlg->LoginDlgCloseMode(); //2和3在退出时处理
-	if (m_iShutDownPC==0)
+	if (m_iShutDownPC == 0)
 	{
 		exit(-1);
 	}
@@ -55,7 +55,7 @@ Device360::Device360(QWidget *parent)
 	AppPath = qApp->applicationDirPath();//exe所在目录
 	AppPath.replace("/", "\\");
 
-	initUI(); 
+	initUI();
 	initStatistics();
 	m_ProgramDlg = new ProgramSet();
 	//m_ResultDlg = new ResultData(); 
@@ -63,6 +63,7 @@ Device360::Device360(QWidget *parent)
 	initCtrl();
 
 	m_MyFunPtr = MyFunTemp;    // 函数指针初始化
+	connect(this, SIGNAL(SignShowImage(int, cv::Mat, int)), this, SLOT(SLOTShowImage(int, cv::Mat, int)));//openCV有关 显示图片
 }
 void Device360::initCtrl()
 {
@@ -72,12 +73,12 @@ void Device360::initCtrl()
 	initCamera(&camInfo[0]);
 
 	struAlgConfig algCfg;
-	QString str = AppPath+"/saveImage/";
+	QString str = AppPath + "/saveImage/";
 	QByteArray ba = str.toLatin1();
 	char *c = ba.data();
 	strcpy(algCfg.f_resultImagePath, c);
 
-	m_CsCtrl->SysInit(&plcCon,&camInfo[0],&algCfg);
+	m_CsCtrl->SysInit(&plcCon, &camInfo[0], &algCfg);
 }
 void Device360::initCamera(struCamInfo *TempcamInfo)
 {
@@ -86,9 +87,9 @@ void Device360::initCamera(struCamInfo *TempcamInfo)
 	JsonCommand jsc(str);
 	string s[5];
 	string pstr[5];
-	jsc.LoopReadJson("CamInfo", "c_CameraName", s,pstr);
+	jsc.LoopReadJson("CamInfo", "c_CameraName", s, pstr);
 
-	
+
 	for (int i = 0; i < 5; i++)
 	{
 		TempcamInfo[i].n_CamID = i;
@@ -106,9 +107,13 @@ void Device360::closeEvent(QCloseEvent *event)
 	}
 	m_CsCtrl->SysUnInit();
 }
-void Device360::MyFun(int nCamID, int nPhotoTimes, unsigned char* pBuf,int IWidth, int IHeight, int IFrameType, void* pResult)
+void Device360::MyFun(int nCamID, int nPhotoTimes, unsigned char* pBuf, int IWidth, int IHeight, int IFrameType, void* pResult)
 {
-	w->firstStartInit();
+	int sizetotal = IHeight * IWidth * IFrameType;
+	cv::Mat matGetOnece = cv::Mat(IHeight, IWidth, IFrameType == 1 ? CV_8UC1 : CV_8UC3);
+	memcpy(matGetOnece.data, pBuf, sizetotal);
+
+	emit SignShowImage(nCamID, matGetOnece, nPhotoTimes);
 }
 bool Device360::eventFilter(QObject* obj, QEvent* event)
 {
@@ -186,7 +191,7 @@ void Device360::initUI()
 
 	QRegExp regx("[a-zA-Z0-9_]+$");//正则表达式QRegExp,只允许输入中文、数字、字母、下划线以及空格,[\u4e00 - \u9fa5a - zA - Z0 - 9_] + $
 	ui.lE_PN->setValidator(new QRegExpValidator(regx, this));
-	
+
 }
 void Device360::initStatistics()
 {
@@ -223,7 +228,7 @@ void Device360::initStatistics()
 	ui.tableWidget_Result->setItem(z, 0, new QTableWidgetItem(QString::fromLocal8Bit("NGStyle")));//第0列，已隐藏
 	ui.tableWidget_Result->setItem(z, 1, new QTableWidgetItem(QString::fromLocal8Bit("废品种类")));//第1列
 	ui.tableWidget_Result->setItem(z, 2, new QTableWidgetItem(QString::number(0)));//第2列
-	for (int rowcount = 0; rowcount < z+1; rowcount++)
+	for (int rowcount = 0; rowcount < z + 1; rowcount++)
 	{
 		for (int i = 0; i < 3; i++)
 		{
@@ -253,14 +258,14 @@ void Device360::firstStartInit()
 
 				QPixmap mp = m_pixlist.at(i + z * 5);
 				QPainter painter;
-				painter.begin(&mp);	
+				painter.begin(&mp);
 				painter.setRenderHint(QPainter::Antialiasing, true);
 				QFont font;
 				font.setPointSize(15);
 				font.setFamily("宋体");
 				font.setItalic(true);
 				painter.setFont(font);
-				painter.drawText(10, 5, 150, 50, Qt::AlignVCenter, QString::fromLocal8Bit("相机位置: ")+QString::number(i)+"\n"+QString::fromLocal8Bit("照片序号: ")+QString::number(z));//0
+				painter.drawText(10, 5, 150, 50, Qt::AlignVCenter, QString::fromLocal8Bit("相机位置: ") + QString::number(i) + "\n" + QString::fromLocal8Bit("照片序号: ") + QString::number(z));//0
 				painter.end();
 				label->setPixmap(mp);//改切割图片
 				//label->setPixmap(m_pixlist.at(i + z * 5));//改切割图片
@@ -325,13 +330,13 @@ void Device360::on_Button_Start_toggled(bool checked)
 		ui.Button_CountReset->setEnabled(false);
 		ui.Button_Exit->setEnabled(false);
 		ui.lE_PN->setEnabled(false);
-		//if (m_bFirstStartFlag)
-		//{
-		//	firstStartInit();
-		//}
+		if (m_bFirstStartFlag)
+		{
+			firstStartInit();
+		}
 		m_CsCtrl->SysStartWork(m_MyFunPtr);
 
-		unsigned char buff[100] = { 0 }; 
+		unsigned char *buff;
 		void* pResult;
 		MyFunTemp(0, 0, buff, 1080, 1080, 3, pResult);
 	}
@@ -347,7 +352,7 @@ void Device360::on_Button_Start_toggled(bool checked)
 }
 void Device360::on_Button_AlarmReset_clicked()
 {
-		QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("系统故障清除后，点击该按钮进行故障复位，如果设备不在原点，还需要寻参"));
+	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("系统故障清除后，点击该按钮进行故障复位，如果设备不在原点，还需要寻参"));
 
 }
 
@@ -433,7 +438,7 @@ void Device360::on_Button_Exit_released()
 			close();
 		}
 	}
-	
+
 }
 void Device360::on_lE_PN_returnPressed()
 {
@@ -444,3 +449,25 @@ void Device360::on_lE_RunSpeed_returnPressed()
 	QMessageBox::about(nullptr, QString::fromLocal8Bit("功能"), QString::fromLocal8Bit("改变系统速度：10-120rpm"));
 }
 #pragma endregion
+
+void Device360::SLOTShowImage(int pos, cv::Mat img, int checktimes)
+{
+	QLabel* label = this->findChild<QLabel*>("LabelShow" + QString::number(pos) + "_" + QString::number(checktimes % 3));
+
+	int zz = label->frameWidth();
+	QSize ss = label->size();
+	ss.setWidth(ss.width() - zz * 2);
+	ss.setHeight(ss.height() - zz * 2);
+	cv::Mat imgsend;
+	if (img.channels() == 1)
+	{
+		cv::cvtColor(img, imgsend, cv::COLOR_GRAY2BGR);
+	}
+	else if (img.channels() == 3)
+	{
+		cv::cvtColor(img, imgsend, cv::COLOR_BGR2RGB);
+	}
+	cv::resize(imgsend, imgsend, cv::Size(ss.width(), ss.height()));
+	QImage disImage = QImage((const unsigned char*)(imgsend.data), imgsend.cols, imgsend.rows, imgsend.step, QImage::Format_RGB888);
+	label->setPixmap(QPixmap::fromImage(disImage));
+}

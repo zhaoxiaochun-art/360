@@ -10,10 +10,26 @@
 #include "WindowOut.h"
 #include "CServiceCtrl.h"
 
+#include "opencv.hpp"
+#include "highgui.hpp"
+
+#ifdef _DEBUG
+#pragma comment(lib,"opencv_core347d.lib")
+#pragma comment(lib,"opencv_highgui347d.lib")
+#pragma comment(lib,"opencv_imgcodecs347d.lib")
+#pragma comment(lib,"opencv_imgproc347d.lib")
+#else
+#pragma comment(lib,"opencv_core347.lib")
+#pragma comment(lib,"opencv_highgui347.lib")
+#pragma comment(lib,"opencv_imgcodecs347.lib")
+#pragma comment(lib,"opencv_imgproc347.lib")
+#endif
+
 class Device360 : public QMainWindow
 {
     Q_OBJECT
-
+signals:
+	void SignShowImage(int,cv::Mat,int);
 public:
     Device360(QWidget *parent = Q_NULLPTR);
 	void initCtrl();
@@ -57,4 +73,5 @@ public slots:
 	void on_Button_Exit_released();
 	void on_lE_PN_returnPressed();
 	void on_lE_RunSpeed_returnPressed();
+	void SLOTShowImage(int, cv::Mat, int);
 };
