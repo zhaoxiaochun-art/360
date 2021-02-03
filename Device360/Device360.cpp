@@ -16,14 +16,9 @@ extern Device360 *w;
 #pragma comment(lib,"JSONDLL.lib")
 
 
-void MyFun(int nCamID, int nPhotoTimes, unsigned char* pBuf,int IWidth, int IHeight, int IFrameType, void* pResult)
+void MyFunTemp(int nCamID, int nPhotoTimes, unsigned char* pBuf,int IWidth, int IHeight, int IFrameType, void* pResult)
 {
-	QMessageBox::about(nullptr,"1212","222");
-}
-void MyFun2(int nCamID, int nPhotoTimes, unsigned char* pBuf,
-	int IWidth, int IHeight, int IFrameType, void* pResult)
-{
-	w->firstStartInit();
+	w->MyFun(nCamID, nPhotoTimes,pBuf, IWidth, IHeight, IFrameType, pResult);
 }
 
 Device360::Device360(QWidget *parent)
@@ -67,7 +62,7 @@ Device360::Device360(QWidget *parent)
 	//m_DailyLogDlg = new DailyLog();
 	initCtrl();
 
-	m_MyFunPtr = MyFun;    // 函数指针初始化
+	m_MyFunPtr = MyFunTemp;    // 函数指针初始化
 }
 void Device360::initCtrl()
 {
@@ -111,7 +106,10 @@ void Device360::closeEvent(QCloseEvent *event)
 	}
 	m_CsCtrl->SysUnInit();
 }
-
+void Device360::MyFun(int nCamID, int nPhotoTimes, unsigned char* pBuf,int IWidth, int IHeight, int IFrameType, void* pResult)
+{
+	w->firstStartInit();
+}
 bool Device360::eventFilter(QObject* obj, QEvent* event)
 {
 	if (obj == this)
@@ -335,7 +333,7 @@ void Device360::on_Button_Start_toggled(bool checked)
 
 		unsigned char buff[100] = { 0 }; 
 		void* pResult;
-		MyFun2(0, 0, buff, 1080, 1080, 3, pResult);
+		MyFunTemp(0, 0, buff, 1080, 1080, 3, pResult);
 	}
 	else
 	{

@@ -19,6 +19,7 @@ public:
 	void initCtrl();
 	void initCamera(struCamInfo *camInfo);
 	void closeEvent(QCloseEvent * event);
+	void MyFun(int nCamID, int nPhotoTimes, unsigned char * pBuf, int IWidth, int IHeight, int IFrameType, void * pResult);
 	bool eventFilter(QObject * obj, QEvent * event);
 	void initUI();
 	void initStatistics();
