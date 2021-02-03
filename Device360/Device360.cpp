@@ -4,6 +4,8 @@
 #include <Windows.h>
 #include <QThread>
 
+extern Device360 *w;
+
 #ifdef _DEBUG
 #pragma comment(lib,"ServiceCtrl64d.lib")
 #else
@@ -14,12 +16,15 @@
 #pragma comment(lib,"JSONDLL.lib")
 
 
-void MyFun(int nCamID, int nPhotoTimes, unsigned char* pBuf,
-	int IWidth, int IHeight, int IFrameType, void* pResult)
+void MyFun(int nCamID, int nPhotoTimes, unsigned char* pBuf,int IWidth, int IHeight, int IFrameType, void* pResult)
 {
 	QMessageBox::about(nullptr,"1212","222");
 }
-
+void MyFun2(int nCamID, int nPhotoTimes, unsigned char* pBuf,
+	int IWidth, int IHeight, int IFrameType, void* pResult)
+{
+	w->firstStartInit();
+}
 
 Device360::Device360(QWidget *parent)
 	: QMainWindow(parent)
@@ -327,6 +332,10 @@ void Device360::on_Button_Start_toggled(bool checked)
 		//	firstStartInit();
 		//}
 		m_CsCtrl->SysStartWork(m_MyFunPtr);
+
+		unsigned char buff[100] = { 0 }; 
+		void* pResult;
+		MyFun2(0, 0, buff, 1080, 1080, 3, pResult);
 	}
 	else
 	{

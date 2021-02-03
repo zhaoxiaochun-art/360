@@ -3,6 +3,7 @@
 #include <QSharedMemory>
 #include <QStyleFactory>
 #include "WindowOut.h"
+Device360 *w;
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
@@ -18,8 +19,16 @@ int main(int argc, char *argv[])
 	}
 
 	QApplication::setStyle(QStyleFactory::create("fusion"));//界面风格
+	
+	w = new Device360();
+	w->show();
 
-    Device360 w;
-    w.show();
-    return a.exec();
+	int n = a.exec();
+
+	delete w;
+	w = nullptr;
+
+	delete levelOut;
+	levelOut = nullptr;
+    return n;
 }
