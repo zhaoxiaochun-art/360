@@ -119,19 +119,36 @@ void Device360::MyFun(int nCamID, int nPhotoTimes, unsigned char* pBuf, int IWid
 	m_result = (struAlgResult*)pResult;
 	for (int k = 0; k < 6; k++)
 	{
-		int i = m_result->NGType[k]; 
-		if (i!=0)
+		int iskk = m_result->isKick[k];
+		int i = m_result->NGType[k];
+		if (iskk==0)//不剔废
 		{
-			int oldnum = ui.tableWidget_Result->item(4 + i, 2)->text().toInt();
-			if (oldnum==0)
+			if (i==-1)//合格
+			{
+				int oldsum = ui.tableWidget_Result->item(0, 2)->text().toInt();
+				ui.tableWidget_Result->item(0, 2)->setText(QString::number(++oldsum));
+				int oldOK = ui.tableWidget_Result->item(1, 2)->text().toInt();
+				ui.tableWidget_Result->item(1, 2)->setText(QString::number(++oldOK));
+			}
+		}
+		else
+		{
+
+			int oldsum = ui.tableWidget_Result->item(0, 2)->text().toInt();
+			ui.tableWidget_Result->item(0, 2)->setText(QString::number(++oldsum));
+			int oldng = ui.tableWidget_Result->item(4 + i, 2)->text().toInt();
+			if (oldng==0)
 			{
 				int oldtype = ui.tableWidget_Result->item(3, 2)->text().toInt();
 				ui.tableWidget_Result->item(3, 2)->setText(QString::number(++oldtype));
 			}
-			ui.tableWidget_Result->item(4 + i, 2)->setText(QString::number(++oldnum));
+			ui.tableWidget_Result->item(4 + i, 2)->setText(QString::number(++oldng));
 		}
 	}
-	
+	int oldsum = ui.tableWidget_Result->item(0, 2)->text().toInt();
+	int oldOK = ui.tableWidget_Result->item(1, 2)->text().toInt();
+	float ft = oldOK * 100.0 / oldsum;
+	ui.tableWidget_Result->item(2, 2)->setText(QString::number(ft, 'f', 2) + "%");
 }
 bool Device360::eventFilter(QObject* obj, QEvent* event)
 {
@@ -362,13 +379,28 @@ void Device360::on_Button_Start_toggled(bool checked)
 
 		unsigned char *buff;
 
-		struAlgResult *finalresult=new struAlgResult();
+		struAlgResult *finalresult = new struAlgResult();
+		finalresult->isKick[0] = 1;
+		finalresult->isKick[1] = 1;
+		finalresult->isKick[2] = 1;
+		finalresult->isKick[3] = 0;
+		finalresult->isKick[4] = 0;
 		finalresult->NGType[0] = 1;
-		finalresult->NGType[1] = 2;
+		finalresult->NGType[1] = 0;
 		finalresult->NGType[2] = 5;
-		finalresult->NGType[3] = 5;
-		finalresult->NGType[4] = 6;
-		finalresult->NGType[5] = 7;
+		finalresult->NGType[3] = -1;//合格
+		finalresult->NGType[4] = -2;//空
+		static int kk = -2;
+		if (kk == 5) kk = -2;
+		finalresult->NGType[5] = kk++;
+		if (kk>=0)
+		{
+			finalresult->isKick[5] = 1;
+		}
+		else
+		{
+			finalresult->isKick[5] = 0;
+		}
 		void* pResult = finalresult;
 		MyFunTemp(0, 0, buff, 1080, 1080, 3, pResult);
 	}

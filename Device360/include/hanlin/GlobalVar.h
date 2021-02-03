@@ -87,7 +87,7 @@ struct struAlgResult
 	int nCamID;					//与相机id对应。
 	int nPhotoTimes;			//相机每次循环抓拍的图像id
 	int isKick[6];				//对应图像中6个胶囊是否剔废：0-不剔，1-剔。
-	int NGType[6];				//废品种类。
+	int NGType[6];				//废品种类。-2为空 -1为合格 0及以上为废品种类号
 	struAlgResult()
 	{
 		nCamID = -1;
