@@ -120,9 +120,14 @@ void Device360::MyFun(int nCamID, int nPhotoTimes, unsigned char* pBuf, int IWid
 	for (int k = 0; k < 6; k++)
 	{
 		int i = m_result->NGType[k]; 
-		int oldnum = ui.tableWidget_Result->item(4 + i, 2)->text().toInt();
 		if (i!=0)
 		{
+			int oldnum = ui.tableWidget_Result->item(4 + i, 2)->text().toInt();
+			if (oldnum==0)
+			{
+				int oldtype = ui.tableWidget_Result->item(3, 2)->text().toInt();
+				ui.tableWidget_Result->item(3, 2)->setText(QString::number(++oldtype));
+			}
 			ui.tableWidget_Result->item(4 + i, 2)->setText(QString::number(++oldnum));
 		}
 	}
@@ -264,7 +269,6 @@ void Device360::initStatistics()
 void Device360::firstStartInit()
 {
 	ui.lb_Picture->setVisible(false);
-	m_bFirstStartFlag = false;
 
 	QPixmap pix(AppPath + "/ico/dr-pharmmatch.png");//
 	splitpixmap(pix, 3, 5);//ÇÐÍ¼
@@ -361,6 +365,10 @@ void Device360::on_Button_Start_toggled(bool checked)
 		struAlgResult *finalresult=new struAlgResult();
 		finalresult->NGType[0] = 1;
 		finalresult->NGType[1] = 2;
+		finalresult->NGType[2] = 5;
+		finalresult->NGType[3] = 5;
+		finalresult->NGType[4] = 6;
+		finalresult->NGType[5] = 7;
 		void* pResult = finalresult;
 		MyFunTemp(0, 0, buff, 1080, 1080, 3, pResult);
 	}
