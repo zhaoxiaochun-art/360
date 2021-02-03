@@ -377,7 +377,7 @@ void Device360::on_Button_Start_toggled(bool checked)
 
 		m_CsCtrl->SysStartWork(m_MyFunPtr);
 
-		unsigned char *buff = new unsigned char[3499200];
+		/*unsigned char *buff = new unsigned char[3499200];
 
 		struAlgResult *finalresult = new struAlgResult();
 		finalresult->isKick[0] = 1;
@@ -404,7 +404,7 @@ void Device360::on_Button_Start_toggled(bool checked)
 		kk++;
 
 		void* pResult = finalresult;
-		MyFunTemp(0, 0, buff, 1080, 1080, 3, pResult);
+		MyFunTemp(0, 0, buff, 1080, 1080, 3, pResult);*/
 	}
 	else
 	{
