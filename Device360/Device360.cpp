@@ -450,7 +450,11 @@ void Device360::on_Button_CountReset_pressed()
 void Device360::on_Button_CountReset_released()
 {
 
-	ui.Button_CountReset->setIcon(QPixmap(AppPath + "/ico/countReset.png"));
+	ui.Button_CountReset->setIcon(QPixmap(AppPath + "/ico/countReset.png"));	
+	for (int i = 0; i < ui.tableWidget_Result->rowCount(); i++)//遍历没有，增加新行赋值1
+	{
+		ui.tableWidget_Result->setItem(i, 2, new QTableWidgetItem(QString::number(0)));
+	}
 }
 
 void Device360::on_pB_Keyboard_clicked()
