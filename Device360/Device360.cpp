@@ -78,32 +78,29 @@ void Device360::initPieChart()
 	//绘制饼图
 	QPieSeries *series = new QPieSeries();
 	//添加饼图切片的标签和值
-	series->append("", 5420);
-	series->append("", 4130);
-	series->append("", 7150);
-	series->append("", 3190);
-	series->append("", 1137);
-	float totalValue = 5420 + 4130 + 7150 + 3190 + 1137;
+	series->append("", 10);
+	series->append("", 10);
+	float totalValue = 10 + 10;
 	series->setHoleSize(0.0);//孔大小0.0-1.0
 	series->setHorizontalPosition(0.5);//水平位置，默认0.5，0.0-1.0
-	series->setLabelsPosition(QPieSlice::LabelOutside);
+	series->setLabelsPosition(QPieSlice::LabelInsideNormal);
 	series->setLabelsVisible(true);
-	series->setPieSize(0.7);//饼图尺寸，默认0.7
+	series->setPieSize(0.8);//饼图尺寸，默认0.7
 	series->setPieStartAngle(0);//0度为12点钟方向
-	series->setVerticalPosition(0.6);
+	series->setVerticalPosition(0.5);
 	series->setVisible(true);
 
 
 	QChart *chart = new QChart();
 	chart->addSeries(series);
-	// chart->setTitle("");
+	chart->setTitle(QString::fromLocal8Bit("运行统计饼图"));
 	chart->setTheme(QChart::ChartThemeBlueCerulean);
 	chart->setAnimationOptions(QChart::AllAnimations);//设置启用或禁用动画
 	chart->setBackgroundBrush(QBrush(QColor(6, 89, 128)));//设置背景色
 	//chart->setDropShadowEnabled(true);//是否背景阴影
 	chart->setLocalizeNumbers(true);//数字是否本地化
 	chart->setTitleBrush(QBrush(QColor(255, 255, 255)));//设置标题Brush（刷子）
-	chart->setTitleFont(QFont("微软雅黑", 20));//设置标题字体
+	chart->setTitleFont(QFont("微软雅黑", 14));//设置标题字体
 
 
 	chart->legend()->setAlignment(Qt::AlignLeft);//对齐
@@ -121,43 +118,18 @@ void Device360::initPieChart()
 	QPieSlice *slice1 = series->slices().at(0);
 	slice1->setExploded();//切片是否与饼图分离
 	slice1->setLabelVisible(true);//标签是否可视
-	slice1->setLabelColor(QColor(255, 170, 255));//设置标签颜色
-	slice1->setColor(QColor(255, 170, 255));//设置颜色
+	slice1->setLabelColor(QColor(0, 170, 0));//设置标签颜色
+	slice1->setColor(QColor(0, 170, 0));//设置颜色
 	slice1->setLabel(slice1->label() + "-" + QString("%1").arg(slice1->value()));
 	slice1->setLabelFont(QFont("微软雅黑"));//设置标签格式
 
 	QPieSlice *slice2 = series->slices().at(1);
 	//slice2->setExploded();//切片是否与饼图分离
 	slice2->setLabelVisible(true);
-	slice2->setLabelColor(QColor(170, 170, 255));
-	slice2->setColor(QColor(170, 170, 255));
+	slice2->setLabelColor(QColor(255, 170, 255));
+	slice2->setColor(QColor(255, 170, 255));
 	slice2->setLabel(slice2->label() + "-" + QString("%1").arg(slice2->value()));
 	slice2->setLabelFont(QFont("微软雅黑"));
-
-	QPieSlice *slice3 = series->slices().at(2);
-	//slice3->setExploded();//切片是否与饼图分离
-	slice3->setLabelVisible(true);
-	slice3->setLabelColor(QColor(255, 170, 170));
-	slice3->setColor(QColor(255, 170, 170));
-	slice3->setLabel(slice3->label() + "-" + QString("%1").arg(slice3->value()));
-	slice3->setLabelFont(QFont("微软雅黑"));
-
-	QPieSlice *slice4 = series->slices().at(3);
-	//slice4->setExploded();//切片是否与饼图分离
-	slice4->setLabelVisible(true);
-	slice4->setLabelColor(QColor(170, 255, 170));
-	slice4->setColor(QColor(170, 255, 170));
-	slice4->setLabel(slice4->label() + "-" + QString("%1").arg(slice4->value()));
-	slice4->setLabelFont(QFont("微软雅黑"));
-
-	QPieSlice *slice5 = series->slices().at(4);
-	slice5->setExploded();//切片是否与饼图分离
-	slice5->setLabelVisible(true);
-	slice5->setLabelColor(QColor(255, 255, 170));
-	slice5->setColor(QColor(255, 255, 170));
-	slice5->setLabel(slice5->label() + "-" + QString("%1").arg(slice5->value()));
-	slice5->setLabelFont(QFont("微软雅黑"));
-
 
 	QChartView *chartView = new QChartView(chart);
 	chartView->setRenderHint(QPainter::Antialiasing);
