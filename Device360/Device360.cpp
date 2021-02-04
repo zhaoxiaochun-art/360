@@ -86,11 +86,11 @@ void Device360::initPieChart()
 	float totalValue = 5420 + 4130 + 7150 + 3190 + 1137;
 	series->setHoleSize(0.0);//¿×´óÐ¡0.0-1.0
 	series->setHorizontalPosition(0.5);//Ë®Æ½Î»ÖÃ£¬Ä¬ÈÏ0.5£¬0.0-1.0
-	//series->setLabelsPosition(QPieSlice::LabelOutside);
-	series->setLabelsVisible(false);
-	series->setPieSize(0.5);//±ýÍ¼³ß´ç£¬Ä¬ÈÏ0.7
+	series->setLabelsPosition(QPieSlice::LabelOutside);
+	series->setLabelsVisible(true);
+	series->setPieSize(0.7);//±ýÍ¼³ß´ç£¬Ä¬ÈÏ0.7
 	series->setPieStartAngle(0);//0¶ÈÎª12µãÖÓ·½Ïò
-	series->setVerticalPosition(0.5);
+	series->setVerticalPosition(0.6);
 	series->setVisible(true);
 
 
@@ -123,50 +123,40 @@ void Device360::initPieChart()
 	slice1->setLabelVisible(true);//±êÇ©ÊÇ·ñ¿ÉÊÓ
 	slice1->setLabelColor(QColor(255, 170, 255));//ÉèÖÃ±êÇ©ÑÕÉ«
 	slice1->setColor(QColor(255, 170, 255));//ÉèÖÃÑÕÉ«
-	slice1->setLabel(slice1->label() + "-" + QString("%1").arg(slice1->value())
-		+ "-" + QString("%1").arg(slice1->value() / totalValue * 100) + "%");
+	slice1->setLabel(slice1->label() + "-" + QString("%1").arg(slice1->value()));
 	slice1->setLabelFont(QFont("Î¢ÈíÑÅºÚ"));//ÉèÖÃ±êÇ©¸ñÊ½
-	slice1->setLabelVisible(true);
 
 	QPieSlice *slice2 = series->slices().at(1);
 	//slice2->setExploded();//ÇÐÆ¬ÊÇ·ñÓë±ýÍ¼·ÖÀë
 	slice2->setLabelVisible(true);
 	slice2->setLabelColor(QColor(170, 170, 255));
 	slice2->setColor(QColor(170, 170, 255));
-	slice2->setLabel(slice2->label() + "-" + QString("%1").arg(slice2->value())
-		+ "-" + QString("%1").arg(slice2->value() / totalValue * 100) + "%");
+	slice2->setLabel(slice2->label() + "-" + QString("%1").arg(slice2->value()));
 	slice2->setLabelFont(QFont("Î¢ÈíÑÅºÚ"));
-	slice2->setLabelVisible(true);
 
 	QPieSlice *slice3 = series->slices().at(2);
 	//slice3->setExploded();//ÇÐÆ¬ÊÇ·ñÓë±ýÍ¼·ÖÀë
 	slice3->setLabelVisible(true);
 	slice3->setLabelColor(QColor(255, 170, 170));
 	slice3->setColor(QColor(255, 170, 170));
-	slice3->setLabel(slice3->label() + "-" + QString("%1").arg(slice3->value())
-		+ "-" + QString("%1").arg(slice3->value() / totalValue * 100) + "%");
+	slice3->setLabel(slice3->label() + "-" + QString("%1").arg(slice3->value()));
 	slice3->setLabelFont(QFont("Î¢ÈíÑÅºÚ"));
-	slice3->setLabelVisible(true);
 
 	QPieSlice *slice4 = series->slices().at(3);
 	//slice4->setExploded();//ÇÐÆ¬ÊÇ·ñÓë±ýÍ¼·ÖÀë
-	slice3->setLabelVisible(true);
+	slice4->setLabelVisible(true);
 	slice4->setLabelColor(QColor(170, 255, 170));
 	slice4->setColor(QColor(170, 255, 170));
-	slice4->setLabel(slice4->label() + "-" + QString("%1").arg(slice4->value())
-		+ "-" + QString("%1").arg(slice4->value() / totalValue * 100) + "%");
+	slice4->setLabel(slice4->label() + "-" + QString("%1").arg(slice4->value()));
 	slice4->setLabelFont(QFont("Î¢ÈíÑÅºÚ"));
-	slice4->setLabelVisible(true);
 
 	QPieSlice *slice5 = series->slices().at(4);
 	slice5->setExploded();//ÇÐÆ¬ÊÇ·ñÓë±ýÍ¼·ÖÀë
 	slice5->setLabelVisible(true);
 	slice5->setLabelColor(QColor(255, 255, 170));
 	slice5->setColor(QColor(255, 255, 170));
-	slice5->setLabel(slice5->label() + "-" + QString("%1").arg(slice5->value())
-		+ "-" + QString("%1").arg(slice5->value() / totalValue * 100) + "%");
+	slice5->setLabel(slice5->label() + "-" + QString("%1").arg(slice5->value()));
 	slice5->setLabelFont(QFont("Î¢ÈíÑÅºÚ"));
-	slice5->setLabelVisible(true);
 
 
 	QChartView *chartView = new QChartView(chart);
