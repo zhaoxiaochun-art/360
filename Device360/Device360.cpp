@@ -4,11 +4,6 @@
 #include <Windows.h>
 #include <QThread>
 
-#include <QtCharts>
-#include <QChartView>
-#include <QPieSeries>
-#include <QPieSlice>
-
 extern Device360 *w;
 
 #ifdef _DEBUG
@@ -73,10 +68,29 @@ Device360::Device360(QWidget *parent)
 
 	initPieChart();
 }
+void Device360::dataReceived(int one)
+{
+	data_One << one;
+	//数据个数超过了最大数量，则删除所有数据，从头开始。
+	while (data_One.size() > 2) {
+		//data.clear();//
+		data_One.removeFirst();
+	}
+	// 界面被隐藏后就没有必要绘制数据的曲线了
+	if (isVisible()) {
+		series->clear();
+		//scatterSeries->clear();
+		int dx = 1;// maxX / (maxSize - 1);
+		for (int i = 0; i < data_One.size(); ++i) {
+			series->append("", data_One.at(i));
+			//scatterSeries->append(i*dx, data.at(i));
+		}
+	}
+}
 void Device360::initPieChart()
 {
 	//绘制饼图
-	QPieSeries *series = new QPieSeries();
+	series = new QPieSeries();
 	//添加饼图切片的标签和值
 	series->append("", 10);
 	series->append("", 10);
@@ -91,7 +105,7 @@ void Device360::initPieChart()
 	series->setVisible(true);
 
 
-	QChart *chart = new QChart();
+	chart = new QChart();
 	chart->addSeries(series);
 	chart->setTitle(QString::fromLocal8Bit("运行统计饼图"));
 	chart->setTheme(QChart::ChartThemeBlueCerulean);
@@ -115,7 +129,7 @@ void Device360::initPieChart()
 	chart->legend()->setFont(QFont("微软雅黑"));//设置字体类型
 
 	//操作单个切片
-	QPieSlice *slice1 = series->slices().at(0);
+	slice1 = series->slices().at(0);
 	slice1->setExploded();//切片是否与饼图分离
 	slice1->setLabelVisible(true);//标签是否可视
 	slice1->setLabelColor(QColor(0, 170, 0));//设置标签颜色
@@ -123,7 +137,7 @@ void Device360::initPieChart()
 	slice1->setLabel(slice1->label() + "-" + QString("%1").arg(slice1->value()));
 	slice1->setLabelFont(QFont("微软雅黑"));//设置标签格式
 
-	QPieSlice *slice2 = series->slices().at(1);
+	slice2 = series->slices().at(1);
 	//slice2->setExploded();//切片是否与饼图分离
 	slice2->setLabelVisible(true);
 	slice2->setLabelColor(QColor(255, 170, 255));
@@ -131,10 +145,10 @@ void Device360::initPieChart()
 	slice2->setLabel(slice2->label() + "-" + QString("%1").arg(slice2->value()));
 	slice2->setLabelFont(QFont("微软雅黑"));
 
-	QChartView *chartView = new QChartView(chart);
+	chartView = new QChartView(chart);
 	chartView->setRenderHint(QPainter::Antialiasing);
 
-	QVBoxLayout *pVLayout = new QVBoxLayout(ui.frame_Pie);
+	pVLayout = new QVBoxLayout(ui.frame_Pie);
 
 	//setContentsMargins(int left, int top, int right, int bottom)
 	//设置上下左右的边距分别为0
@@ -455,7 +469,9 @@ void Device360::on_Button_Start_toggled(bool checked)
 		ui.lE_PN->setEnabled(false);
 
 		m_CsCtrl->SysStartWork(m_MyFunPtr);
-
+		static int i = 2;
+		i += 2;
+		dataReceived(i);
 		/*unsigned char *buff = new unsigned char[3499200];
 
 		struAlgResult *finalresult = new struAlgResult();

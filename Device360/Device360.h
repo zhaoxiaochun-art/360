@@ -10,6 +10,11 @@
 #include "WindowOut.h"
 #include "CServiceCtrl.h"
 
+#include <QtCharts>
+#include <QChartView>
+#include <QPieSeries>
+#include <QPieSlice>
+
 #include "opencv.hpp"
 #include "highgui.hpp"
 
@@ -32,6 +37,7 @@ signals:
 	void SignShowImage(int,cv::Mat,int);
 public:
     Device360(QWidget *parent = Q_NULLPTR);
+	void dataReceived(int one);
 	void initPieChart();
 	void initCtrl();
 	void initCamera(struCamInfo *camInfo);
@@ -60,6 +66,14 @@ private:
 	CServiceCtrl* m_CsCtrl = nullptr;
 	UIDisplayCb m_MyFunPtr; 
 	struAlgResult* m_result;
+
+	QList<float> data_One;// 存储业务数据的 list
+	QPieSeries *series = nullptr;
+	QChart *chart = nullptr;	
+	QPieSlice *slice1 = nullptr;
+	QPieSlice *slice2 = nullptr;
+	QChartView *chartView = nullptr;
+	QVBoxLayout *pVLayout = nullptr;
 public slots:
 	void on_Button_Clean_toggled(bool checked);
 	void on_Button_Start_toggled(bool checked);
