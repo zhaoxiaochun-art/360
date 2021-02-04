@@ -32,6 +32,7 @@ signals:
 	void SignShowImage(int,cv::Mat,int);
 public:
     Device360(QWidget *parent = Q_NULLPTR);
+	void initPieChart();
 	void initCtrl();
 	void initCamera(struCamInfo *camInfo);
 	void closeEvent(QCloseEvent * event);
