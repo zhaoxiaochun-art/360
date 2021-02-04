@@ -72,7 +72,7 @@ void Device360::dataReceived(int one)
 {
 	data_One << one;
 	//数据个数超过了最大数量，则删除所有数据，从头开始。
-	while (data_One.size() > 2) {
+	while (data_One.size() > 10) {
 		//data.clear();//
 		data_One.removeFirst();
 	}
@@ -92,8 +92,9 @@ void Device360::initPieChart()
 	//绘制饼图
 	series = new QPieSeries();
 	//添加饼图切片的标签和值
-	series->append("", 10);
-	series->append("", 10);
+	data_One << 10 << 10;
+	series->append("", data_One.at(0));
+	series->append("", data_One.at(1));
 	float totalValue = 10 + 10;
 	series->setHoleSize(0.0);//孔大小0.0-1.0
 	series->setHorizontalPosition(0.5);//水平位置，默认0.5，0.0-1.0
@@ -109,7 +110,7 @@ void Device360::initPieChart()
 	chart->addSeries(series);
 	chart->setTitle(QString::fromLocal8Bit("运行统计饼图"));
 	chart->setTheme(QChart::ChartThemeBlueCerulean);
-	chart->setAnimationOptions(QChart::AllAnimations);//设置启用或禁用动画
+	//chart->setAnimationOptions(QChart::AllAnimations);//设置启用或禁用动画
 	chart->setBackgroundBrush(QBrush(QColor(6, 89, 128)));//设置背景色
 	//chart->setDropShadowEnabled(true);//是否背景阴影
 	chart->setLocalizeNumbers(true);//数字是否本地化
