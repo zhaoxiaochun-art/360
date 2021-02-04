@@ -39,6 +39,7 @@ public:
     Device360(QWidget *parent = Q_NULLPTR);
 	void dataReceived(int one);
 	void initPieChart();
+	void slice();
 	void initCtrl();
 	void initCamera(struCamInfo *camInfo);
 	void closeEvent(QCloseEvent * event);

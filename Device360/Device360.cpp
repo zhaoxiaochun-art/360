@@ -72,7 +72,7 @@ void Device360::dataReceived(int one)
 {
 	data_One << one;
 	//数据个数超过了最大数量，则删除所有数据，从头开始。
-	while (data_One.size() > 10) {
+	while (data_One.size() > 2) {
 		//data.clear();//
 		data_One.removeFirst();
 	}
@@ -86,6 +86,7 @@ void Device360::dataReceived(int one)
 			//scatterSeries->append(i*dx, data.at(i));
 		}
 	}
+	slice();
 }
 void Device360::initPieChart()
 {
@@ -129,22 +130,7 @@ void Device360::initPieChart()
 	chart->legend()->setFont(font);//设置字体大小
 	chart->legend()->setFont(QFont("微软雅黑"));//设置字体类型
 
-	//操作单个切片
-	slice1 = series->slices().at(0);
-	slice1->setExploded();//切片是否与饼图分离
-	slice1->setLabelVisible(true);//标签是否可视
-	slice1->setLabelColor(QColor(0, 170, 0));//设置标签颜色
-	slice1->setColor(QColor(0, 170, 0));//设置颜色
-	slice1->setLabel(slice1->label() + "-" + QString("%1").arg(slice1->value()));
-	slice1->setLabelFont(QFont("微软雅黑"));//设置标签格式
-
-	slice2 = series->slices().at(1);
-	//slice2->setExploded();//切片是否与饼图分离
-	slice2->setLabelVisible(true);
-	slice2->setLabelColor(QColor(255, 170, 255));
-	slice2->setColor(QColor(255, 170, 255));
-	slice2->setLabel(slice2->label() + "-" + QString("%1").arg(slice2->value()));
-	slice2->setLabelFont(QFont("微软雅黑"));
+	slice();
 
 	chartView = new QChartView(chart);
 	chartView->setRenderHint(QPainter::Antialiasing);
@@ -159,6 +145,25 @@ void Device360::initPieChart()
 	ui.verticalLayout_4->setMargin(0);  //表示控件与窗体的左右边距
 	ui.verticalLayout_4->setContentsMargins(0, 0, 0, 0);
 	ui.verticalLayout_4->setSpacing(0); //表示各个控件之间的上下间距*/
+}
+void Device360::slice()
+{
+	//操作单个切片
+	slice1 = series->slices().at(0);
+	//slice1->setExploded();//切片是否与饼图分离
+	slice1->setLabelVisible(false);//标签是否可视
+	//slice1->setLabelColor(QColor(0, 170, 0));//设置标签颜色
+	slice1->setColor(QColor(0, 170, 0));//设置颜色
+	slice1->setLabel(QString("%1").arg(slice1->value())+"\n\t"+QString::number(123));
+	//slice1->setLabelFont(QFont("微软雅黑"));//设置标签格式
+
+	slice2 = series->slices().at(1);
+	//slice2->setExploded();//切片是否与饼图分离
+	slice2->setLabelVisible(false);
+	//slice2->setLabelColor(QColor(170, 170, 0));
+	slice2->setColor(QColor(170, 170, 0));
+	slice2->setLabel(slice2->label() + QString("%1").arg(slice2->value()));
+	//slice2->setLabelFont(QFont("微软雅黑"));
 }
 void Device360::initCtrl()
 {
@@ -470,7 +475,7 @@ void Device360::on_Button_Start_toggled(bool checked)
 		ui.lE_PN->setEnabled(false);
 
 		m_CsCtrl->SysStartWork(m_MyFunPtr);
-		static int i = 2;
+		static int i = 200000;
 		i += 2;
 		dataReceived(i);
 		/*unsigned char *buff = new unsigned char[3499200];
