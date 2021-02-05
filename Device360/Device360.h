@@ -37,7 +37,7 @@ signals:
 	void SignShowImage(int,cv::Mat,int);
 public:
     Device360(QWidget *parent = Q_NULLPTR);
-	void dataReceived(int one);
+	void dataReceived(int OK, int NG,float per);
 	void initPieChart();
 	void slice();
 	void initCtrl();

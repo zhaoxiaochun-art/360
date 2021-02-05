@@ -68,14 +68,16 @@ Device360::Device360(QWidget *parent)
 
 	initPieChart();
 }
-void Device360::dataReceived(int one)
-{
-	data_One << one;
+void Device360::dataReceived(int OK,int NG,float per)
+{ 
+	chart->setTitle(QString::fromLocal8Bit("运行统计饼图 (合格率：")+ QString::number(per, 'f', 2) + "%"+")");
+	data_One.clear();
+	data_One << OK<<NG;
 	//数据个数超过了最大数量，则删除所有数据，从头开始。
-	while (data_One.size() > 2) {
-		//data.clear();//
-		data_One.removeFirst();
-	}
+	//while (data_One.size() > 2) {
+	//	//data.clear();//
+	//	data_One.removeFirst();
+	//}
 	// 界面被隐藏后就没有必要绘制数据的曲线了
 	if (isVisible()) {
 		series->clear();
@@ -93,10 +95,10 @@ void Device360::initPieChart()
 	//绘制饼图
 	series = new QPieSeries();
 	//添加饼图切片的标签和值
-	data_One << 10 << 10;
+	data_One << 0 << 0;
 	series->append("", data_One.at(0));
 	series->append("", data_One.at(1));
-	float totalValue = 10 + 10;
+	float totalValue = 0 + 0;
 	series->setHoleSize(0.0);//孔大小0.0-1.0
 	series->setHorizontalPosition(0.5);//水平位置，默认0.5，0.0-1.0
 	series->setLabelsPosition(QPieSlice::LabelInsideNormal);
@@ -154,7 +156,7 @@ void Device360::slice()
 	slice1->setLabelVisible(false);//标签是否可视
 	//slice1->setLabelColor(QColor(0, 170, 0));//设置标签颜色
 	slice1->setColor(QColor(0, 170, 0));//设置颜色
-	slice1->setLabel(QString("%1").arg(slice1->value())+"\n\t"+QString::number(123));
+	slice1->setLabel(QString::fromLocal8Bit("合格数：") + QString("%1").arg(slice1->value()));
 	//slice1->setLabelFont(QFont("微软雅黑"));//设置标签格式
 
 	slice2 = series->slices().at(1);
@@ -162,7 +164,7 @@ void Device360::slice()
 	slice2->setLabelVisible(false);
 	//slice2->setLabelColor(QColor(170, 170, 0));
 	slice2->setColor(QColor(170, 170, 0));
-	slice2->setLabel(slice2->label() + QString("%1").arg(slice2->value()));
+	slice2->setLabel(QString::fromLocal8Bit("废品数：") + QString("%1").arg(slice2->value()));
 	//slice2->setLabelFont(QFont("微软雅黑"));
 }
 void Device360::initCtrl()
@@ -246,8 +248,13 @@ void Device360::MyFun(int nCamID, int nPhotoTimes, unsigned char* pBuf, int IWid
 	}
 	int oldsum = ui.tableWidget_Result->item(0, 2)->text().toInt();
 	int oldOK = ui.tableWidget_Result->item(1, 2)->text().toInt();
-	float ft = oldOK * 100.0 / oldsum;
-	ui.tableWidget_Result->item(2, 2)->setText(QString::number(ft, 'f', 2) + "%");
+	if (oldsum>0)
+	{
+		float ft = oldOK * 100.0 / oldsum;
+		ui.tableWidget_Result->item(2, 2)->setText(QString::number(ft, 'f', 2) + "%");
+		dataReceived(oldOK, oldsum-oldOK,ft);
+	}
+
 }
 bool Device360::eventFilter(QObject* obj, QEvent* event)
 {
@@ -475,10 +482,8 @@ void Device360::on_Button_Start_toggled(bool checked)
 		ui.lE_PN->setEnabled(false);
 
 		m_CsCtrl->SysStartWork(m_MyFunPtr);
-		static int i = 200000;
-		i += 2;
-		dataReceived(i);
-		/*unsigned char *buff = new unsigned char[3499200];
+
+		unsigned char *buff = new unsigned char[3499200];
 
 		struAlgResult *finalresult = new struAlgResult();
 		finalresult->isKick[0] = 1;
@@ -505,7 +510,7 @@ void Device360::on_Button_Start_toggled(bool checked)
 		kk++;
 
 		void* pResult = finalresult;
-		MyFunTemp(0, 0, buff, 1080, 1080, 3, pResult);*/
+		MyFunTemp(0, 0, buff, 1080, 1080, 3, pResult);
 	}
 	else
 	{
