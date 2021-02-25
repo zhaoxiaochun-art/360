@@ -55,7 +55,7 @@ Device360::Device360(QWidget *parent)
 	AppPath = qApp->applicationDirPath();//exe所在目录
 	AppPath.replace("/", "\\");
 
-	initUI(); 
+	initUI();
 	firstStartInit();
 	initStatistics();
 	m_ProgramDlg = new ProgramSet();
@@ -68,11 +68,11 @@ Device360::Device360(QWidget *parent)
 
 	initPieChart();
 }
-void Device360::dataReceived(int OK,int NG,float per)
-{ 
-	chart->setTitle(QString::fromLocal8Bit("运行统计饼图 (合格率：")+ QString::number(per, 'f', 2) + "%"+")");
+void Device360::dataReceived(int OK, int NG, float per)
+{
+	chart->setTitle(QString::fromLocal8Bit("运行统计饼图 (合格率：") + QString::number(per, 'f', 2) + "%" + ")");
 	data_One.clear();
-	data_One << OK<<NG;
+	data_One << OK << NG;
 	//数据个数超过了最大数量，则删除所有数据，从头开始。
 	//while (data_One.size() > 2) {
 	//	//data.clear();//
@@ -143,7 +143,7 @@ void Device360::initPieChart()
 	//设置上下左右的边距分别为0
 	pVLayout->setContentsMargins(0, 0, 0, 0);
 	pVLayout->addWidget(chartView);
-	/*ui.verticalLayout_4->addWidget(chartView); 
+	/*ui.verticalLayout_4->addWidget(chartView);
 	ui.verticalLayout_4->setMargin(0);  //表示控件与窗体的左右边距
 	ui.verticalLayout_4->setContentsMargins(0, 0, 0, 0);
 	ui.verticalLayout_4->setSpacing(0); //表示各个控件之间的上下间距*/
@@ -222,9 +222,9 @@ void Device360::MyFun(int nCamID, int nPhotoTimes, unsigned char* pBuf, int IWid
 	{
 		int iskk = m_result->isKick[k];
 		int i = m_result->NGType[k];
-		if (iskk==0)//不剔废
+		if (iskk == 0)//不剔废
 		{
-			if (i==-1)//合格
+			if (i == -1)//合格
 			{
 				int oldsum = ui.tableWidget_Result->item(0, 2)->text().toInt();
 				ui.tableWidget_Result->item(0, 2)->setText(QString::number(++oldsum));
@@ -238,7 +238,7 @@ void Device360::MyFun(int nCamID, int nPhotoTimes, unsigned char* pBuf, int IWid
 			int oldsum = ui.tableWidget_Result->item(0, 2)->text().toInt();
 			ui.tableWidget_Result->item(0, 2)->setText(QString::number(++oldsum));
 			int oldng = ui.tableWidget_Result->item(4 + i, 2)->text().toInt();
-			if (oldng==0)
+			if (oldng == 0)
 			{
 				int oldtype = ui.tableWidget_Result->item(3, 2)->text().toInt();
 				ui.tableWidget_Result->item(3, 2)->setText(QString::number(++oldtype));
@@ -248,11 +248,11 @@ void Device360::MyFun(int nCamID, int nPhotoTimes, unsigned char* pBuf, int IWid
 	}
 	int oldsum = ui.tableWidget_Result->item(0, 2)->text().toInt();
 	int oldOK = ui.tableWidget_Result->item(1, 2)->text().toInt();
-	if (oldsum>0)
+	if (oldsum > 0)
 	{
 		float ft = oldOK * 100.0 / oldsum;
 		ui.tableWidget_Result->item(2, 2)->setText(QString::number(ft, 'f', 2) + "%");
-		dataReceived(oldOK, oldsum-oldOK,ft);
+		dataReceived(oldOK, oldsum - oldOK, ft);
 	}
 
 }
@@ -369,14 +369,14 @@ void Device360::initStatistics()
 	ui.tableWidget_Result->setItem(z, 0, new QTableWidgetItem(QString::fromLocal8Bit("NGStyle")));//第0列，已隐藏
 	ui.tableWidget_Result->setItem(z, 1, new QTableWidgetItem(QString::fromLocal8Bit("废品种类")));//第1列
 	ui.tableWidget_Result->setItem(z, 2, new QTableWidgetItem(QString::number(0)));//第2列	
-	
-	for(int j=1;j<11;j++)
+
+	for (int j = 1; j < 11; j++)
 	{
-	z++;
-	ui.tableWidget_Result->insertRow(z);//再加一行
-	ui.tableWidget_Result->setItem(z, 0, new QTableWidgetItem(QString::fromLocal8Bit("NG")+QString::number(j)));//第0列，已隐藏
-	ui.tableWidget_Result->setItem(z, 1, new QTableWidgetItem(QString::fromLocal8Bit("废品") + QString::number(j)));//第1列
-	ui.tableWidget_Result->setItem(z, 2, new QTableWidgetItem(QString::number(0)));//第2列
+		z++;
+		ui.tableWidget_Result->insertRow(z);//再加一行
+		ui.tableWidget_Result->setItem(z, 0, new QTableWidgetItem(QString::fromLocal8Bit("NG") + QString::number(j)));//第0列，已隐藏
+		ui.tableWidget_Result->setItem(z, 1, new QTableWidgetItem(QString::fromLocal8Bit("废品") + QString::number(j)));//第1列
+		ui.tableWidget_Result->setItem(z, 2, new QTableWidgetItem(QString::number(0)));//第2列
 	}
 
 	for (int rowcount = 0; rowcount < z + 1; rowcount++)
@@ -394,35 +394,106 @@ void Device360::firstStartInit()
 	ui.lb_Picture->setVisible(false);
 
 	QPixmap pix(AppPath + "/ico/dr-pharmmatch.png");//
-	splitpixmap(pix, 3, 5);//切图
-	for (int i = 0; i < 5; i++)
+
+	QSettings readPara(AppPath + "\\ModelFile\\GeneralSet.ini", QSettings::IniFormat);
+	QString text = readPara.value("ModelSetting/EquipMentType", "").toString();
+	if (text == "1")
 	{
-		for (int z = 0; z < 3; z++)
+		splitpixmap(pix, 1, 1);//切图
+		for (int i = 0; i < 1; i++)
 		{
-			if (nullptr == this->findChild<QLabel*>("LabelShow" + QString::number(i) + "_" + QString::number(z)))
+			for (int z = 0; z < 1; z++)
 			{
-				QLabel* label = new QLabel(this);
-				label->setObjectName(QString::fromUtf8("LabelShow") + QString::number(i) + "_" + QString::number(z));
-				label->setFrameShape(QFrame::Box);
-				label->setLineWidth(1);
+				if (nullptr == this->findChild<QLabel*>("LabelShow" + QString::number(i) + "_" + QString::number(z)))
+				{
+					QLabel* label = new QLabel(this);
+					label->setObjectName(QString::fromUtf8("LabelShow") + QString::number(i) + "_" + QString::number(z));
+					label->setFrameShape(QFrame::Box);
+					label->setLineWidth(1);
 
-				QPixmap mp = m_pixlist.at(i + z * 5);
-				QPainter painter;
-				painter.begin(&mp);
-				painter.setRenderHint(QPainter::Antialiasing, true);
-				QFont font;
-				font.setPointSize(15);
-				font.setFamily("宋体");
-				font.setItalic(true);
-				painter.setFont(font);
-				painter.drawText(10, 5, 150, 50, Qt::AlignVCenter, QString::fromLocal8Bit("相机位置: ") + QString::number(i) + "\n" + QString::fromLocal8Bit("照片序号: ") + QString::number(z));//0
-				painter.end();
-				label->setPixmap(mp);//改切割图片
-				//label->setPixmap(m_pixlist.at(i + z * 5));//改切割图片
-				label->setScaledContents(true);
-				ui.gridLayout->addWidget(label, i, z, 1, 1);
+					QPixmap mp = m_pixlist.at(i + z * 5);
+					QPainter painter;
+					painter.begin(&mp);
+					painter.setRenderHint(QPainter::Antialiasing, true);
+					QFont font;
+					font.setPointSize(15);
+					font.setFamily("宋体");
+					font.setItalic(true);
+					painter.setFont(font);
+					painter.drawText(10, 5, 150, 50, Qt::AlignVCenter, QString::fromLocal8Bit("相机位置: ") + QString::number(i) + "\n" + QString::fromLocal8Bit("照片序号: ") + QString::number(z));//0
+					painter.end();
+					label->setPixmap(mp);//改切割图片
+					//label->setPixmap(m_pixlist.at(i + z * 5));//改切割图片
+					label->setScaledContents(true);
+					ui.gridLayout->addWidget(label, i, z, 1, 1);
+				}
 			}
+		}
+	}
+	else if (text == "2")
+	{
+		splitpixmap(pix, 1, 2);//切图
+		for (int i = 0; i < 2; i++)
+		{
+			for (int z = 0; z < 1; z++)
+			{
+				if (nullptr == this->findChild<QLabel*>("LabelShow" + QString::number(i) + "_" + QString::number(z)))
+				{
+					QLabel* label = new QLabel(this);
+					label->setObjectName(QString::fromUtf8("LabelShow") + QString::number(i) + "_" + QString::number(z));
+					label->setFrameShape(QFrame::Box);
+					label->setLineWidth(1);
 
+					QPixmap mp = m_pixlist.at(i + z * 5);
+					QPainter painter;
+					painter.begin(&mp);
+					painter.setRenderHint(QPainter::Antialiasing, true);
+					QFont font;
+					font.setPointSize(15);
+					font.setFamily("宋体");
+					font.setItalic(true);
+					painter.setFont(font);
+					painter.drawText(10, 5, 150, 50, Qt::AlignVCenter, QString::fromLocal8Bit("相机位置: ") + QString::number(i) + "\n" + QString::fromLocal8Bit("照片序号: ") + QString::number(z));//0
+					painter.end();
+					label->setPixmap(mp);//改切割图片
+					//label->setPixmap(m_pixlist.at(i + z * 5));//改切割图片
+					label->setScaledContents(true);
+					ui.gridLayout->addWidget(label, i, z, 1, 1);
+				}
+			}
+		}
+	}
+	else if (text == "360")
+	{
+		splitpixmap(pix, 3, 5);//切图
+		for (int i = 0; i < 5; i++)
+		{
+			for (int z = 0; z < 3; z++)
+			{
+				if (nullptr == this->findChild<QLabel*>("LabelShow" + QString::number(i) + "_" + QString::number(z)))
+				{
+					QLabel* label = new QLabel(this);
+					label->setObjectName(QString::fromUtf8("LabelShow") + QString::number(i) + "_" + QString::number(z));
+					label->setFrameShape(QFrame::Box);
+					label->setLineWidth(1);
+
+					QPixmap mp = m_pixlist.at(i + z * 5);
+					QPainter painter;
+					painter.begin(&mp);
+					painter.setRenderHint(QPainter::Antialiasing, true);
+					QFont font;
+					font.setPointSize(15);
+					font.setFamily("宋体");
+					font.setItalic(true);
+					painter.setFont(font);
+					painter.drawText(10, 5, 150, 50, Qt::AlignVCenter, QString::fromLocal8Bit("相机位置: ") + QString::number(i) + "\n" + QString::fromLocal8Bit("照片序号: ") + QString::number(z));//0
+					painter.end();
+					label->setPixmap(mp);//改切割图片
+					//label->setPixmap(m_pixlist.at(i + z * 5));//改切割图片
+					label->setScaledContents(true);
+					ui.gridLayout->addWidget(label, i, z, 1, 1);
+				}
+			}
 		}
 	}
 }
@@ -556,7 +627,7 @@ void Device360::on_Button_CountReset_pressed()
 void Device360::on_Button_CountReset_released()
 {
 
-	ui.Button_CountReset->setIcon(QPixmap(AppPath + "/ico/countReset.png"));	
+	ui.Button_CountReset->setIcon(QPixmap(AppPath + "/ico/countReset.png"));
 	for (int i = 0; i < ui.tableWidget_Result->rowCount(); i++)//遍历没有，增加新行赋值1
 	{
 		ui.tableWidget_Result->setItem(i, 2, new QTableWidgetItem(QString::number(0)));
